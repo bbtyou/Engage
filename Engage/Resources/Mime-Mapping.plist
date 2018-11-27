@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>application/pdf</key>
+	<string>pdf</string>
+	<key>application/octet-stream</key>
+	<string>pptx</string>
+	<key>application/zip</key>
+	<string>key</string>
+	<key>video/mp4</key>
+	<string>mp4</string>
+</dict>
+</plist>

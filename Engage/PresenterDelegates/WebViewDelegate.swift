@@ -1,0 +1,23 @@
+//
+//  WebViewDelegate.swift
+//  Engage
+//
+//  Created by Charles Imperato on 11/14/18.
+//  Copyright © 2018 PerpetuityMD. All rights reserved.
+//
+
+import Foundation
+import WebKit
+
+protocol WebViewDelegate: Waitable {
+    
+    // - Loads the url into the web view
+    func load(withRequest urlRequest: URLRequest, _ title: String?)
+    
+    // - Loads the data in the web view
+    func load(withData data: Data, _ pathExtension: String, _ title: String?)
+    
+    // - Displays an error message to the user if the content cannot be loaded
+    func showError(_ message: String)
+    
+}

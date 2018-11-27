@@ -1,0 +1,1545 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		086A3E7B923DABA20E7BBD24521302C5 /* Integer+DateTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54871E6BD84972A23CAB0B78CE8E81BA /* Integer+DateTools.swift */; };
+		0B6E3A47F7838BB0BB9AC4E218FA7E4E /* Locale+24Hour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40144EA5EC377C9E4665AB35DFA3026A /* Locale+24Hour.swift */; };
+		0D31FACCC094CA877C7CAB5DED041DA1 /* DateToolsSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 80BBEAC6940160EBB90693DEB889BD33 /* DateToolsSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		12AE1CF5051E4B6D3BF06D5265CF4B3A /* DayViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425C15EC7701DFAB79FA508627640E5A /* DayViewState.swift */; };
+		13470F2ACFD8B89E522849FD0DA7A23A /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A69A037F0E86EFC093A31587AB5288C /* Enums.swift */; };
+		14CF15F56E544E0FBB4A1F07EC1C8503 /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F557103980ECB8DA434835F9A9A6B0 /* Generator.swift */; };
+		179FB8F5A05313058F2598DE0A060CAC /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3725ECB97E0C03F1893FE7B5428673A2 /* EventView.swift */; };
+		1893670D6EED76788281429079F90C1A /* NeonFrameable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C687D09C91D62B8C4347225CBC0180 /* NeonFrameable.swift */; };
+		1A27D77FCFFA5B2FA9ADD38146D415D7 /* Date+Manipulations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B852A31B2F95633DB60EDB0061D18A /* Date+Manipulations.swift */; };
+		1C60B57E2A729C7B3B94B93BF91B7EB0 /* SwipeLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF2143CB513711340BFB2B696850149 /* SwipeLabelView.swift */; };
+		1F974403E9D4BBD02BD0D0F5914071A1 /* DateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA64FF3CC0B0C8883BCEEBCAFE5DE338 /* DateLabel.swift */; };
+		21101E26912409AF68A9A2D104415B45 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE970E237801F1C3A2E0DDAA9F06466 /* Event.swift */; };
+		253A9570E947212F76BC68E4418A3004 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D1EE8199801B2C8EABF598C6846B230 /* Foundation.framework */; };
+		28A156748C8632950A838D96A7553133 /* EventDescriptor+DateTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBFC3645F43319CCCC664CA18CF340E /* EventDescriptor+DateTools.swift */; };
+		2AE6340B047D7440CD1CA905C882746B /* Array+Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A18BE7401CB008EBFEE3D89D52022 /* Array+Shift.swift */; };
+		2FD64D2C211B2849DA4AD9C7199234EF /* NeonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BA3676DD09F88AD21E0C6026643B81 /* NeonExtensions.swift */; };
+		3051D04D9EFFB16513689EF8B023E7B3 /* TimePeriodCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88E1E675C1971CB07CBC0F4A3F215CE /* TimePeriodCollection.swift */; };
+		34DF88C173DCB896FC244174B7DBF036 /* DaySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4A141206995CDC5E76DF5CB926228F /* DaySelector.swift */; };
+		37AFF32A24507A40DC18395861C08F29 /* AllDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D29B66725B5C60E13E35E6409317588 /* AllDayView.swift */; };
+		37ED2B08B1A75491E691EA42F1361C5F /* TimePeriodChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8095D48CD545E7C9F129250946BC6539 /* TimePeriodChain.swift */; };
+		3D71E0575BEEF1CBBA3219EA254A7691 /* CalendarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95136CBE3576CD8DAB2609A82045BBFB /* CalendarStyle.swift */; };
+		3E9A096A3D91A31A6AB5CDB4E708E90B /* Neon-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1978E6C710E0BE637E6C6F2E223D29 /* Neon-dummy.m */; };
+		41102F5466B5539549E4355AD9B7F3DA /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80EEF2E707EDFF6838A7603CC73FB701 /* DayView.swift */; };
+		478E1D999E024DE208864767B7FBA663 /* View+StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8805C057CA881F48138970A4F45A6C24 /* View+StackView.swift */; };
+		48CB75550901E90C60A5CE610D9581C6 /* Date+Inits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EDF711B31AFF7C646EBD56A65F4BD6 /* Date+Inits.swift */; };
+		48E7DFBEC8D2A4B45F857FA82A489353 /* ScrollSyncronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA3111D733CA603ACB2B08F707F2A45 /* ScrollSyncronizer.swift */; };
+		4A043C07C303DFB2CE3358A5C0A719AC /* CalendarKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 46163F831539DA784626A90005F7A82E /* CalendarKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5410EA8888B6C71D79D5BD9803581E94 /* Pods-EngageTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 31E70C45ED8D7036F0CDB8E5500D3A56 /* Pods-EngageTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		59549878EE5DB41DB9AC6E2ADA01DE57 /* Pods-EngageTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E7D09A2F6FAAF4702B398531EB6F83 /* Pods-EngageTests-dummy.m */; };
+		5C0559ADBF6931D02865A29249A24A13 /* DayHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59EBA8008183FA5E2C15F01D01290472 /* DayHeaderView.swift */; };
+		614D19EFBA4EC478E4B6C5E7F36C806F /* DateToolsSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B283908663CC8D9E654C35385A0A7E59 /* DateToolsSwift-dummy.m */; };
+		6805E37A6F822DDD92DFED7CEADA9503 /* DayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C817FD563EA80BA9ECFE395F8371310 /* DayViewController.swift */; };
+		6931C7979A7E4C645879421C756F9F9E /* Date+DateOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697AF875AC084B7522B492A8029DA0B /* Date+DateOnly.swift */; };
+		69CB0DC5217E6333EA4A229C5B76D721 /* TimelineContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B17D3FF0535B015022C68E20AC018C6 /* TimelineContainer.swift */; };
+		6BC9F744583707EAA1B3A07D03026BAA /* Pods-Engage-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F500305F20E0A1EDCB457FEE5E2A7B4E /* Pods-Engage-dummy.m */; };
+		6E6A0CBA811AA8E82F58BEA40C32A197 /* DateToolsSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4001F9235F95EA8981469F8C7D2871EE /* DateToolsSwift.framework */; };
+		6F2B9C56688A33462610DC7769CF0552 /* DateTools.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F291D78A36FBDC8AFB808B1255BEB9BD /* DateTools.bundle */; };
+		746A878C416713FCA877D5BF8FF32B8E /* ReusePool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498AA4D7E9BEF673DDC255979265E885 /* ReusePool.swift */; };
+		75F2227F1BAC8C72168DD5CDDC25CB41 /* Pods-EngageUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C433851A72B66E04992206BA8DE262A9 /* Pods-EngageUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		760B40A5506A890D595CFECF299D87D6 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5382CC2E39B8DBA3F17D73D2E87C45BC /* TimelineView.swift */; };
+		7B4A930160E811AFA9ED369A976A40AF /* Date+Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F251EEBBA46C3E02675F6C51037F6581 /* Date+Format.swift */; };
+		7CB7EDA6EBB41AC3FF8630E90CDE8F11 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D1EE8199801B2C8EABF598C6846B230 /* Foundation.framework */; };
+		7D881C08D07B8731D37CF7046B265D91 /* EventDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645D80D004E8A3F7E642221401A019B0 /* EventDataSource.swift */; };
+		80E23A39BA0AA065B7D2F25A2F45CFB2 /* CalendarKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCE276DDB3A7C7DA634F7A5012DAEAE /* CalendarKit-dummy.m */; };
+		88BFC8F43BE08AC3FE02EFF75FBB56B2 /* Date+Comparators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BBC4B156624113F8264330D5E56620C /* Date+Comparators.swift */; };
+		8D8F7CFA9F16F099676A4471FF9D663F /* TimePeriodGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B95ACCA71A8C066251D366965ACF2F6 /* TimePeriodGroup.swift */; };
+		8E2DDD79000A9163B921091CEF0CFE00 /* NeonAnchorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB583D882546DB5DC35AA0F95EEFF4 /* NeonAnchorable.swift */; };
+		9C01FE360194D2553A852FCA315E4C01 /* Pods-EngageUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E159AD20BBE6CA1FEE32FFA66A5D7 /* Pods-EngageUITests-dummy.m */; };
+		A41D98BB553EC7A5F870F7FEE5473587 /* TimelinePagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F361B87B345CA072CF74433C14BC1A0D /* TimelinePagerView.swift */; };
+		A4A0AE9AC670EE32F27DB6E83744967D /* Date+TimeAgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371CE174BB5DACEDA98974194D9FB700 /* Date+TimeAgo.swift */; };
+		A638DDC3E19361A1366F29C3FF614FAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D1EE8199801B2C8EABF598C6846B230 /* Foundation.framework */; };
+		AB5896544D23105EA18206534DE277C4 /* EventLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4D732B9A271D36F7048698DF004DEE /* EventLayoutAttributes.swift */; };
+		AD43F82D8D08D1730E3713E860DEC155 /* PagingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CE596BD0F5D0B7E851070EFC23C972 /* PagingScrollView.swift */; };
+		AF69DFF6177BC740C07DA7EEB66DF636 /* DaySymbolsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC9F01904C47EEBF18F61798D0332C7 /* DaySymbolsView.swift */; };
+		B1D40919E33BFC4BEF782B2035118813 /* TimeChunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0499EEC550444C212B729914544093B0 /* TimeChunk.swift */; };
+		B69C0A50FEB4428C83D8FB48D77FE940 /* TimePeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87680836D4DF197C65D08EB7574C255 /* TimePeriod.swift */; };
+		B8CF552A501A955117892B0BF1182C9F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D1EE8199801B2C8EABF598C6846B230 /* Foundation.framework */; };
+		B9FC27E1D31E044A2A4955428D3BA53B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D1EE8199801B2C8EABF598C6846B230 /* Foundation.framework */; };
+		BB3D2D5A5B58E69B27F5D9EB415425CB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D1EE8199801B2C8EABF598C6846B230 /* Foundation.framework */; };
+		C69C0D36700D1205269B3B9A73D2509B /* Pods-Engage-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C73C38638BFA7137A53F6B8A5EB3E713 /* Pods-Engage-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CE1D35634509071BACA7473B781D6BED /* CurrentTimeIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6309BDAD4012E60C4605C02DBF282F /* CurrentTimeIndicator.swift */; };
+		D06207DE27A3795CF96254787D0D710D /* NeonGroupable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF509C4BB7DB7C61649F39218F18B3 /* NeonGroupable.swift */; };
+		D27A0859ADCBA424565AA194CF7666C3 /* EventDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B43353F34E99FA201B418BC8E7CD8D /* EventDescriptor.swift */; };
+		D36D5ECCC6C3D788E7613E55A2EAF79A /* Neon-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3094BC7E07CF5E2624F32C2A9D6E615C /* Neon-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D87F930B04913BF0BFC5BD60DD77B145 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A005438B13EFB0DBC6EC5D41D02140 /* Constants.swift */; };
+		D88FC5C024F7E40C131740463648BAA0 /* NeonAlignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0987FD0E7B5DCC494AA0D99FA0062919 /* NeonAlignable.swift */; };
+		DEB4EB0584D693E5EF4B56E2F7D4208C /* Date+Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88134083A66441BAD27AE114D281326 /* Date+Bundle.swift */; };
+		E02D51BB5A668AB7A966D7F76B69D572 /* DayDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2DECED274C7DAE45F456B38FA76C72 /* DayDateCell.swift */; };
+		E4C8AF8D35512341A7C5CFAFB0402D8E /* Neon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A1544BAD6A5342E9DFF2901E8774630 /* Neon.framework */; };
+		ED94BF6772A4ED980881D66DAA939140 /* Neon.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2236E2583E4EDB4A2AD43FF1BA037B /* Neon.swift */; };
+		EFA3045C9F9FBA3CE466C3DF57D151F2 /* Date+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8C91D0AE7062253D03A6A7050BB632 /* Date+Components.swift */; };
+		FF635D01FD31309FBC16F2E3B3796051 /* TimeChunk+DateComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6EF7E045A98B053503645E32CD5B3A /* TimeChunk+DateComponents.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		226A680582439610E960BFB65E81DBB0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 942EE90141139E1A7EA708D63E71BA40;
+			remoteInfo = Neon;
+		};
+		2EC00D0CDC0C25C1C716FC8C9FFE34C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 942EE90141139E1A7EA708D63E71BA40;
+			remoteInfo = Neon;
+		};
+		9456C773715E798A44702C06A619C492 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 93D9FA9E518EE573499C228EBACF56FF;
+			remoteInfo = DateToolsSwift;
+		};
+		C32404AC566F15A8B571230BE3E94530 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 17AAE370B348F576A13D040DA9678ADD;
+			remoteInfo = "Pods-Engage";
+		};
+		CB20D0A988FF19ED3763B8B065D85F8A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 93D9FA9E518EE573499C228EBACF56FF;
+			remoteInfo = DateToolsSwift;
+		};
+		EABD0F44B1B43E811AEB9B9E635EEC0E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 17AAE370B348F576A13D040DA9678ADD;
+			remoteInfo = "Pods-Engage";
+		};
+		FD404464D5CBB3C637DF8430EBA34B44 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6A89359CBFBABA9FB3449B4AE8747605;
+			remoteInfo = CalendarKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		02CE596BD0F5D0B7E851070EFC23C972 /* PagingScrollView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PagingScrollView.swift; path = Source/PagingScrollView.swift; sourceTree = "<group>"; };
+		0499EEC550444C212B729914544093B0 /* TimeChunk.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimeChunk.swift; path = DateToolsSwift/DateTools/TimeChunk.swift; sourceTree = "<group>"; };
+		0987FD0E7B5DCC494AA0D99FA0062919 /* NeonAlignable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NeonAlignable.swift; path = Source/NeonAlignable.swift; sourceTree = "<group>"; };
+		0A00593F0D493DC48CABDC58F4F0152C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A1544BAD6A5342E9DFF2901E8774630 /* Neon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Neon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0EFF509C4BB7DB7C61649F39218F18B3 /* NeonGroupable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NeonGroupable.swift; path = Source/NeonGroupable.swift; sourceTree = "<group>"; };
+		106419A16BB28111817AA08E85E8FD1C /* Pods_EngageUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EngageUITests.framework; path = "Pods-EngageUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A229EDAF471CA2E4ACAA7E820C1C8FF /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A69A037F0E86EFC093A31587AB5288C /* Enums.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Enums.swift; path = DateToolsSwift/DateTools/Enums.swift; sourceTree = "<group>"; };
+		1EC9F01904C47EEBF18F61798D0332C7 /* DaySymbolsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DaySymbolsView.swift; path = Source/Header/DaySymbolsView.swift; sourceTree = "<group>"; };
+		213E5A659341B35C98778F4498EC6BF6 /* CalendarKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = CalendarKit.modulemap; sourceTree = "<group>"; };
+		23EDF711B31AFF7C646EBD56A65F4BD6 /* Date+Inits.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+Inits.swift"; path = "DateToolsSwift/DateTools/Date+Inits.swift"; sourceTree = "<group>"; };
+		2A6309BDAD4012E60C4605C02DBF282F /* CurrentTimeIndicator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CurrentTimeIndicator.swift; path = Source/Timeline/CurrentTimeIndicator.swift; sourceTree = "<group>"; };
+		2E1978E6C710E0BE637E6C6F2E223D29 /* Neon-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Neon-dummy.m"; sourceTree = "<group>"; };
+		2FBFC3645F43319CCCC664CA18CF340E /* EventDescriptor+DateTools.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "EventDescriptor+DateTools.swift"; path = "Source/Extensions/EventDescriptor+DateTools.swift"; sourceTree = "<group>"; };
+		3094BC7E07CF5E2624F32C2A9D6E615C /* Neon-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Neon-umbrella.h"; sourceTree = "<group>"; };
+		312C6D059DFCFF13FBC64B1BA29386D4 /* DateToolsSwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DateToolsSwift.xcconfig; sourceTree = "<group>"; };
+		31E70C45ED8D7036F0CDB8E5500D3A56 /* Pods-EngageTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EngageTests-umbrella.h"; sourceTree = "<group>"; };
+		324FE6FCCC9D2BBDAA13E4478C7D383B /* Pods-EngageTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EngageTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		32E773115414FCB0CEBA05827B6C7875 /* Pods_Engage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Engage.framework; path = "Pods-Engage.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		335520C5AFA8D49AEE1BAA2F0E6243A5 /* Pods-Engage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Engage.release.xcconfig"; sourceTree = "<group>"; };
+		371CE174BB5DACEDA98974194D9FB700 /* Date+TimeAgo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+TimeAgo.swift"; path = "DateToolsSwift/DateTools/Date+TimeAgo.swift"; sourceTree = "<group>"; };
+		3725ECB97E0C03F1893FE7B5428673A2 /* EventView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EventView.swift; path = Source/Timeline/EventView.swift; sourceTree = "<group>"; };
+		3D29B66725B5C60E13E35E6409317588 /* AllDayView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AllDayView.swift; path = Source/Timeline/AllDayView.swift; sourceTree = "<group>"; };
+		3E2E159AD20BBE6CA1FEE32FFA66A5D7 /* Pods-EngageUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EngageUITests-dummy.m"; sourceTree = "<group>"; };
+		3FA48D5E250C08190F61936564202C55 /* Pods-EngageUITests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EngageUITests-resources.sh"; sourceTree = "<group>"; };
+		3FE425868C650A7F2B3D579ED650C3B0 /* DateToolsSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = DateToolsSwift.framework; path = DateToolsSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4001F9235F95EA8981469F8C7D2871EE /* DateToolsSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DateToolsSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		40144EA5EC377C9E4665AB35DFA3026A /* Locale+24Hour.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Locale+24Hour.swift"; path = "Source/Extensions/Locale+24Hour.swift"; sourceTree = "<group>"; };
+		425C15EC7701DFAB79FA508627640E5A /* DayViewState.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DayViewState.swift; path = Source/DayViewState.swift; sourceTree = "<group>"; };
+		46163F831539DA784626A90005F7A82E /* CalendarKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CalendarKit-umbrella.h"; sourceTree = "<group>"; };
+		498AA4D7E9BEF673DDC255979265E885 /* ReusePool.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReusePool.swift; path = Source/Timeline/ReusePool.swift; sourceTree = "<group>"; };
+		4C8C91D0AE7062253D03A6A7050BB632 /* Date+Components.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+Components.swift"; path = "DateToolsSwift/DateTools/Date+Components.swift"; sourceTree = "<group>"; };
+		527E29005512B0122359ADE0F60EB86B /* Pods-Engage-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Engage-acknowledgements.plist"; sourceTree = "<group>"; };
+		5382CC2E39B8DBA3F17D73D2E87C45BC /* TimelineView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimelineView.swift; path = Source/Timeline/TimelineView.swift; sourceTree = "<group>"; };
+		54871E6BD84972A23CAB0B78CE8E81BA /* Integer+DateTools.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Integer+DateTools.swift"; path = "DateToolsSwift/DateTools/Integer+DateTools.swift"; sourceTree = "<group>"; };
+		54BA08DAB3E9408A4B90406364FB6647 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		57D2F7358919B46C1B793A85A87A6E2F /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		587AE4562C632FC10E6DE073B91A49C5 /* Neon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Neon.framework; path = Neon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		59EBA8008183FA5E2C15F01D01290472 /* DayHeaderView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DayHeaderView.swift; path = Source/Header/DayHeaderView.swift; sourceTree = "<group>"; };
+		5A40BD223000197BD9FA64AD276A1799 /* Neon-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Neon-prefix.pch"; sourceTree = "<group>"; };
+		5B17D3FF0535B015022C68E20AC018C6 /* TimelineContainer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimelineContainer.swift; path = Source/Timeline/TimelineContainer.swift; sourceTree = "<group>"; };
+		5B95ACCA71A8C066251D366965ACF2F6 /* TimePeriodGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimePeriodGroup.swift; path = DateToolsSwift/DateTools/TimePeriodGroup.swift; sourceTree = "<group>"; };
+		5C4A141206995CDC5E76DF5CB926228F /* DaySelector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DaySelector.swift; path = Source/Header/DaySelector/DaySelector.swift; sourceTree = "<group>"; };
+		5D1ECCB9C2B07E42D157AC6C55E5A07C /* Neon.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Neon.xcconfig; sourceTree = "<group>"; };
+		5FF2143CB513711340BFB2B696850149 /* SwipeLabelView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwipeLabelView.swift; path = Source/Header/SwipeLabelView.swift; sourceTree = "<group>"; };
+		645D80D004E8A3F7E642221401A019B0 /* EventDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EventDataSource.swift; path = Source/EventDataSource.swift; sourceTree = "<group>"; };
+		6656C122043EAB29319B4062C18DBA14 /* Pods-EngageTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EngageTests.modulemap"; sourceTree = "<group>"; };
+		688A18BE7401CB008EBFEE3D89D52022 /* Array+Shift.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Array+Shift.swift"; path = "Source/Extensions/Array+Shift.swift"; sourceTree = "<group>"; };
+		6912A6AB925AB074125F21A9E052DCB2 /* Pods-Engage.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Engage.modulemap"; sourceTree = "<group>"; };
+		6BBC4B156624113F8264330D5E56620C /* Date+Comparators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+Comparators.swift"; path = "DateToolsSwift/DateTools/Date+Comparators.swift"; sourceTree = "<group>"; };
+		6D1EE8199801B2C8EABF598C6846B230 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		6D6EF7E045A98B053503645E32CD5B3A /* TimeChunk+DateComponents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "TimeChunk+DateComponents.swift"; path = "Source/Extensions/TimeChunk+DateComponents.swift"; sourceTree = "<group>"; };
+		6F5341E6E752EDCB2CE81327050ED76F /* Neon.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Neon.modulemap; sourceTree = "<group>"; };
+		7697AF875AC084B7522B492A8029DA0B /* Date+DateOnly.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+DateOnly.swift"; path = "Source/Extensions/Date+DateOnly.swift"; sourceTree = "<group>"; };
+		7C817FD563EA80BA9ECFE395F8371310 /* DayViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DayViewController.swift; path = Source/DayViewController.swift; sourceTree = "<group>"; };
+		7F118A830BB9AAF7B9C8CD5CD702ED1A /* Pods_EngageTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EngageTests.framework; path = "Pods-EngageTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FE8D61D070B4852D065E9967C8C7390 /* Pods-EngageTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EngageTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8095D48CD545E7C9F129250946BC6539 /* TimePeriodChain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimePeriodChain.swift; path = DateToolsSwift/DateTools/TimePeriodChain.swift; sourceTree = "<group>"; };
+		80BBEAC6940160EBB90693DEB889BD33 /* DateToolsSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DateToolsSwift-umbrella.h"; sourceTree = "<group>"; };
+		80EEF2E707EDFF6838A7603CC73FB701 /* DayView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DayView.swift; path = Source/DayView.swift; sourceTree = "<group>"; };
+		86D80F0F759B484DE68C0B3DEE0DA215 /* DateToolsSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = DateToolsSwift.modulemap; sourceTree = "<group>"; };
+		8805C057CA881F48138970A4F45A6C24 /* View+StackView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "View+StackView.swift"; path = "Source/Extensions/View+StackView.swift"; sourceTree = "<group>"; };
+		8BCE276DDB3A7C7DA634F7A5012DAEAE /* CalendarKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CalendarKit-dummy.m"; sourceTree = "<group>"; };
+		8D2DECED274C7DAE45F456B38FA76C72 /* DayDateCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DayDateCell.swift; path = Source/Header/DaySelector/DayDateCell.swift; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		95136CBE3576CD8DAB2609A82045BBFB /* CalendarStyle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CalendarStyle.swift; path = Source/CalendarStyle.swift; sourceTree = "<group>"; };
+		96A83D7431F5043079B8DA76EFADDFD8 /* Pods-EngageTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EngageTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		97B43353F34E99FA201B418BC8E7CD8D /* EventDescriptor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EventDescriptor.swift; path = Source/Timeline/EventDescriptor.swift; sourceTree = "<group>"; };
+		9B362C3C51F85B43901D3FD4A6AF3BD7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A19F642C1FB4017D22FCD70DAE137999 /* Pods-EngageUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EngageUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A299BB3454011CEE1374BD3B8E9D9CED /* DateToolsSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DateToolsSwift-prefix.pch"; sourceTree = "<group>"; };
+		A87680836D4DF197C65D08EB7574C255 /* TimePeriod.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimePeriod.swift; path = DateToolsSwift/DateTools/TimePeriod.swift; sourceTree = "<group>"; };
+		AA64FF3CC0B0C8883BCEEBCAFE5DE338 /* DateLabel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DateLabel.swift; path = Source/Header/DaySelector/DateLabel.swift; sourceTree = "<group>"; };
+		AFBB583D882546DB5DC35AA0F95EEFF4 /* NeonAnchorable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NeonAnchorable.swift; path = Source/NeonAnchorable.swift; sourceTree = "<group>"; };
+		B283908663CC8D9E654C35385A0A7E59 /* DateToolsSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "DateToolsSwift-dummy.m"; sourceTree = "<group>"; };
+		B4469740AF38DF0FE0FE598C8211B012 /* Pods-Engage-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Engage-acknowledgements.markdown"; sourceTree = "<group>"; };
+		B4C687D09C91D62B8C4347225CBC0180 /* NeonFrameable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NeonFrameable.swift; path = Source/NeonFrameable.swift; sourceTree = "<group>"; };
+		B5BA3676DD09F88AD21E0C6026643B81 /* NeonExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NeonExtensions.swift; path = Source/NeonExtensions.swift; sourceTree = "<group>"; };
+		BA4D732B9A271D36F7048698DF004DEE /* EventLayoutAttributes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EventLayoutAttributes.swift; path = Source/Timeline/EventLayoutAttributes.swift; sourceTree = "<group>"; };
+		BFE82FCA0A66018E3F02898E9295552D /* Pods-EngageUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EngageUITests-frameworks.sh"; sourceTree = "<group>"; };
+		C33C01816425EE602109F56C341A2890 /* Pods-Engage-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Engage-resources.sh"; sourceTree = "<group>"; };
+		C433851A72B66E04992206BA8DE262A9 /* Pods-EngageUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EngageUITests-umbrella.h"; sourceTree = "<group>"; };
+		C73C38638BFA7137A53F6B8A5EB3E713 /* Pods-Engage-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Engage-umbrella.h"; sourceTree = "<group>"; };
+		C87B2B0C4581DF3913F1CBC3AC7D1499 /* Pods-Engage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Engage.debug.xcconfig"; sourceTree = "<group>"; };
+		CEC08B7029DA8E580CEB3B4F6C561537 /* CalendarKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CalendarKit-prefix.pch"; sourceTree = "<group>"; };
+		CEC9048E85FB831AEEF49E074FF9D68B /* CalendarKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CalendarKit.xcconfig; sourceTree = "<group>"; };
+		D7B852A31B2F95633DB60EDB0061D18A /* Date+Manipulations.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+Manipulations.swift"; path = "DateToolsSwift/DateTools/Date+Manipulations.swift"; sourceTree = "<group>"; };
+		D9A005438B13EFB0DBC6EC5D41D02140 /* Constants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = DateToolsSwift/DateTools/Constants.swift; sourceTree = "<group>"; };
+		DCE970E237801F1C3A2E0DDAA9F06466 /* Event.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Event.swift; path = Source/Timeline/Event.swift; sourceTree = "<group>"; };
+		E06000097910B40E380972CF46A3B12C /* Pods-Engage-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Engage-frameworks.sh"; sourceTree = "<group>"; };
+		E0FBDBBD2D575370460F90B30BA7A1B0 /* Pods-EngageTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EngageTests-frameworks.sh"; sourceTree = "<group>"; };
+		E2B02B5D3561D143A380C14D6F97E2BC /* Pods-EngageTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EngageTests.release.xcconfig"; sourceTree = "<group>"; };
+		E2F96B929469D7FE216DB2F19FAB4848 /* Pods-EngageTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EngageTests-resources.sh"; sourceTree = "<group>"; };
+		E7E7D09A2F6FAAF4702B398531EB6F83 /* Pods-EngageTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EngageTests-dummy.m"; sourceTree = "<group>"; };
+		E7F0BDE78E02F3E4A1A1A8E34FA9A84D /* Pods-EngageUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EngageUITests-acknowledgements.plist"; sourceTree = "<group>"; };
+		E88134083A66441BAD27AE114D281326 /* Date+Bundle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+Bundle.swift"; path = "DateToolsSwift/DateTools/Date+Bundle.swift"; sourceTree = "<group>"; };
+		E898973E5DD14A28D8BCD1EE8977EFF4 /* Pods-EngageUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EngageUITests.release.xcconfig"; sourceTree = "<group>"; };
+		EC0BC7F9318749E41449B7BF67B74551 /* CalendarKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CalendarKit.framework; path = CalendarKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEA3111D733CA603ACB2B08F707F2A45 /* ScrollSyncronizer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScrollSyncronizer.swift; path = Source/Timeline/ScrollSyncronizer.swift; sourceTree = "<group>"; };
+		F1F557103980ECB8DA434835F9A9A6B0 /* Generator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Generator.swift; path = Source/Timeline/Generator.swift; sourceTree = "<group>"; };
+		F251EEBBA46C3E02675F6C51037F6581 /* Date+Format.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+Format.swift"; path = "DateToolsSwift/DateTools/Date+Format.swift"; sourceTree = "<group>"; };
+		F27BF0FBCA87C6DE12AAF06D0A4B9091 /* Pods-EngageUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EngageUITests.modulemap"; sourceTree = "<group>"; };
+		F291D78A36FBDC8AFB808B1255BEB9BD /* DateTools.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = DateTools.bundle; path = DateToolsSwift/DateTools/DateTools.bundle; sourceTree = "<group>"; };
+		F361B87B345CA072CF74433C14BC1A0D /* TimelinePagerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimelinePagerView.swift; path = Source/Timeline/TimelinePagerView.swift; sourceTree = "<group>"; };
+		F500305F20E0A1EDCB457FEE5E2A7B4E /* Pods-Engage-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Engage-dummy.m"; sourceTree = "<group>"; };
+		F88E1E675C1971CB07CBC0F4A3F215CE /* TimePeriodCollection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimePeriodCollection.swift; path = DateToolsSwift/DateTools/TimePeriodCollection.swift; sourceTree = "<group>"; };
+		FC2236E2583E4EDB4A2AD43FF1BA037B /* Neon.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Neon.swift; path = Source/Neon.swift; sourceTree = "<group>"; };
+		FE66AE8EC83A6CE7584DACCAA656A295 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FFEA0572BD0C52372EFCC15294B91470 /* Pods-EngageUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EngageUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		441F0B3A32D28649F26A10B018DCB271 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				253A9570E947212F76BC68E4418A3004 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4EE03B2549067E6D7481205EAD4686F7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E6A0CBA811AA8E82F58BEA40C32A197 /* DateToolsSwift.framework in Frameworks */,
+				7CB7EDA6EBB41AC3FF8630E90CDE8F11 /* Foundation.framework in Frameworks */,
+				E4C8AF8D35512341A7C5CFAFB0402D8E /* Neon.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		518801D44E61DDE3FDD675CAF69EF9FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB3D2D5A5B58E69B27F5D9EB415425CB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8229F8D0F0B03BC78C95280A3F2D73E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8CF552A501A955117892B0BF1182C9F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E41E787A107D3C4B69BF323F5249562D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9FC27E1D31E044A2A4955428D3BA53B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E99C39BDE82ACBDB8514F8A7D6ED1553 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A638DDC3E19361A1366F29C3FF614FAF /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		022C4FAF4A9E394BBF2978FA098A8302 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4001F9235F95EA8981469F8C7D2871EE /* DateToolsSwift.framework */,
+				0A1544BAD6A5342E9DFF2901E8774630 /* Neon.framework */,
+				4E4A6924FE57890C6E5594B77361790E /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0B2519ADE2C189F509FD456886FD81CA /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				213E5A659341B35C98778F4498EC6BF6 /* CalendarKit.modulemap */,
+				CEC9048E85FB831AEEF49E074FF9D68B /* CalendarKit.xcconfig */,
+				8BCE276DDB3A7C7DA634F7A5012DAEAE /* CalendarKit-dummy.m */,
+				CEC08B7029DA8E580CEB3B4F6C561537 /* CalendarKit-prefix.pch */,
+				46163F831539DA784626A90005F7A82E /* CalendarKit-umbrella.h */,
+				57D2F7358919B46C1B793A85A87A6E2F /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/CalendarKit";
+			sourceTree = "<group>";
+		};
+		0DA5BBFD556994787B7DC2A56234F095 /* Neon */ = {
+			isa = PBXGroup;
+			children = (
+				FC2236E2583E4EDB4A2AD43FF1BA037B /* Neon.swift */,
+				0987FD0E7B5DCC494AA0D99FA0062919 /* NeonAlignable.swift */,
+				AFBB583D882546DB5DC35AA0F95EEFF4 /* NeonAnchorable.swift */,
+				B5BA3676DD09F88AD21E0C6026643B81 /* NeonExtensions.swift */,
+				B4C687D09C91D62B8C4347225CBC0180 /* NeonFrameable.swift */,
+				0EFF509C4BB7DB7C61649F39218F18B3 /* NeonGroupable.swift */,
+				6EC6CB3343756D31D9BBBB3B20F53868 /* Support Files */,
+			);
+			name = Neon;
+			path = Neon;
+			sourceTree = "<group>";
+		};
+		10767E7CD5433E8385E6CD3952C389E4 /* DateToolsSwift */ = {
+			isa = PBXGroup;
+			children = (
+				D9A005438B13EFB0DBC6EC5D41D02140 /* Constants.swift */,
+				E88134083A66441BAD27AE114D281326 /* Date+Bundle.swift */,
+				6BBC4B156624113F8264330D5E56620C /* Date+Comparators.swift */,
+				4C8C91D0AE7062253D03A6A7050BB632 /* Date+Components.swift */,
+				F251EEBBA46C3E02675F6C51037F6581 /* Date+Format.swift */,
+				23EDF711B31AFF7C646EBD56A65F4BD6 /* Date+Inits.swift */,
+				D7B852A31B2F95633DB60EDB0061D18A /* Date+Manipulations.swift */,
+				371CE174BB5DACEDA98974194D9FB700 /* Date+TimeAgo.swift */,
+				1A69A037F0E86EFC093A31587AB5288C /* Enums.swift */,
+				54871E6BD84972A23CAB0B78CE8E81BA /* Integer+DateTools.swift */,
+				0499EEC550444C212B729914544093B0 /* TimeChunk.swift */,
+				A87680836D4DF197C65D08EB7574C255 /* TimePeriod.swift */,
+				8095D48CD545E7C9F129250946BC6539 /* TimePeriodChain.swift */,
+				F88E1E675C1971CB07CBC0F4A3F215CE /* TimePeriodCollection.swift */,
+				5B95ACCA71A8C066251D366965ACF2F6 /* TimePeriodGroup.swift */,
+				EC90C6CD1A5D25E334F369C3EF30633F /* Resources */,
+				C02D8AF468CE266F1362DBD4CCF29837 /* Support Files */,
+			);
+			name = DateToolsSwift;
+			path = DateToolsSwift;
+			sourceTree = "<group>";
+		};
+		4205B6317DDCC5F1D545BDE2D3C532B7 /* Pods-Engage */ = {
+			isa = PBXGroup;
+			children = (
+				1A229EDAF471CA2E4ACAA7E820C1C8FF /* Info.plist */,
+				6912A6AB925AB074125F21A9E052DCB2 /* Pods-Engage.modulemap */,
+				B4469740AF38DF0FE0FE598C8211B012 /* Pods-Engage-acknowledgements.markdown */,
+				527E29005512B0122359ADE0F60EB86B /* Pods-Engage-acknowledgements.plist */,
+				F500305F20E0A1EDCB457FEE5E2A7B4E /* Pods-Engage-dummy.m */,
+				E06000097910B40E380972CF46A3B12C /* Pods-Engage-frameworks.sh */,
+				C33C01816425EE602109F56C341A2890 /* Pods-Engage-resources.sh */,
+				C73C38638BFA7137A53F6B8A5EB3E713 /* Pods-Engage-umbrella.h */,
+				C87B2B0C4581DF3913F1CBC3AC7D1499 /* Pods-Engage.debug.xcconfig */,
+				335520C5AFA8D49AEE1BAA2F0E6243A5 /* Pods-Engage.release.xcconfig */,
+			);
+			name = "Pods-Engage";
+			path = "Target Support Files/Pods-Engage";
+			sourceTree = "<group>";
+		};
+		4E4A6924FE57890C6E5594B77361790E /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				6D1EE8199801B2C8EABF598C6846B230 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		517B513FB67D5C806AA842103EF69987 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				70F1C198E926D0FCBB1E23FD4BE8D2C1 /* CalendarKit */,
+				10767E7CD5433E8385E6CD3952C389E4 /* DateToolsSwift */,
+				0DA5BBFD556994787B7DC2A56234F095 /* Neon */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		68633034B74355AA9A43A92B4BA6E99A /* Pods-EngageTests */ = {
+			isa = PBXGroup;
+			children = (
+				9B362C3C51F85B43901D3FD4A6AF3BD7 /* Info.plist */,
+				6656C122043EAB29319B4062C18DBA14 /* Pods-EngageTests.modulemap */,
+				96A83D7431F5043079B8DA76EFADDFD8 /* Pods-EngageTests-acknowledgements.markdown */,
+				324FE6FCCC9D2BBDAA13E4478C7D383B /* Pods-EngageTests-acknowledgements.plist */,
+				E7E7D09A2F6FAAF4702B398531EB6F83 /* Pods-EngageTests-dummy.m */,
+				E0FBDBBD2D575370460F90B30BA7A1B0 /* Pods-EngageTests-frameworks.sh */,
+				E2F96B929469D7FE216DB2F19FAB4848 /* Pods-EngageTests-resources.sh */,
+				31E70C45ED8D7036F0CDB8E5500D3A56 /* Pods-EngageTests-umbrella.h */,
+				7FE8D61D070B4852D065E9967C8C7390 /* Pods-EngageTests.debug.xcconfig */,
+				E2B02B5D3561D143A380C14D6F97E2BC /* Pods-EngageTests.release.xcconfig */,
+			);
+			name = "Pods-EngageTests";
+			path = "Target Support Files/Pods-EngageTests";
+			sourceTree = "<group>";
+		};
+		6EC6CB3343756D31D9BBBB3B20F53868 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				0A00593F0D493DC48CABDC58F4F0152C /* Info.plist */,
+				6F5341E6E752EDCB2CE81327050ED76F /* Neon.modulemap */,
+				5D1ECCB9C2B07E42D157AC6C55E5A07C /* Neon.xcconfig */,
+				2E1978E6C710E0BE637E6C6F2E223D29 /* Neon-dummy.m */,
+				5A40BD223000197BD9FA64AD276A1799 /* Neon-prefix.pch */,
+				3094BC7E07CF5E2624F32C2A9D6E615C /* Neon-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Neon";
+			sourceTree = "<group>";
+		};
+		70F1C198E926D0FCBB1E23FD4BE8D2C1 /* CalendarKit */ = {
+			isa = PBXGroup;
+			children = (
+				3D29B66725B5C60E13E35E6409317588 /* AllDayView.swift */,
+				688A18BE7401CB008EBFEE3D89D52022 /* Array+Shift.swift */,
+				95136CBE3576CD8DAB2609A82045BBFB /* CalendarStyle.swift */,
+				2A6309BDAD4012E60C4605C02DBF282F /* CurrentTimeIndicator.swift */,
+				7697AF875AC084B7522B492A8029DA0B /* Date+DateOnly.swift */,
+				AA64FF3CC0B0C8883BCEEBCAFE5DE338 /* DateLabel.swift */,
+				8D2DECED274C7DAE45F456B38FA76C72 /* DayDateCell.swift */,
+				59EBA8008183FA5E2C15F01D01290472 /* DayHeaderView.swift */,
+				5C4A141206995CDC5E76DF5CB926228F /* DaySelector.swift */,
+				1EC9F01904C47EEBF18F61798D0332C7 /* DaySymbolsView.swift */,
+				80EEF2E707EDFF6838A7603CC73FB701 /* DayView.swift */,
+				7C817FD563EA80BA9ECFE395F8371310 /* DayViewController.swift */,
+				425C15EC7701DFAB79FA508627640E5A /* DayViewState.swift */,
+				DCE970E237801F1C3A2E0DDAA9F06466 /* Event.swift */,
+				645D80D004E8A3F7E642221401A019B0 /* EventDataSource.swift */,
+				97B43353F34E99FA201B418BC8E7CD8D /* EventDescriptor.swift */,
+				2FBFC3645F43319CCCC664CA18CF340E /* EventDescriptor+DateTools.swift */,
+				BA4D732B9A271D36F7048698DF004DEE /* EventLayoutAttributes.swift */,
+				3725ECB97E0C03F1893FE7B5428673A2 /* EventView.swift */,
+				F1F557103980ECB8DA434835F9A9A6B0 /* Generator.swift */,
+				40144EA5EC377C9E4665AB35DFA3026A /* Locale+24Hour.swift */,
+				02CE596BD0F5D0B7E851070EFC23C972 /* PagingScrollView.swift */,
+				498AA4D7E9BEF673DDC255979265E885 /* ReusePool.swift */,
+				EEA3111D733CA603ACB2B08F707F2A45 /* ScrollSyncronizer.swift */,
+				5FF2143CB513711340BFB2B696850149 /* SwipeLabelView.swift */,
+				6D6EF7E045A98B053503645E32CD5B3A /* TimeChunk+DateComponents.swift */,
+				5B17D3FF0535B015022C68E20AC018C6 /* TimelineContainer.swift */,
+				F361B87B345CA072CF74433C14BC1A0D /* TimelinePagerView.swift */,
+				5382CC2E39B8DBA3F17D73D2E87C45BC /* TimelineView.swift */,
+				8805C057CA881F48138970A4F45A6C24 /* View+StackView.swift */,
+				0B2519ADE2C189F509FD456886FD81CA /* Support Files */,
+			);
+			name = CalendarKit;
+			path = CalendarKit;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				022C4FAF4A9E394BBF2978FA098A8302 /* Frameworks */,
+				517B513FB67D5C806AA842103EF69987 /* Pods */,
+				B9CBB95D993D12402D8EC20358BF162C /* Products */,
+				A507E572EFF574ADE0F2B59BED3499D4 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		A507E572EFF574ADE0F2B59BED3499D4 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				4205B6317DDCC5F1D545BDE2D3C532B7 /* Pods-Engage */,
+				68633034B74355AA9A43A92B4BA6E99A /* Pods-EngageTests */,
+				D4AD9319792DD819DFEFA28364C128F0 /* Pods-EngageUITests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		B9CBB95D993D12402D8EC20358BF162C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC0BC7F9318749E41449B7BF67B74551 /* CalendarKit.framework */,
+				3FE425868C650A7F2B3D579ED650C3B0 /* DateToolsSwift.framework */,
+				587AE4562C632FC10E6DE073B91A49C5 /* Neon.framework */,
+				32E773115414FCB0CEBA05827B6C7875 /* Pods_Engage.framework */,
+				7F118A830BB9AAF7B9C8CD5CD702ED1A /* Pods_EngageTests.framework */,
+				106419A16BB28111817AA08E85E8FD1C /* Pods_EngageUITests.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C02D8AF468CE266F1362DBD4CCF29837 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				86D80F0F759B484DE68C0B3DEE0DA215 /* DateToolsSwift.modulemap */,
+				312C6D059DFCFF13FBC64B1BA29386D4 /* DateToolsSwift.xcconfig */,
+				B283908663CC8D9E654C35385A0A7E59 /* DateToolsSwift-dummy.m */,
+				A299BB3454011CEE1374BD3B8E9D9CED /* DateToolsSwift-prefix.pch */,
+				80BBEAC6940160EBB90693DEB889BD33 /* DateToolsSwift-umbrella.h */,
+				FE66AE8EC83A6CE7584DACCAA656A295 /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/DateToolsSwift";
+			sourceTree = "<group>";
+		};
+		D4AD9319792DD819DFEFA28364C128F0 /* Pods-EngageUITests */ = {
+			isa = PBXGroup;
+			children = (
+				54BA08DAB3E9408A4B90406364FB6647 /* Info.plist */,
+				F27BF0FBCA87C6DE12AAF06D0A4B9091 /* Pods-EngageUITests.modulemap */,
+				FFEA0572BD0C52372EFCC15294B91470 /* Pods-EngageUITests-acknowledgements.markdown */,
+				E7F0BDE78E02F3E4A1A1A8E34FA9A84D /* Pods-EngageUITests-acknowledgements.plist */,
+				3E2E159AD20BBE6CA1FEE32FFA66A5D7 /* Pods-EngageUITests-dummy.m */,
+				BFE82FCA0A66018E3F02898E9295552D /* Pods-EngageUITests-frameworks.sh */,
+				3FA48D5E250C08190F61936564202C55 /* Pods-EngageUITests-resources.sh */,
+				C433851A72B66E04992206BA8DE262A9 /* Pods-EngageUITests-umbrella.h */,
+				A19F642C1FB4017D22FCD70DAE137999 /* Pods-EngageUITests.debug.xcconfig */,
+				E898973E5DD14A28D8BCD1EE8977EFF4 /* Pods-EngageUITests.release.xcconfig */,
+			);
+			name = "Pods-EngageUITests";
+			path = "Target Support Files/Pods-EngageUITests";
+			sourceTree = "<group>";
+		};
+		EC90C6CD1A5D25E334F369C3EF30633F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F291D78A36FBDC8AFB808B1255BEB9BD /* DateTools.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		3A1F9D9E8B36E8AE0960C72DFA213A17 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D31FACCC094CA877C7CAB5DED041DA1 /* DateToolsSwift-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57DC4F4AB746717960D05FA83C2D7654 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5410EA8888B6C71D79D5BD9803581E94 /* Pods-EngageTests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		737ED5C22F115E76A8EF3481E504B86A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75F2227F1BAC8C72168DD5CDDC25CB41 /* Pods-EngageUITests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		97AA6762FD83A8332FE4B051892F3378 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D36D5ECCC6C3D788E7613E55A2EAF79A /* Neon-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2B0E11BBF15CE41BC12751893E42CA0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A043C07C303DFB2CE3358A5C0A719AC /* CalendarKit-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E97882C5151D31CA61A91CCDD2B72E43 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C69C0D36700D1205269B3B9A73D2509B /* Pods-Engage-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		17AAE370B348F576A13D040DA9678ADD /* Pods-Engage */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 392892001FA703B6EC50ADD747CE6EDD /* Build configuration list for PBXNativeTarget "Pods-Engage" */;
+			buildPhases = (
+				CD60FBA263C5A848030285FBB1770F04 /* Sources */,
+				8229F8D0F0B03BC78C95280A3F2D73E9 /* Frameworks */,
+				E97882C5151D31CA61A91CCDD2B72E43 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				699E2D1026F0FC68A9D798F17F2F4E9E /* PBXTargetDependency */,
+				B30F6AE2B213DA95F3BBEAAF23FAC9D9 /* PBXTargetDependency */,
+				52FE715CEAF044EC276267847364C614 /* PBXTargetDependency */,
+			);
+			name = "Pods-Engage";
+			productName = "Pods-Engage";
+			productReference = 32E773115414FCB0CEBA05827B6C7875 /* Pods_Engage.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4B03524B35DC8D098395B4C167385D21 /* Pods-EngageTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F4DE9F7BE6E897456FC823CD3C2FB78 /* Build configuration list for PBXNativeTarget "Pods-EngageTests" */;
+			buildPhases = (
+				CD0C6AC32A9E75EF5FD5BDC38A6511B7 /* Sources */,
+				E99C39BDE82ACBDB8514F8A7D6ED1553 /* Frameworks */,
+				57DC4F4AB746717960D05FA83C2D7654 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BD40E0F63C48A3B2807E319AB6EF7CCB /* PBXTargetDependency */,
+			);
+			name = "Pods-EngageTests";
+			productName = "Pods-EngageTests";
+			productReference = 7F118A830BB9AAF7B9C8CD5CD702ED1A /* Pods_EngageTests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		6A89359CBFBABA9FB3449B4AE8747605 /* CalendarKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F55822274497DF0331EE8A7DAAD607E7 /* Build configuration list for PBXNativeTarget "CalendarKit" */;
+			buildPhases = (
+				A892435F4FEC874F04A04544AECCEDE2 /* Sources */,
+				4EE03B2549067E6D7481205EAD4686F7 /* Frameworks */,
+				D2B0E11BBF15CE41BC12751893E42CA0 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				26F2A7078CFE1DE897A0AE883E335958 /* PBXTargetDependency */,
+				086DFE2249EC386A0CC43179D72EB807 /* PBXTargetDependency */,
+			);
+			name = CalendarKit;
+			productName = CalendarKit;
+			productReference = EC0BC7F9318749E41449B7BF67B74551 /* CalendarKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		93D9FA9E518EE573499C228EBACF56FF /* DateToolsSwift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3D66CCAF2D1D4749B5EC43A961B2A0D3 /* Build configuration list for PBXNativeTarget "DateToolsSwift" */;
+			buildPhases = (
+				A6EDAEF29871E915147B3C283F03B1A9 /* Sources */,
+				441F0B3A32D28649F26A10B018DCB271 /* Frameworks */,
+				C275BFFEC5B6ED260F937F84EABCADBC /* Resources */,
+				3A1F9D9E8B36E8AE0960C72DFA213A17 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DateToolsSwift;
+			productName = DateToolsSwift;
+			productReference = 3FE425868C650A7F2B3D579ED650C3B0 /* DateToolsSwift.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		942EE90141139E1A7EA708D63E71BA40 /* Neon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FF419697C9C2A41D975C30F28C58A5DA /* Build configuration list for PBXNativeTarget "Neon" */;
+			buildPhases = (
+				4D25539A776597F53F01CB1580EA738A /* Sources */,
+				518801D44E61DDE3FDD675CAF69EF9FF /* Frameworks */,
+				97AA6762FD83A8332FE4B051892F3378 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Neon;
+			productName = Neon;
+			productReference = 587AE4562C632FC10E6DE073B91A49C5 /* Neon.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		F789351287F0B6DD929F555321616896 /* Pods-EngageUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0FF2D4492E28F1CFA9D9DD74AD94DBE /* Build configuration list for PBXNativeTarget "Pods-EngageUITests" */;
+			buildPhases = (
+				3515FDCD1875954D2A654FA1FC5A1129 /* Sources */,
+				E41E787A107D3C4B69BF323F5249562D /* Frameworks */,
+				737ED5C22F115E76A8EF3481E504B86A /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				438EB731AF4956DA57E17545D4A23A12 /* PBXTargetDependency */,
+			);
+			name = "Pods-EngageUITests";
+			productName = "Pods-EngageUITests";
+			productReference = 106419A16BB28111817AA08E85E8FD1C /* Pods_EngageUITests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = B9CBB95D993D12402D8EC20358BF162C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6A89359CBFBABA9FB3449B4AE8747605 /* CalendarKit */,
+				93D9FA9E518EE573499C228EBACF56FF /* DateToolsSwift */,
+				942EE90141139E1A7EA708D63E71BA40 /* Neon */,
+				17AAE370B348F576A13D040DA9678ADD /* Pods-Engage */,
+				4B03524B35DC8D098395B4C167385D21 /* Pods-EngageTests */,
+				F789351287F0B6DD929F555321616896 /* Pods-EngageUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C275BFFEC5B6ED260F937F84EABCADBC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F2B9C56688A33462610DC7769CF0552 /* DateTools.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3515FDCD1875954D2A654FA1FC5A1129 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C01FE360194D2553A852FCA315E4C01 /* Pods-EngageUITests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D25539A776597F53F01CB1580EA738A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3E9A096A3D91A31A6AB5CDB4E708E90B /* Neon-dummy.m in Sources */,
+				ED94BF6772A4ED980881D66DAA939140 /* Neon.swift in Sources */,
+				D88FC5C024F7E40C131740463648BAA0 /* NeonAlignable.swift in Sources */,
+				8E2DDD79000A9163B921091CEF0CFE00 /* NeonAnchorable.swift in Sources */,
+				2FD64D2C211B2849DA4AD9C7199234EF /* NeonExtensions.swift in Sources */,
+				1893670D6EED76788281429079F90C1A /* NeonFrameable.swift in Sources */,
+				D06207DE27A3795CF96254787D0D710D /* NeonGroupable.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A6EDAEF29871E915147B3C283F03B1A9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D87F930B04913BF0BFC5BD60DD77B145 /* Constants.swift in Sources */,
+				DEB4EB0584D693E5EF4B56E2F7D4208C /* Date+Bundle.swift in Sources */,
+				88BFC8F43BE08AC3FE02EFF75FBB56B2 /* Date+Comparators.swift in Sources */,
+				EFA3045C9F9FBA3CE466C3DF57D151F2 /* Date+Components.swift in Sources */,
+				7B4A930160E811AFA9ED369A976A40AF /* Date+Format.swift in Sources */,
+				48CB75550901E90C60A5CE610D9581C6 /* Date+Inits.swift in Sources */,
+				1A27D77FCFFA5B2FA9ADD38146D415D7 /* Date+Manipulations.swift in Sources */,
+				A4A0AE9AC670EE32F27DB6E83744967D /* Date+TimeAgo.swift in Sources */,
+				614D19EFBA4EC478E4B6C5E7F36C806F /* DateToolsSwift-dummy.m in Sources */,
+				13470F2ACFD8B89E522849FD0DA7A23A /* Enums.swift in Sources */,
+				086A3E7B923DABA20E7BBD24521302C5 /* Integer+DateTools.swift in Sources */,
+				B1D40919E33BFC4BEF782B2035118813 /* TimeChunk.swift in Sources */,
+				B69C0A50FEB4428C83D8FB48D77FE940 /* TimePeriod.swift in Sources */,
+				37ED2B08B1A75491E691EA42F1361C5F /* TimePeriodChain.swift in Sources */,
+				3051D04D9EFFB16513689EF8B023E7B3 /* TimePeriodCollection.swift in Sources */,
+				8D8F7CFA9F16F099676A4471FF9D663F /* TimePeriodGroup.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A892435F4FEC874F04A04544AECCEDE2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37AFF32A24507A40DC18395861C08F29 /* AllDayView.swift in Sources */,
+				2AE6340B047D7440CD1CA905C882746B /* Array+Shift.swift in Sources */,
+				80E23A39BA0AA065B7D2F25A2F45CFB2 /* CalendarKit-dummy.m in Sources */,
+				3D71E0575BEEF1CBBA3219EA254A7691 /* CalendarStyle.swift in Sources */,
+				CE1D35634509071BACA7473B781D6BED /* CurrentTimeIndicator.swift in Sources */,
+				6931C7979A7E4C645879421C756F9F9E /* Date+DateOnly.swift in Sources */,
+				1F974403E9D4BBD02BD0D0F5914071A1 /* DateLabel.swift in Sources */,
+				E02D51BB5A668AB7A966D7F76B69D572 /* DayDateCell.swift in Sources */,
+				5C0559ADBF6931D02865A29249A24A13 /* DayHeaderView.swift in Sources */,
+				34DF88C173DCB896FC244174B7DBF036 /* DaySelector.swift in Sources */,
+				AF69DFF6177BC740C07DA7EEB66DF636 /* DaySymbolsView.swift in Sources */,
+				41102F5466B5539549E4355AD9B7F3DA /* DayView.swift in Sources */,
+				6805E37A6F822DDD92DFED7CEADA9503 /* DayViewController.swift in Sources */,
+				12AE1CF5051E4B6D3BF06D5265CF4B3A /* DayViewState.swift in Sources */,
+				21101E26912409AF68A9A2D104415B45 /* Event.swift in Sources */,
+				7D881C08D07B8731D37CF7046B265D91 /* EventDataSource.swift in Sources */,
+				28A156748C8632950A838D96A7553133 /* EventDescriptor+DateTools.swift in Sources */,
+				D27A0859ADCBA424565AA194CF7666C3 /* EventDescriptor.swift in Sources */,
+				AB5896544D23105EA18206534DE277C4 /* EventLayoutAttributes.swift in Sources */,
+				179FB8F5A05313058F2598DE0A060CAC /* EventView.swift in Sources */,
+				14CF15F56E544E0FBB4A1F07EC1C8503 /* Generator.swift in Sources */,
+				0B6E3A47F7838BB0BB9AC4E218FA7E4E /* Locale+24Hour.swift in Sources */,
+				AD43F82D8D08D1730E3713E860DEC155 /* PagingScrollView.swift in Sources */,
+				746A878C416713FCA877D5BF8FF32B8E /* ReusePool.swift in Sources */,
+				48E7DFBEC8D2A4B45F857FA82A489353 /* ScrollSyncronizer.swift in Sources */,
+				1C60B57E2A729C7B3B94B93BF91B7EB0 /* SwipeLabelView.swift in Sources */,
+				FF635D01FD31309FBC16F2E3B3796051 /* TimeChunk+DateComponents.swift in Sources */,
+				69CB0DC5217E6333EA4A229C5B76D721 /* TimelineContainer.swift in Sources */,
+				A41D98BB553EC7A5F870F7FEE5473587 /* TimelinePagerView.swift in Sources */,
+				760B40A5506A890D595CFECF299D87D6 /* TimelineView.swift in Sources */,
+				478E1D999E024DE208864767B7FBA663 /* View+StackView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD0C6AC32A9E75EF5FD5BDC38A6511B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59549878EE5DB41DB9AC6E2ADA01DE57 /* Pods-EngageTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD60FBA263C5A848030285FBB1770F04 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6BC9F744583707EAA1B3A07D03026BAA /* Pods-Engage-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		086DFE2249EC386A0CC43179D72EB807 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Neon;
+			target = 942EE90141139E1A7EA708D63E71BA40 /* Neon */;
+			targetProxy = 226A680582439610E960BFB65E81DBB0 /* PBXContainerItemProxy */;
+		};
+		26F2A7078CFE1DE897A0AE883E335958 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DateToolsSwift;
+			target = 93D9FA9E518EE573499C228EBACF56FF /* DateToolsSwift */;
+			targetProxy = 9456C773715E798A44702C06A619C492 /* PBXContainerItemProxy */;
+		};
+		438EB731AF4956DA57E17545D4A23A12 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-Engage";
+			target = 17AAE370B348F576A13D040DA9678ADD /* Pods-Engage */;
+			targetProxy = EABD0F44B1B43E811AEB9B9E635EEC0E /* PBXContainerItemProxy */;
+		};
+		52FE715CEAF044EC276267847364C614 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Neon;
+			target = 942EE90141139E1A7EA708D63E71BA40 /* Neon */;
+			targetProxy = 2EC00D0CDC0C25C1C716FC8C9FFE34C3 /* PBXContainerItemProxy */;
+		};
+		699E2D1026F0FC68A9D798F17F2F4E9E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CalendarKit;
+			target = 6A89359CBFBABA9FB3449B4AE8747605 /* CalendarKit */;
+			targetProxy = FD404464D5CBB3C637DF8430EBA34B44 /* PBXContainerItemProxy */;
+		};
+		B30F6AE2B213DA95F3BBEAAF23FAC9D9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DateToolsSwift;
+			target = 93D9FA9E518EE573499C228EBACF56FF /* DateToolsSwift */;
+			targetProxy = CB20D0A988FF19ED3763B8B065D85F8A /* PBXContainerItemProxy */;
+		};
+		BD40E0F63C48A3B2807E319AB6EF7CCB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-Engage";
+			target = 17AAE370B348F576A13D040DA9678ADD /* Pods-Engage */;
+			targetProxy = C32404AC566F15A8B571230BE3E94530 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		063198AB09B9CDB3A695432FC17AD8CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		14A2063B30A7D3E36EF71755C8E74F2B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E898973E5DD14A28D8BCD1EE8977EFF4 /* Pods-EngageUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-EngageUITests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-EngageUITests/Pods-EngageUITests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		2F742DCE97EBB5CBE259B43718842A1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEC9048E85FB831AEEF49E074FF9D68B /* CalendarKit.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/CalendarKit/CalendarKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CalendarKit/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/CalendarKit/CalendarKit.modulemap";
+				PRODUCT_MODULE_NAME = CalendarKit;
+				PRODUCT_NAME = CalendarKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		3A49E9E0FA1A55F485A20931ECAE4CBE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEC9048E85FB831AEEF49E074FF9D68B /* CalendarKit.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/CalendarKit/CalendarKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CalendarKit/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/CalendarKit/CalendarKit.modulemap";
+				PRODUCT_MODULE_NAME = CalendarKit;
+				PRODUCT_NAME = CalendarKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		490EB1750085C01FA59D1B014DB5F0D1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 312C6D059DFCFF13FBC64B1BA29386D4 /* DateToolsSwift.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/DateToolsSwift/DateToolsSwift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/DateToolsSwift/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/DateToolsSwift/DateToolsSwift.modulemap";
+				PRODUCT_MODULE_NAME = DateToolsSwift;
+				PRODUCT_NAME = DateToolsSwift;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		6444A6E15D4456BDBD5ED9DAAE15CB0C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 335520C5AFA8D49AEE1BAA2F0E6243A5 /* Pods-Engage.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Engage/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Engage/Pods-Engage.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		6D59EBC3B85337D4C125AEF071440381 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C87B2B0C4581DF3913F1CBC3AC7D1499 /* Pods-Engage.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Engage/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Engage/Pods-Engage.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		87EAC867385563488A6D8F1E74AC46B4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		9F38579FC1B628D85220B8613ED29185 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7FE8D61D070B4852D065E9967C8C7390 /* Pods-EngageTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-EngageTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-EngageTests/Pods-EngageTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		AF3EA95B3DDBEE179E2179233592AE1F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5D1ECCB9C2B07E42D157AC6C55E5A07C /* Neon.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Neon/Neon-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Neon/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Neon/Neon.modulemap";
+				PRODUCT_MODULE_NAME = Neon;
+				PRODUCT_NAME = Neon;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		B7FB0896AE88179C75EAAAA5912C958F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 312C6D059DFCFF13FBC64B1BA29386D4 /* DateToolsSwift.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/DateToolsSwift/DateToolsSwift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/DateToolsSwift/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/DateToolsSwift/DateToolsSwift.modulemap";
+				PRODUCT_MODULE_NAME = DateToolsSwift;
+				PRODUCT_NAME = DateToolsSwift;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D6CBE2FE17B204A86949894398DB5EE7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E2B02B5D3561D143A380C14D6F97E2BC /* Pods-EngageTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-EngageTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-EngageTests/Pods-EngageTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E8B81888AB17966F3090301F98D9DD50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A19F642C1FB4017D22FCD70DAE137999 /* Pods-EngageUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-EngageUITests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-EngageUITests/Pods-EngageUITests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		FCA19248FF62F2BE1FBFD9A2BBDAEF86 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5D1ECCB9C2B07E42D157AC6C55E5A07C /* Neon.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Neon/Neon-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Neon/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Neon/Neon.modulemap";
+				PRODUCT_MODULE_NAME = Neon;
+				PRODUCT_NAME = Neon;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87EAC867385563488A6D8F1E74AC46B4 /* Debug */,
+				063198AB09B9CDB3A695432FC17AD8CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		392892001FA703B6EC50ADD747CE6EDD /* Build configuration list for PBXNativeTarget "Pods-Engage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6D59EBC3B85337D4C125AEF071440381 /* Debug */,
+				6444A6E15D4456BDBD5ED9DAAE15CB0C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3D66CCAF2D1D4749B5EC43A961B2A0D3 /* Build configuration list for PBXNativeTarget "DateToolsSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				490EB1750085C01FA59D1B014DB5F0D1 /* Debug */,
+				B7FB0896AE88179C75EAAAA5912C958F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3F4DE9F7BE6E897456FC823CD3C2FB78 /* Build configuration list for PBXNativeTarget "Pods-EngageTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9F38579FC1B628D85220B8613ED29185 /* Debug */,
+				D6CBE2FE17B204A86949894398DB5EE7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E0FF2D4492E28F1CFA9D9DD74AD94DBE /* Build configuration list for PBXNativeTarget "Pods-EngageUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8B81888AB17966F3090301F98D9DD50 /* Debug */,
+				14A2063B30A7D3E36EF71755C8E74F2B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F55822274497DF0331EE8A7DAAD607E7 /* Build configuration list for PBXNativeTarget "CalendarKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2F742DCE97EBB5CBE259B43718842A1C /* Debug */,
+				3A49E9E0FA1A55F485A20931ECAE4CBE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FF419697C9C2A41D975C30F28C58A5DA /* Build configuration list for PBXNativeTarget "Neon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCA19248FF62F2BE1FBFD9A2BBDAEF86 /* Debug */,
+				AF3EA95B3DDBEE179E2179233592AE1F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

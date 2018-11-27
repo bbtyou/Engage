@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DJN-6w-dOg">
+    <device id="ipad9_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Calendar View Controller-->
+        <scene sceneID="ZUD-lM-htZ">
+            <objects>
+                <viewController id="DJN-6w-dOg" customClass="CalendarViewController" customModule="Engage" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WRi-56-BVD">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GM3-pF-Sxn" customClass="DayView" customModule="CalendarKit">
+                                <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="GM3-pF-Sxn" firstAttribute="leading" secondItem="bGY-MG-7wC" secondAttribute="leading" id="UHZ-W9-0Hi"/>
+                            <constraint firstItem="GM3-pF-Sxn" firstAttribute="trailing" secondItem="bGY-MG-7wC" secondAttribute="trailing" id="V5V-FK-05d"/>
+                            <constraint firstItem="bGY-MG-7wC" firstAttribute="bottom" secondItem="GM3-pF-Sxn" secondAttribute="bottom" id="w1k-Q0-cFh"/>
+                            <constraint firstItem="GM3-pF-Sxn" firstAttribute="top" secondItem="bGY-MG-7wC" secondAttribute="top" id="y2T-fQ-JmE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bGY-MG-7wC"/>
+                    </view>
+                    <connections>
+                        <segue destination="BW0-gu-zXR" kind="show" identifier="eventdetail" id="fWQ-o5-9h1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CnL-9g-zOX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="278" y="-367"/>
+        </scene>
+        <!--Calendar Detail View Controller-->
+        <scene sceneID="kN8-xR-xph">
+            <objects>
+                <viewController id="BW0-gu-zXR" customClass="CalendarDetailViewController" customModule="Engage" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4P2-vp-RxX">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ODd-5g-QNP">
+                                <rect key="frame" x="0.0" y="32" width="768" height="980"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qzO-Qj-hI1">
+                                        <rect key="frame" x="16" y="12" width="32.5" height="20"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                        </variation>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="topic" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KoW-N9-z1C">
+                                        <rect key="frame" x="16" y="44" width="736" height="22"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="19"/>
+                                        </variation>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Additional Information:" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1G3-ZJ-diV">
+                                        <rect key="frame" x="16" y="84" width="736" height="15"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="13"/>
+                                        </variation>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tRg-Lv-2GU">
+                                        <rect key="frame" x="16" y="108" width="736" height="864"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                        </variation>
+                                    </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rOt-1P-kYv">
+                                        <rect key="frame" x="718.5" y="12" width="33.5" height="20"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                        </variation>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="KoW-N9-z1C" firstAttribute="leading" secondItem="qzO-Qj-hI1" secondAttribute="leading" id="C49-wg-TIU"/>
+                                    <constraint firstItem="KoW-N9-z1C" firstAttribute="top" secondItem="qzO-Qj-hI1" secondAttribute="bottom" constant="12" id="Giv-9s-Fh9"/>
+                                    <constraint firstItem="tRg-Lv-2GU" firstAttribute="trailing" secondItem="1G3-ZJ-diV" secondAttribute="trailing" id="O4g-Kr-LQv"/>
+                                    <constraint firstItem="1G3-ZJ-diV" firstAttribute="top" secondItem="KoW-N9-z1C" secondAttribute="bottom" constant="18" id="Pza-x5-uTO"/>
+                                    <constraint firstAttribute="trailing" secondItem="KoW-N9-z1C" secondAttribute="trailing" constant="16" id="VU4-NB-LZ1"/>
+                                    <constraint firstItem="1G3-ZJ-diV" firstAttribute="trailing" secondItem="KoW-N9-z1C" secondAttribute="trailing" id="bjw-3G-2AE"/>
+                                    <constraint firstItem="tRg-Lv-2GU" firstAttribute="top" secondItem="1G3-ZJ-diV" secondAttribute="bottom" constant="9" id="eJ7-09-zL6"/>
+                                    <constraint firstItem="rOt-1P-kYv" firstAttribute="centerY" secondItem="qzO-Qj-hI1" secondAttribute="centerY" id="fxD-iX-bjH"/>
+                                    <constraint firstAttribute="bottom" secondItem="tRg-Lv-2GU" secondAttribute="bottom" constant="8" id="kfY-TY-c5O"/>
+                                    <constraint firstItem="qzO-Qj-hI1" firstAttribute="leading" secondItem="ODd-5g-QNP" secondAttribute="leading" constant="16" id="lbD-X2-bg6"/>
+                                    <constraint firstItem="qzO-Qj-hI1" firstAttribute="top" secondItem="ODd-5g-QNP" secondAttribute="top" constant="12" id="vVx-sc-0ft"/>
+                                    <constraint firstItem="tRg-Lv-2GU" firstAttribute="leading" secondItem="1G3-ZJ-diV" secondAttribute="leading" id="w5H-Wb-ESU"/>
+                                    <constraint firstItem="rOt-1P-kYv" firstAttribute="trailing" secondItem="1G3-ZJ-diV" secondAttribute="trailing" id="xB2-dz-FRa"/>
+                                    <constraint firstItem="1G3-ZJ-diV" firstAttribute="leading" secondItem="KoW-N9-z1C" secondAttribute="leading" id="xkK-Mb-aMY"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="obZ-69-K18"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="yHW-2E-E1a" firstAttribute="bottom" secondItem="ODd-5g-QNP" secondAttribute="bottom" constant="12" id="5jS-8W-tV7"/>
+                            <constraint firstItem="ODd-5g-QNP" firstAttribute="trailing" secondItem="yHW-2E-E1a" secondAttribute="trailing" id="8tr-76-6Mh"/>
+                            <constraint firstItem="ODd-5g-QNP" firstAttribute="leading" secondItem="yHW-2E-E1a" secondAttribute="leading" id="Bqf-uW-WeL"/>
+                            <constraint firstItem="ODd-5g-QNP" firstAttribute="top" secondItem="yHW-2E-E1a" secondAttribute="top" constant="12" id="zYu-qf-deA"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="yHW-2E-E1a"/>
+                    </view>
+                    <connections>
+                        <outlet property="additionalInfoLabel" destination="1G3-ZJ-diV" id="ENc-gh-LLb"/>
+                        <outlet property="bodyTextView" destination="tRg-Lv-2GU" id="Hb7-Ja-LdI"/>
+                        <outlet property="contentView" destination="ODd-5g-QNP" id="pju-Vp-H7E"/>
+                        <outlet property="dateLabel" destination="rOt-1P-kYv" id="0XR-h2-ktu"/>
+                        <outlet property="timeLabel" destination="qzO-Qj-hI1" id="iQa-8t-xlR"/>
+                        <outlet property="topicLabel" destination="KoW-N9-z1C" id="H7z-O4-bku"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vgG-XT-5wx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1143" y="-367"/>
+        </scene>
+    </scenes>
+</document>
