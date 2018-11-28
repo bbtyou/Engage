@@ -45,6 +45,7 @@ class WebViewPresenter {
     func load() {
         // - Handle the different types of content to be loaded
         if let data = self.data, let pathExtension = self.pathExtension {
+            self.delegate?.enableShare()
             self.delegate?.load(withData: data, pathExtension, self.title)
             return
         }

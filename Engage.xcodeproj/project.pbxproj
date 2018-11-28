@@ -26,6 +26,7 @@
 		134805F521A736EE00AF9BAF /* InboxDetailDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134805F421A736EE00AF9BAF /* InboxDetailDelegate.swift */; };
 		134805F721A7375300AF9BAF /* InboxDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134805F621A7375300AF9BAF /* InboxDetailViewController.swift */; };
 		13497E7F21A4B6BE00DDE195 /* AssetFileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13497E7E21A4B6BE00DDE195 /* AssetFileDataSource.swift */; };
+		13796D7B21AE4410008FCA13 /* Shareable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13796D7A21AE4410008FCA13 /* Shareable.swift */; };
 		138CBBE3219240EB00015EDC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138CBBE2219240EB00015EDC /* AppDelegate.swift */; };
 		138CBBEE219240ED00015EDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 138CBBED219240ED00015EDC /* Assets.xcassets */; };
 		138CBBF1219240ED00015EDC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 138CBBEF219240ED00015EDC /* LaunchScreen.storyboard */; };
@@ -150,6 +151,7 @@
 		134805F421A736EE00AF9BAF /* InboxDetailDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDetailDelegate.swift; sourceTree = "<group>"; };
 		134805F621A7375300AF9BAF /* InboxDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDetailViewController.swift; sourceTree = "<group>"; };
 		13497E7E21A4B6BE00DDE195 /* AssetFileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetFileDataSource.swift; sourceTree = "<group>"; };
+		13796D7A21AE4410008FCA13 /* Shareable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shareable.swift; sourceTree = "<group>"; };
 		138CBBDF219240EB00015EDC /* Engage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Engage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		138CBBE2219240EB00015EDC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		138CBBED219240ED00015EDC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -501,6 +503,7 @@
 				F9DFADC5219B428D009F2203 /* Shakeable.swift */,
 				13A8B0CB219A2263003CCFC5 /* Stylable.swift */,
 				138CBC552199E00600015EDC /* Waitable.swift */,
+				13796D7A21AE4410008FCA13 /* Shareable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -872,6 +875,7 @@
 				138CBC1F219244B300015EDC /* Profile.swift in Sources */,
 				13A8B0FD219D0546003CCFC5 /* AssetTableViewCell.swift in Sources */,
 				1398257221A9EF7300AE5702 /* CalendarViewController.swift in Sources */,
+				13796D7B21AE4410008FCA13 /* Shareable.swift in Sources */,
 				13A8B0CC219A2263003CCFC5 /* Stylable.swift in Sources */,
 				138CBC2E219555CD00015EDC /* Request.swift in Sources */,
 				13A8B0F9219CFA27003CCFC5 /* HomeDelegate.swift in Sources */,

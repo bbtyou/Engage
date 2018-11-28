@@ -41,6 +41,19 @@ class MimeMap {
         return self.pList?[type] ?? "pdf"
     }
     
+    // - Returns the mime type for the path
+    func mime(forExtension pathExt: String) -> String {
+        var mimeType: String = "application/pdf"
+        
+        self.supportedMimeTypes().forEach { (mime) in
+            if self.pathExtension(forMime: mime) == pathExt {
+                mimeType = mime
+            }
+        }
+        
+        return mimeType
+    }
+    
     func supportedMimeTypes() -> [String] {
         return self.pList?.keys.map({ (key) -> String in
             return key

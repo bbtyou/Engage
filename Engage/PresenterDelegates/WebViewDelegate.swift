@@ -20,4 +20,10 @@ protocol WebViewDelegate: Waitable {
     // - Displays an error message to the user if the content cannot be loaded
     func showError(_ message: String)
     
+    // - Notify the view to disable share
+    func disableShare()
+    
+    // - Notify the view to enable sharing
+    func enableShare()
+    
 }

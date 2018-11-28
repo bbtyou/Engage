@@ -8,8 +8,9 @@
 
 import UIKit
 import WebKit
+import MessageUI
 
-class WebViewController: UIViewController {
+class WebViewController: UIViewController, UIPopoverPresentationControllerDelegate, Shareable {
     
     // - Presenter
     var presenter: WebViewPresenter? {
@@ -20,7 +21,13 @@ class WebViewController: UIViewController {
     
     // - Web view
     fileprivate let webView = WKWebView()
-
+    
+    // - Shareable data
+    internal var shareData: Data?
+    
+    // - Mimetype for the opened data
+    internal var mimeType: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,6 +55,12 @@ class WebViewController: UIViewController {
     deinit {
         log.verbose("** Deallocated viewController \(WebViewController.self).")
     }
+    
+    // - Actions
+    
+    @objc fileprivate func shareTapped(_ sender: UIBarButtonItem) {
+        self.share()
+    }
 }
 
 // MARK: - WebViewDelegate
@@ -73,6 +86,12 @@ extension WebViewController: WebViewDelegate {
     func load(withData data: Data, _ pathExtension: String, _ title: String?) {
         self.title = title
         
+        // - Set the data used for share
+        self.shareData = data
+        
+        // - Set the mimetype
+        self.mimeType = MimeMap.shared.mime(forExtension: pathExtension)
+        
         // - Since WKWebView has issues loading from data even with the specified mime type, we create a temporary file to write the data to and load it
         let fm = FileManager.default
         let tempFileUrl = fm.temporaryDirectory.appendingPathComponent("temp").appendingPathExtension(pathExtension)
@@ -87,7 +106,17 @@ extension WebViewController: WebViewDelegate {
             self.showError("The content you requested could not be loaded at this time.  Please try again later or contact your system administrator if the problem persists: \(error).")
         }
     }
+    
+    func enableShare() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .action, target: self, action: #selector(shareTapped(_:)))
+    }
+    
+    func disableShare() {
+        self.navigationItem.rightBarButtonItem = nil
+    }
 }
+
+// - MARK: WKNavigationDelegate
 
 extension WebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -164,5 +193,35 @@ extension WebViewController: WKNavigationDelegate {
             decisionHandler(.cancel)
             self.presenter?.loadRedirectRequest(fromRequest: request)
         }
+    }
+}
+
+// MARK: - MFMailComposeDelegate
+
+extension WebViewController: MFMailComposeViewControllerDelegate {
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        var message: String?
+        
+        switch result {
+            case .failed:
+                message = "This document could not be sent. \(error?.localizedDescription ?? "")"
+            
+            case .sent:
+                fallthrough
+            
+            default:
+                break
+        }
+        
+        // - Notify the user that the email was sent
+        controller.dismiss(animated: true) {
+            if let message = message {
+                let alert = UIAlertController.init(title: "Email Share", message: message, preferredStyle: .alert)
+                alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+        
     }
 }
