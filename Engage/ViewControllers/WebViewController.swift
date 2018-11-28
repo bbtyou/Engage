@@ -45,13 +45,12 @@ class WebViewController: UIViewController, UIPopoverPresentationControllerDelega
         self.webView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         self.webView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         self.webView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.presenter?.load()
+        }
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.presenter?.load()
-    }
-    
     deinit {
         log.verbose("** Deallocated viewController \(WebViewController.self).")
     }

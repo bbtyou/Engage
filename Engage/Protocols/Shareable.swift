@@ -109,7 +109,7 @@ extension Shareable where Self: (UIViewController & UIPopoverPresentationControl
         
         let composer = MFMailComposeViewController.init()
         composer.mailComposeDelegate = self
-        composer.addAttachmentData(attachment, mimeType: mime, fileName: name)
+        composer.addAttachmentData(attachment, mimeType: mime, fileName: name.appending(".\(MimeMap.shared.pathExtension(forMime: mime))"))
         composer.setSubject(name)
         
         // - Present the email
