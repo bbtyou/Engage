@@ -78,6 +78,8 @@ extension Shareable where Self: (UIViewController & UIPopoverPresentationControl
         self.present(shareMenu, animated: true, completion: nil)
     }
     
+    // - This option shows up only if the data can be printed.
+    // - Enabled air print printers can be used.
     func print() {
         let printInfo = UIPrintInfo.init(dictionary: nil)
         printInfo.jobName = self.title ?? "Document"
@@ -96,6 +98,7 @@ extension Shareable where Self: (UIViewController & UIPopoverPresentationControl
         }
     }
 
+    // - The document is attached to an email with the subject set as the document title
     func email() {
         guard let attachment = self.shareData, let mime = self.mimeType, let name = self.title else {
             let message = "Unable to email this document because the data could not be composed as an attachment."
