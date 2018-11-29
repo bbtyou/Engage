@@ -95,13 +95,15 @@ class WebViewController: UIViewController, UIPopoverPresentationControllerDelega
         // - Layout constraints
         self.layout()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            self.presenter?.load()
-        }
+        self.presenter?.load()
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
+        if self.webNavBar.isHidden {
+            return
+        }
         
         let shadowPath = UIBezierPath.init(rect: self.webNavBar.bounds).cgPath
         self.webNavBar.layer.shadowColor = UIColor.darkGray.cgColor
@@ -129,6 +131,7 @@ class WebViewController: UIViewController, UIPopoverPresentationControllerDelega
     }
     
     @objc fileprivate func webReload() {
+        self.showSpinner("Reloading \(self.title ?? "page")...")
         self.webView.reloadFromOrigin()
     }
     
@@ -146,14 +149,14 @@ class WebViewController: UIViewController, UIPopoverPresentationControllerDelega
         // - Add the buttons to the nav bar
         self.webNavBar.addSubview(self.webBackButton)
         
-        self.webBackButton.leadingAnchor.constraint(equalTo: self.webNavBar.leadingAnchor, constant: 16.0).isActive = true
+        self.webBackButton.leadingAnchor.constraint(equalTo: self.webNavBar.leadingAnchor, constant: 17.0).isActive = true
         self.webBackButton.widthAnchor.constraint(equalToConstant: 32.0).isActive = true
         self.webBackButton.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
         self.webBackButton.centerYAnchor.constraint(equalTo: self.webNavBar.centerYAnchor).isActive = true
         
         self.webNavBar.addSubview(self.webReloadButton)
         
-        self.webReloadButton.trailingAnchor.constraint(equalTo: self.webNavBar.trailingAnchor, constant: -16.0).isActive = true
+        self.webReloadButton.trailingAnchor.constraint(equalTo: self.webNavBar.trailingAnchor, constant: -17.0).isActive = true
         self.webReloadButton.widthAnchor.constraint(equalToConstant: 32.0).isActive = true
         self.webReloadButton.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
         self.webReloadButton.centerYAnchor.constraint(equalTo: self.webNavBar.centerYAnchor).isActive = true
