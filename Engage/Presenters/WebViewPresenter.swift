@@ -45,6 +45,7 @@ class WebViewPresenter {
     func load() {
         // - Handle the different types of content to be loaded
         if let data = self.data, let pathExtension = self.pathExtension {
+            self.delegate?.disableNav()
             self.delegate?.enableShare()
             self.delegate?.load(withData: data, pathExtension, self.title)
             return
@@ -97,6 +98,7 @@ class WebViewPresenter {
             self.delegate?.showSpinner("Loading content...")
         }
 
+        self.delegate?.enableNav()
         self.delegate?.load(withRequest: request, self.title)
     }
     

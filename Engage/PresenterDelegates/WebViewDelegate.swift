@@ -26,4 +26,9 @@ protocol WebViewDelegate: Waitable {
     // - Notify the view to enable sharing
     func enableShare()
     
+    // - Enables the web nav bar
+    func enableNav()
+    
+    // - Disables the web nav bar
+    func disableNav()
 }

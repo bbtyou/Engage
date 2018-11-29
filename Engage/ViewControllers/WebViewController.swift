@@ -20,7 +20,68 @@ class WebViewController: UIViewController, UIPopoverPresentationControllerDelega
     }
     
     // - Web view
-    fileprivate let webView = WKWebView()
+    fileprivate lazy var webView: WKWebView = {
+        let web = WKWebView()
+        web.translatesAutoresizingMaskIntoConstraints = false
+        web.backgroundColor = UIColor.clear
+        web.configuration.allowsInlineMediaPlayback = true
+        web.navigationDelegate = self
+
+        return web
+    }()
+    
+    // - Navigation bar
+    fileprivate lazy var webNavBar: UIView = {
+        let backgroundColor = AppConfigurator.shared.themeConfigurator?.backgroundColor ?? UIColor.lightGray
+        
+        let view = UIView.init()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = backgroundColor
+
+        return view
+    }()
+    
+    // - Back button for web view
+    fileprivate lazy var webBackButton: UIButton = {
+        let themeColor = AppConfigurator.shared.themeConfigurator?.themeColor ?? UIColor.purple
+        
+        let back = UIButton.init(type: .custom)
+        back.translatesAutoresizingMaskIntoConstraints = false
+        back.backgroundColor = UIColor.clear
+        back.isHidden = true
+        back.setImage(CommonImages.goback.image?.maskedImage(with: themeColor), for: .normal)
+        back.addTarget(self, action: #selector(webBack), for: .touchUpInside)
+        
+        return back
+    }()
+
+    // - Back button label
+    fileprivate lazy var webBackButtonLabel: UILabel = {
+        let backLabel = UILabel.init()
+        backLabel.translatesAutoresizingMaskIntoConstraints = false
+        backLabel.isHidden = true
+        backLabel.font = UIFont.init(name: "Helvetica", size: 13.0)
+        backLabel.textColor = AppConfigurator.shared.themeConfigurator?.themeColor
+        backLabel.text = "Go Back"
+
+        return backLabel
+    }()
+    
+    // - Reload button for web view
+    fileprivate lazy var webReloadButton: UIButton = {
+        let themeColor = AppConfigurator.shared.themeConfigurator?.themeColor ?? UIColor.purple
+        
+        let reload = UIButton.init(type: .custom)
+        reload.translatesAutoresizingMaskIntoConstraints = false
+        reload.backgroundColor = UIColor.clear
+        reload.setImage(CommonImages.reload.image?.maskedImage(with: themeColor), for: .normal)
+        reload.addTarget(self, action: #selector(webReload), for: .touchUpInside)
+
+        return reload
+    }()
+
+    // - Height constraint for the nav bar
+    fileprivate var webNavBarHeight: NSLayoutConstraint?
     
     // - Shareable data
     internal var shareData: Data?
@@ -31,26 +92,28 @@ class WebViewController: UIViewController, UIPopoverPresentationControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        self.webView.navigationDelegate = self
-        
-        // - Set webview configuration
-        self.webView.configuration.allowsInlineMediaPlayback = true
-        
-        // - Add the web view
-        self.view.addSubview(self.webView)
-
-        self.webView.translatesAutoresizingMaskIntoConstraints = false
-        self.webView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        self.webView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        self.webView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        self.webView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        // - Layout constraints
+        self.layout()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.presenter?.load()
         }
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let shadowPath = UIBezierPath.init(rect: self.webNavBar.bounds).cgPath
+        self.webNavBar.layer.shadowColor = UIColor.darkGray.cgColor
+        self.webNavBar.layer.shadowOffset = CGSize(width: 0, height: 2)
+        self.webNavBar.layer.shadowOpacity = 1.0
+        self.webNavBar.layer.shadowRadius = 1
+        self.webNavBar.layer.shadowPath = shadowPath
+        self.webNavBar.layer.masksToBounds = false
+        self.webNavBar.layer.masksToBounds = false
+        self.webNavBar.clipsToBounds = false
+    }
+    
     deinit {
         log.verbose("** Deallocated viewController \(WebViewController.self).")
     }
@@ -59,6 +122,65 @@ class WebViewController: UIViewController, UIPopoverPresentationControllerDelega
     
     @objc fileprivate func shareTapped(_ sender: UIBarButtonItem) {
         self.share()
+    }
+    
+    @objc fileprivate func webBack() {
+        self.webView.goBack()
+    }
+    
+    @objc fileprivate func webReload() {
+        self.webView.reloadFromOrigin()
+    }
+    
+    // MARK: - Private
+    fileprivate func layout() {
+        // - Add the nav view
+        self.view.addSubview(self.webNavBar)
+        
+        self.webNavBar.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        self.webNavBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        self.webNavBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        self.webNavBarHeight = self.webNavBar.heightAnchor.constraint(equalToConstant: 44.0)
+        self.webNavBarHeight?.isActive = true
+        
+        // - Add the buttons to the nav bar
+        self.webNavBar.addSubview(self.webBackButton)
+        
+        self.webBackButton.leadingAnchor.constraint(equalTo: self.webNavBar.leadingAnchor, constant: 16.0).isActive = true
+        self.webBackButton.widthAnchor.constraint(equalToConstant: 32.0).isActive = true
+        self.webBackButton.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
+        self.webBackButton.centerYAnchor.constraint(equalTo: self.webNavBar.centerYAnchor).isActive = true
+        
+        self.webNavBar.addSubview(self.webReloadButton)
+        
+        self.webReloadButton.trailingAnchor.constraint(equalTo: self.webNavBar.trailingAnchor, constant: -16.0).isActive = true
+        self.webReloadButton.widthAnchor.constraint(equalToConstant: 32.0).isActive = true
+        self.webReloadButton.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
+        self.webReloadButton.centerYAnchor.constraint(equalTo: self.webNavBar.centerYAnchor).isActive = true
+
+        // - Add the web view
+        self.view.addSubview(self.webView)
+        
+        self.webView.topAnchor.constraint(equalTo: self.webNavBar.bottomAnchor, constant: 1.0).isActive = true
+        self.webView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        self.webView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        self.webView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+
+        // - Add the labels
+        self.webNavBar.addSubview(self.webBackButtonLabel)
+
+        self.webBackButtonLabel.leadingAnchor.constraint(equalTo: self.webBackButton.trailingAnchor, constant: 8.0).isActive = true
+        self.webBackButtonLabel.centerYAnchor.constraint(equalTo: self.webBackButton.centerYAnchor).isActive = true
+
+        let reloadLabel = UILabel.init()
+        reloadLabel.translatesAutoresizingMaskIntoConstraints = false
+        reloadLabel.font = UIFont.init(name: "Helvetica", size: 13.0)
+        reloadLabel.textColor = AppConfigurator.shared.themeConfigurator?.themeColor
+        reloadLabel.text = "Reload"
+        
+        self.webNavBar.addSubview(reloadLabel)
+        reloadLabel.trailingAnchor.constraint(equalTo: self.webReloadButton.leadingAnchor, constant: -8.0).isActive = true
+        reloadLabel.centerYAnchor.constraint(equalTo: self.webReloadButton.centerYAnchor).isActive = true
     }
 }
 
@@ -113,6 +235,16 @@ extension WebViewController: WebViewDelegate {
     func disableShare() {
         self.navigationItem.rightBarButtonItem = nil
     }
+    
+    func enableNav() {
+        self.webNavBarHeight?.constant = 44.0
+        self.webNavBar.isHidden = false
+    }
+    
+    func disableNav() {
+        self.webNavBarHeight?.constant = 0
+        self.webNavBar.isHidden = true
+    }
 }
 
 // - MARK: WKNavigationDelegate
@@ -128,6 +260,9 @@ extension WebViewController: WKNavigationDelegate {
                 }
             }
         }
+        
+        self.webBackButton.isHidden = !webView.canGoBack
+        self.webBackButtonLabel.isHidden = !webView.canGoBack
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
@@ -160,6 +295,9 @@ extension WebViewController: WKNavigationDelegate {
                 }
             }
         }
+        
+        self.webBackButton.isHidden = !webView.canGoBack
+        self.webBackButtonLabel.isHidden = !webView.canGoBack
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {

@@ -29,6 +29,8 @@ enum CommonImages: String {
     case favoritesenabled = "favorites_enabled"
     case favoritesdisabled = "favorites_disabled"
     case dailyupdatebg = "dailyupdate_bg"
+    case goback = "goback"
+    case reload = "reload"
     
     var image: UIImage? {
         get {
