@@ -12,8 +12,8 @@ import UIKit
 enum AppActions: String {
     
     case proforma = "app://proforma"
-    case techsupport = "app://showTechSupport"
-    case support = "app://showSupport"
+    case techsupport = "app://showtechsupportcontact"
+    case repsupport = "app://showsupportcontact"
     case home = "app://home"
     case calendar = "app://calendar"
     case inbox = "app://inbox"
@@ -64,6 +64,17 @@ class AppActionHandler: ActionHandler {
                 
                 case AppActions.logout.rawValue:
                     return nil
+                
+                case AppActions.repsupport.rawValue:
+                    if let supportView = UIStoryboard.init(name: "Support", bundle: nil).instantiateInitialViewController() as? SupportViewController {
+                        supportView.presenter = RepSupportPresenter.init()
+                        viewController = supportView
+                    }
+                
+                case AppActions.techsupport.rawValue:
+                    if let supportView = UIStoryboard.init(name: "Support", bundle: nil).instantiateInitialViewController() as? SupportViewController {
+                        viewController = supportView
+                    }
                 
                 default:
                     break

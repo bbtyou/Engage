@@ -30,6 +30,10 @@
 		13796D7D21B4A12A008FCA13 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13796D7C21B4A12A008FCA13 /* GoogleService-Info.plist */; };
 		13796D7F21B4CFD1008FCA13 /* Notifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13796D7E21B4CFD1008FCA13 /* Notifiable.swift */; };
 		13796D8221B4DBDC008FCA13 /* EngageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13796D8121B4DBDC008FCA13 /* EngageViewController.swift */; };
+		13796D8421B50FD8008FCA13 /* Support.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13796D8321B50FD8008FCA13 /* Support.storyboard */; };
+		13796D8621B510C2008FCA13 /* RepSupportPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13796D8521B510C2008FCA13 /* RepSupportPresenter.swift */; };
+		13796D8821B510D1008FCA13 /* SupportDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13796D8721B510D1008FCA13 /* SupportDelegate.swift */; };
+		13796D8A21B51164008FCA13 /* SupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13796D8921B51164008FCA13 /* SupportViewController.swift */; };
 		138CBBE3219240EB00015EDC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138CBBE2219240EB00015EDC /* AppDelegate.swift */; };
 		138CBBEE219240ED00015EDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 138CBBED219240ED00015EDC /* Assets.xcassets */; };
 		138CBBF1219240ED00015EDC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 138CBBEF219240ED00015EDC /* LaunchScreen.storyboard */; };
@@ -159,6 +163,10 @@
 		13796D7E21B4CFD1008FCA13 /* Notifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifiable.swift; sourceTree = "<group>"; };
 		13796D8021B4DA91008FCA13 /* Engage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Engage.entitlements; sourceTree = "<group>"; };
 		13796D8121B4DBDC008FCA13 /* EngageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngageViewController.swift; sourceTree = "<group>"; };
+		13796D8321B50FD8008FCA13 /* Support.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Support.storyboard; sourceTree = "<group>"; };
+		13796D8521B510C2008FCA13 /* RepSupportPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepSupportPresenter.swift; sourceTree = "<group>"; };
+		13796D8721B510D1008FCA13 /* SupportDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportDelegate.swift; sourceTree = "<group>"; };
+		13796D8921B51164008FCA13 /* SupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViewController.swift; sourceTree = "<group>"; };
 		138CBBDF219240EB00015EDC /* Engage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Engage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		138CBBE2219240EB00015EDC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		138CBBED219240ED00015EDC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -447,6 +455,7 @@
 				13A8B0F0219C989A003CCFC5 /* Web.storyboard */,
 				134805E821A6030800AF9BAF /* Inbox.storyboard */,
 				1398257721A9F83D00AE5702 /* Calendar.storyboard */,
+				13796D8321B50FD8008FCA13 /* Support.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -466,6 +475,7 @@
 				1398257121A9EF7300AE5702 /* CalendarViewController.swift */,
 				1398257B21AA362D00AE5702 /* CalendarDetailViewController.swift */,
 				13796D8121B4DBDC008FCA13 /* EngageViewController.swift */,
+				13796D8921B51164008FCA13 /* SupportViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -483,6 +493,7 @@
 				134805F221A7353C00AF9BAF /* InboxDetailPresenter.swift */,
 				1398257321A9EF8400AE5702 /* CalendarPresenter.swift */,
 				1398257F21AA44DE00AE5702 /* CalendarDetailPresenter.swift */,
+				13796D8521B510C2008FCA13 /* RepSupportPresenter.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -500,6 +511,7 @@
 				134805F421A736EE00AF9BAF /* InboxDetailDelegate.swift */,
 				1398257521A9EF9000AE5702 /* CalendarDelegate.swift */,
 				1398257D21AA400D00AE5702 /* CalendarDetailDelegate.swift */,
+				13796D8721B510D1008FCA13 /* SupportDelegate.swift */,
 			);
 			path = PresenterDelegates;
 			sourceTree = "<group>";
@@ -711,6 +723,7 @@
 				138CBBEE219240ED00015EDC /* Assets.xcassets in Resources */,
 				13796D7D21B4A12A008FCA13 /* GoogleService-Info.plist in Resources */,
 				1398257821A9F83D00AE5702 /* Calendar.storyboard in Resources */,
+				13796D8421B50FD8008FCA13 /* Support.storyboard in Resources */,
 				13A8B0F5219CF9F5003CCFC5 /* Home.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -855,6 +868,7 @@
 				138CBC192192435900015EDC /* Calendar.swift in Sources */,
 				138CBC22219247AD00015EDC /* PropertyManager.swift in Sources */,
 				138CBC702199E2E200015EDC /* Formatter+Extensions.swift in Sources */,
+				13796D8621B510C2008FCA13 /* RepSupportPresenter.swift in Sources */,
 				13497E7F21A4B6BE00DDE195 /* AssetFileDataSource.swift in Sources */,
 				138CBC6A2199E2E200015EDC /* UIApplication+Extensions.swift in Sources */,
 				138CBC682199E2E200015EDC /* Integer+Extensions.swift in Sources */,
@@ -868,6 +882,7 @@
 				138CBC3F21965E2E00015EDC /* CalendarDataSource.swift in Sources */,
 				138CBC4D2199321D00015EDC /* ProvisioningViewController.swift in Sources */,
 				138CBC4B2199262F00015EDC /* CommonImages.swift in Sources */,
+				13796D8A21B51164008FCA13 /* SupportViewController.swift in Sources */,
 				138CBC532199386D00015EDC /* ProvisioningDelgate.swift in Sources */,
 				138CBC1D2192446C00015EDC /* Provision.swift in Sources */,
 				130A589B21A25B5500D693B4 /* MimeHelper.swift in Sources */,
@@ -903,6 +918,7 @@
 				13796D7B21AE4410008FCA13 /* Shareable.swift in Sources */,
 				13A8B0CC219A2263003CCFC5 /* Stylable.swift in Sources */,
 				138CBC2E219555CD00015EDC /* Request.swift in Sources */,
+				13796D8821B510D1008FCA13 /* SupportDelegate.swift in Sources */,
 				13A8B0F9219CFA27003CCFC5 /* HomeDelegate.swift in Sources */,
 				138CBC392195FF0000015EDC /* PortalDataSource.swift in Sources */,
 				130A589921A20E3B00D693B4 /* ImageCache.swift in Sources */,
