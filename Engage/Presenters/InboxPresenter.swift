@@ -51,7 +51,7 @@ class InboxPresenter: RestResponseCheckable {
     
     func messageSelected(_ index: Int) {
         let message = self.messages[index]
-        let presenter = InboxDetailPresenter.init(withDetails: InboxDetail(message.time, message.subject, message.author, message.body))
+        let presenter = InboxDetailPresenter.init(withDetails: InboxDetail(self.formatTime(Date.dateFromUTCString(utc: message.time) ?? Date()), message.subject, message.author, message.body))
         
         // - Notify the view with the presenter
         self.delegate?.showDetails(presenter)
@@ -110,3 +110,15 @@ class InboxPresenter: RestResponseCheckable {
         }
     }
 }
+
+// - Private
+
+fileprivate extension InboxPresenter {
+    func formatTime(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM-dd-yyyy hh:mm a"
+        
+        return formatter.string(from: date)
+    }
+}
+

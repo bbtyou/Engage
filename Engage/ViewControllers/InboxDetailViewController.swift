@@ -45,7 +45,7 @@ class InboxDetailViewController: EngageViewController {
         self.view.backgroundColor = AppConfigurator.shared.themeConfigurator?.backgroundColor
 
         // - Update the photo image view
-        self.profilePhotoImageView.image = self.profilePhotoImageView.image?.maskedImage(with: UIColor.white)
+        self.profilePhotoImageView.image = self.profilePhotoImageView.image?.maskedImage(with: AppConfigurator.shared.themeConfigurator?.themeColor ?? UIColor.white)
         self.profilePhotoImageView?.backgroundColor = AppConfigurator.shared.themeConfigurator?.backgroundColor
         
         // - Load the contents
