@@ -13,7 +13,7 @@ typealias DrawerItem = (title: String, iconPath: String)
 
 // - View Controller which defines the main menu drawer
 // - which can slide out from the left side of the screen
-class DrawerViewController: UIViewController, Containerable {
+class DrawerViewController: EngageViewController, Containerable {
 
 	// MARK: - Outlets
 	

@@ -39,6 +39,9 @@ class LoginPresenter {
 			
 			// - Navigate to the home screen
 			self.delegate?.navigate("home", DrawerPresenter())
+            
+            // - Notify listeners that login has completed
+            NotificationCenter.default.post(name: NSNotification.Name.init("loginCompleted"), object: nil)
 		}
     }
 	

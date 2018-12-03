@@ -8,9 +8,10 @@
 
 import CalendarKit
 
-class CalendarViewController: DayViewController {
+class CalendarViewController: DayViewController, Notifiable {
 
-    // MARK: - Outlets
+    // - Notifiable
+    var notifyContainer: UIView?
     
     // - Events for the date
     fileprivate var events = [Event]() {

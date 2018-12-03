@@ -31,6 +31,7 @@ enum CommonImages: String {
     case dailyupdatebg = "dailyupdate_bg"
     case goback = "goback"
     case reload = "reload"
+    case notify = "notify"
     
     var image: UIImage? {
         get {

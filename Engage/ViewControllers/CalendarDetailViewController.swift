@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CalendarDetailViewController: UIViewController {
+class CalendarDetailViewController: EngageViewController {
 
     // - Outlets
     

@@ -7,7 +7,9 @@ target 'Engage' do
 
   # Pods for Engage
   pod 'CalendarKit'
-
+  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
+  
   target 'EngageTests' do
     inherit! :search_paths
     # Pods for testing

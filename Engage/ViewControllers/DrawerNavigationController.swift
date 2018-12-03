@@ -12,6 +12,10 @@ class DrawerNavigationController: UINavigationController {
 	
     weak var drawerPresenter: DrawerPresenter?
     
+    // - Notifiable container view
+    var container: UIView?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
  

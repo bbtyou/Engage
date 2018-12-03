@@ -7,15 +7,51 @@
 //
 
 import UIKit
+import UserNotifications
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
+    // - Firebase Messaging key
+    let fbMessageIDKey = "gcm.message_id"
+    
+    // - Push token
+    var apnsToken: String?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+
+        // - Configure firebase
+        FirebaseApp.configure()
+        
+        // - Set the messaging delegate
+        Messaging.messaging().delegate = self
+        
+        // - Set the user notification delegate
+        UNUserNotificationCenter.current().delegate = self
+        
+        // - Authorization options for notifications
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { (allowed, error) in
+            if let e = error {
+                log.error("Registration for push could not be completed. \(e).")
+                return
+            }
+            
+            if allowed {
+                // - Observe that login has completed before we register for push
+                NotificationCenter.default.addObserver(self, selector: #selector(self.registerForPush), name: NSNotification.Name.init("loginCompleted"), object: nil)
+                
+                // - Register the application for remote notifications
+                DispatchQueue.main.async {
+                    application.registerForRemoteNotifications()
+                }
+            }
+        }
+
         return true
     }
 
@@ -39,8 +75,76 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.init("loginCompleted"), object: nil)
     }
-
-
 }
 
+// - Push registration
+fileprivate extension AppDelegate {
+
+    @objc func registerForPush() {
+        guard let token = self.apnsToken else {
+            log.warning("Unable to register for push notifications because the push token could not be verified.")
+            return
+        }
+        
+        let request = PushRegisterRequest.init(token: token)
+        request.sendRequest { (response, data, error) in
+            if let error = error {
+                log.error("\(error)")
+                return
+            }
+            
+            if let data = data, let dataString = String.init(data: data, encoding: .utf8), let response = response {
+                log.verbose("Push registration response: \(response).")
+                log.verbose("Push registration data: \(dataString))")
+            }
+        }
+    }
+    
+}
+
+// MARK: - UNUserNotificationCenterDelegate
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let userInfo = notification.request.content.userInfo
+        let contents = userInfo["aps"] as? [String: Any]
+        let alert = contents?["alert"] as? [String: Any]
+        let body = alert?["body"]
+        
+        if let messageId = userInfo[self.fbMessageIDKey] {
+            log.debug("Push message id = \(messageId).")
+        }
+        
+        guard let view = UIApplication.topViewController() as? Notifiable & UIViewController, let message = body as? String else {
+            log.warning("Unable to display message notification because the top view controller could not be obtained.")
+            return
+        }
+        
+        view.notify(message: message, 2.0)
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
+    }
+}
+
+// MARK: - MessagingDelegate
+
+extension AppDelegate: MessagingDelegate {
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        log.debug("Firebase registration token: \(fcmToken).")
+        self.apnsToken = fcmToken
+    }
+    
+    // [END refresh_token]
+    // [START ios_10_data_message]
+    // Receive data messages on iOS 10+ directly from FCM (bypassing APNs) when the app is in the foreground.
+    // To enable direct data messages, you can set Messaging.messaging().shouldEstablishDirectChannel to true.
+    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+        log.verbose("Received data message: \(remoteMessage.appData)")
+    }
+}

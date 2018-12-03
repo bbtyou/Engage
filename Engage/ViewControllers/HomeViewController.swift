@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class HomeViewController: EngageViewController {
 
     // - Outlets
     @IBOutlet fileprivate var assetTableView: UITableView!

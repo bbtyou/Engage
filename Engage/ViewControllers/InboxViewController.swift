@@ -11,7 +11,7 @@ import UIKit
 // - Type alias for view data
 typealias InboxMessage = (time: Date, subject: String, body: String, author: String, read: Bool)
 
-class InboxViewController: UIViewController {
+class InboxViewController: EngageViewController {
 
     // - MARK: Outlets
     

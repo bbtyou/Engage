@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 import MessageUI
 
-class WebViewController: UIViewController, UIPopoverPresentationControllerDelegate, Shareable {
+class WebViewController: EngageViewController, UIPopoverPresentationControllerDelegate, Shareable {
     
     // - Presenter
     var presenter: WebViewPresenter? {
