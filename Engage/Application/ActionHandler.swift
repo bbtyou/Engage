@@ -67,12 +67,13 @@ class AppActionHandler: ActionHandler {
                 
                 case AppActions.repsupport.rawValue:
                     if let supportView = UIStoryboard.init(name: "Support", bundle: nil).instantiateInitialViewController() as? SupportViewController {
-                        supportView.presenter = RepSupportPresenter.init()
+                        supportView.presenter = SupportPresenter.init(withType: .rep)
                         viewController = supportView
                     }
                 
                 case AppActions.techsupport.rawValue:
                     if let supportView = UIStoryboard.init(name: "Support", bundle: nil).instantiateInitialViewController() as? SupportViewController {
+                        supportView.presenter = SupportPresenter.init(withType: .tech)
                         viewController = supportView
                     }
                 

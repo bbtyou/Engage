@@ -57,11 +57,10 @@ class LoginViewController: UIViewController, OrientationConfigurable {
 
 		self.usernameTextField.style()
 		self.usernameTextField.delegate = self
-		self.usernameTextField.text = "chuck@perpetuitymd.com"
+        self.usernameTextField.text = CommonProperties.userid.value as? String
         
         self.passwordTextField.style()
 		self.passwordTextField.delegate = self
-        self.passwordTextField.text = "guitar20"
         
         // - Hide the navigation bar for login
         self.navigationController?.isNavigationBarHidden = true

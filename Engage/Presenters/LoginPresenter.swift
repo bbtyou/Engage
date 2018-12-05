@@ -37,6 +37,9 @@ class LoginPresenter {
             
 			self.delegate?.loginCompleted()
 			
+            // - Save the username
+            CommonProperties.userid.setValue(username)
+            
 			// - Navigate to the home screen
 			self.delegate?.navigate("home", DrawerPresenter())
             

@@ -14,6 +14,7 @@ enum CommonProperties: String {
     case servicesBasePath
     case provisioningCode
     case title
+    case userid
     
     var value: Any? {
         get {
