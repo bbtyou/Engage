@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		130A588A21A1004500D693B4 /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130A588921A1004500D693B4 /* FileManager+Extensions.swift */; };
 		130A588E21A1E36300D693B4 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130A588D21A1E36300D693B4 /* Cache.swift */; };
 		130A589021A1E36E00D693B4 /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130A588F21A1E36E00D693B4 /* DiskCache.swift */; };
 		130A589221A1E37F00D693B4 /* SharedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130A589121A1E37F00D693B4 /* SharedCache.swift */; };
@@ -15,6 +14,7 @@
 		130A589721A2058500D693B4 /* TypeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130A589621A2058500D693B4 /* TypeWrapper.swift */; };
 		130A589921A20E3B00D693B4 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130A589821A20E3B00D693B4 /* ImageCache.swift */; };
 		130A589B21A25B5500D693B4 /* MimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130A589A21A25B5500D693B4 /* MimeHelper.swift */; };
+		1321751721B7C9C300966B92 /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1321751621B7C9C300966B92 /* FileManager+Extensions.swift */; };
 		134805E521A528E900AF9BAF /* Mime-Mapping.plist in Resources */ = {isa = PBXBuildFile; fileRef = 134805E421A528E900AF9BAF /* Mime-Mapping.plist */; };
 		134805E721A551AB00AF9BAF /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134805E621A551AB00AF9BAF /* RootNavigationController.swift */; };
 		134805E921A6030800AF9BAF /* Inbox.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 134805E821A6030800AF9BAF /* Inbox.storyboard */; };
@@ -139,7 +139,6 @@
 
 /* Begin PBXFileReference section */
 		08DC33DB7D0BE11A4E0A761F /* Pods-EngageUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EngageUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EngageUITests/Pods-EngageUITests.release.xcconfig"; sourceTree = "<group>"; };
-		130A588921A1004500D693B4 /* FileManager+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "FileManager+Extensions.swift"; path = "../../../../Desktop/FileManager+Extensions.swift"; sourceTree = "<group>"; };
 		130A588D21A1E36300D693B4 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		130A588F21A1E36E00D693B4 /* DiskCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskCache.swift; sourceTree = "<group>"; };
 		130A589121A1E37F00D693B4 /* SharedCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCache.swift; sourceTree = "<group>"; };
@@ -147,6 +146,7 @@
 		130A589621A2058500D693B4 /* TypeWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeWrapper.swift; sourceTree = "<group>"; };
 		130A589821A20E3B00D693B4 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		130A589A21A25B5500D693B4 /* MimeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MimeHelper.swift; sourceTree = "<group>"; };
+		1321751621B7C9C300966B92 /* FileManager+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
 		134805E421A528E900AF9BAF /* Mime-Mapping.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Mime-Mapping.plist"; sourceTree = "<group>"; };
 		134805E621A551AB00AF9BAF /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
 		134805E821A6030800AF9BAF /* Inbox.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Inbox.storyboard; sourceTree = "<group>"; };
@@ -534,7 +534,7 @@
 		138CBC572199E2C200015EDC /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				130A588921A1004500D693B4 /* FileManager+Extensions.swift */,
+				1321751621B7C9C300966B92 /* FileManager+Extensions.swift */,
 				138CBC5C2199E2E100015EDC /* Data+Extensions.swift */,
 				138CBC642199E2E200015EDC /* Date+Extensions.swift */,
 				138CBC632199E2E200015EDC /* Formatter+Extensions.swift */,
@@ -908,12 +908,12 @@
 				138CBC29219251FF00015EDC /* AppConfigurator.swift in Sources */,
 				13A8B0F7219CFA17003CCFC5 /* HomePresenter.swift in Sources */,
 				13A8B0D0219A27FA003CCFC5 /* ThemeConfigurator.swift in Sources */,
-				130A588A21A1004500D693B4 /* FileManager+Extensions.swift in Sources */,
 				13A8B0D6219A4F1D003CCFC5 /* ThemeDelegate.swift in Sources */,
 				130A588E21A1E36300D693B4 /* Cache.swift in Sources */,
 				138CBC1F219244B300015EDC /* Profile.swift in Sources */,
 				13A8B0FD219D0546003CCFC5 /* AssetTableViewCell.swift in Sources */,
 				1398257221A9EF7300AE5702 /* CalendarViewController.swift in Sources */,
+				1321751721B7C9C300966B92 /* FileManager+Extensions.swift in Sources */,
 				13796D8221B4DBDC008FCA13 /* EngageViewController.swift in Sources */,
 				13796D7B21AE4410008FCA13 /* Shareable.swift in Sources */,
 				13A8B0CC219A2263003CCFC5 /* Stylable.swift in Sources */,
