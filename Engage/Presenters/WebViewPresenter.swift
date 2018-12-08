@@ -119,8 +119,9 @@ class WebViewPresenter {
         newRequest.addValue("appBundleId", forHTTPHeaderField: "appBundleId")
         newRequest.httpMethod = request.httpMethod
         newRequest.httpBody = request.httpBody
+        newRequest.httpShouldHandleCookies = true
         newRequest.timeoutInterval = 20
-        
+
         // Add the cookies
         let cookies = HTTPCookieStorage.shared.cookies ?? []
         let cookieHeaders = HTTPCookie.requestHeaderFields(with: cookies)
@@ -136,6 +137,43 @@ class WebViewPresenter {
             self.delegate?.showSpinner("Loading content...")
         }
 
+        self.delegate?.load(withRequest: newRequest, self.title)
+    }
+    
+    func loadFormSubmit(withRequest request: URLRequest) {
+        guard let url = request.url else {
+            self.delegate?.showError("The web content could not be loaded.  Tap retry to try again or cancel to try again later.")
+            return
+        }
+        
+        // - Create a new request
+        var newRequest = request//URLRequest.init(url: url)
+        
+//        // - Copy all headers
+//        request.allHTTPHeaderFields?.forEach({ (header) in
+//            newRequest.setValue(header.value, forHTTPHeaderField: header.key)
+//        })
+//        
+//        newRequest.httpMethod = request.httpMethod
+//        newRequest.httpBody = request.httpBody
+//        newRequest.httpShouldHandleCookies = true
+//        newRequest.timeoutInterval = 20
+        
+        // Add the cookies
+        let cookies = HTTPCookieStorage.shared.cookies ?? []
+        let cookieHeaders = HTTPCookie.requestHeaderFields(with: cookies)
+        
+        cookieHeaders.forEach { (key, value) in
+            newRequest.addValue(value, forHTTPHeaderField: key)
+        }
+        
+        if let title = self.title {
+            self.delegate?.showSpinner("Loading \(title) content...")
+        }
+        else {
+            self.delegate?.showSpinner("Loading content...")
+        }
+        
         self.delegate?.load(withRequest: newRequest, self.title)
     }
 }

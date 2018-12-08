@@ -134,57 +134,6 @@ class WebViewController: EngageViewController, UIPopoverPresentationControllerDe
         self.showSpinner("Reloading \(self.title ?? "page")...")
         self.webView.reloadFromOrigin()
     }
-    
-    // MARK: - Private
-    fileprivate func layout() {
-        // - Add the nav view
-        self.view.addSubview(self.webNavBar)
-        
-        self.webNavBar.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        self.webNavBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        self.webNavBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        self.webNavBarHeight = self.webNavBar.heightAnchor.constraint(equalToConstant: 44.0)
-        self.webNavBarHeight?.isActive = true
-        
-        // - Add the buttons to the nav bar
-        self.webNavBar.addSubview(self.webBackButton)
-        
-        self.webBackButton.leadingAnchor.constraint(equalTo: self.webNavBar.leadingAnchor, constant: 17.0).isActive = true
-        self.webBackButton.widthAnchor.constraint(equalToConstant: 32.0).isActive = true
-        self.webBackButton.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
-        self.webBackButton.centerYAnchor.constraint(equalTo: self.webNavBar.centerYAnchor).isActive = true
-        
-        self.webNavBar.addSubview(self.webReloadButton)
-        
-        self.webReloadButton.trailingAnchor.constraint(equalTo: self.webNavBar.trailingAnchor, constant: -17.0).isActive = true
-        self.webReloadButton.widthAnchor.constraint(equalToConstant: 32.0).isActive = true
-        self.webReloadButton.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
-        self.webReloadButton.centerYAnchor.constraint(equalTo: self.webNavBar.centerYAnchor).isActive = true
-
-        // - Add the web view
-        self.view.addSubview(self.webView)
-        
-        self.webView.topAnchor.constraint(equalTo: self.webNavBar.bottomAnchor, constant: 1.0).isActive = true
-        self.webView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        self.webView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        self.webView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-
-        // - Add the labels
-        self.webNavBar.addSubview(self.webBackButtonLabel)
-
-        self.webBackButtonLabel.leadingAnchor.constraint(equalTo: self.webBackButton.trailingAnchor, constant: 8.0).isActive = true
-        self.webBackButtonLabel.centerYAnchor.constraint(equalTo: self.webBackButton.centerYAnchor).isActive = true
-
-        let reloadLabel = UILabel.init()
-        reloadLabel.translatesAutoresizingMaskIntoConstraints = false
-        reloadLabel.font = UIFont.init(name: "Helvetica", size: 13.0)
-        reloadLabel.textColor = AppConfigurator.shared.themeConfigurator?.themeColor
-        reloadLabel.text = "Reload"
-        
-        self.webNavBar.addSubview(reloadLabel)
-        reloadLabel.trailingAnchor.constraint(equalTo: self.webReloadButton.leadingAnchor, constant: -8.0).isActive = true
-        reloadLabel.centerYAnchor.constraint(equalTo: self.webReloadButton.centerYAnchor).isActive = true
-    }
 }
 
 // MARK: - WebViewDelegate
@@ -306,7 +255,7 @@ extension WebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         let request = navigationAction.request
         let base = CommonProperties.servicesBasePath.value as? String ?? ""
-
+        
         // - Handle any links that are outside of the application domain.
         // - These links should be opened in an external browser.
         if let url = request.url, navigationAction.navigationType == .linkActivated, let host = url.host, base.contains(host) == false {
@@ -321,7 +270,7 @@ extension WebViewController: WKNavigationDelegate {
             decisionHandler(.cancel)
             return
         }
-        
+
         // - If we are loading data from a file pass through
         if let local = request.url?.absoluteString.contains("localhost"), local == true {
             decisionHandler(.allow)
@@ -333,6 +282,13 @@ extension WebViewController: WKNavigationDelegate {
             decisionHandler(.cancel)
             self.presenter?.loadRedirectRequest(fromRequest: request)
         }
+    }
+}
+
+// MARK: - WKScriptMessageHandler
+
+extension WebViewController: WKScriptMessageHandler {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
     }
 }
 
@@ -363,5 +319,59 @@ extension WebViewController: MFMailComposeViewControllerDelegate {
             }
         }
         
+    }
+}
+
+// MARK: - Private
+
+fileprivate extension WebViewController {
+    func layout() {
+        // - Add the nav view
+        self.view.addSubview(self.webNavBar)
+        
+        self.webNavBar.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        self.webNavBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        self.webNavBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        self.webNavBarHeight = self.webNavBar.heightAnchor.constraint(equalToConstant: 44.0)
+        self.webNavBarHeight?.isActive = true
+        
+        // - Add the buttons to the nav bar
+        self.webNavBar.addSubview(self.webBackButton)
+        
+        self.webBackButton.leadingAnchor.constraint(equalTo: self.webNavBar.leadingAnchor, constant: 17.0).isActive = true
+        self.webBackButton.widthAnchor.constraint(equalToConstant: 32.0).isActive = true
+        self.webBackButton.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
+        self.webBackButton.centerYAnchor.constraint(equalTo: self.webNavBar.centerYAnchor).isActive = true
+        
+        self.webNavBar.addSubview(self.webReloadButton)
+        
+        self.webReloadButton.trailingAnchor.constraint(equalTo: self.webNavBar.trailingAnchor, constant: -17.0).isActive = true
+        self.webReloadButton.widthAnchor.constraint(equalToConstant: 32.0).isActive = true
+        self.webReloadButton.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
+        self.webReloadButton.centerYAnchor.constraint(equalTo: self.webNavBar.centerYAnchor).isActive = true
+        
+        // - Add the web view
+        self.view.addSubview(self.webView)
+        
+        self.webView.topAnchor.constraint(equalTo: self.webNavBar.bottomAnchor, constant: 1.0).isActive = true
+        self.webView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        self.webView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        self.webView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        
+        // - Add the labels
+        self.webNavBar.addSubview(self.webBackButtonLabel)
+        
+        self.webBackButtonLabel.leadingAnchor.constraint(equalTo: self.webBackButton.trailingAnchor, constant: 8.0).isActive = true
+        self.webBackButtonLabel.centerYAnchor.constraint(equalTo: self.webBackButton.centerYAnchor).isActive = true
+        
+        let reloadLabel = UILabel.init()
+        reloadLabel.translatesAutoresizingMaskIntoConstraints = false
+        reloadLabel.font = UIFont.init(name: "Helvetica", size: 13.0)
+        reloadLabel.textColor = AppConfigurator.shared.themeConfigurator?.themeColor
+        reloadLabel.text = "Reload"
+        
+        self.webNavBar.addSubview(reloadLabel)
+        reloadLabel.trailingAnchor.constraint(equalTo: self.webReloadButton.leadingAnchor, constant: -8.0).isActive = true
+        reloadLabel.centerYAnchor.constraint(equalTo: self.webReloadButton.centerYAnchor).isActive = true
     }
 }
