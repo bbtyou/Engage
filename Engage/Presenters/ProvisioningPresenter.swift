@@ -13,6 +13,26 @@ class ProvisioningPresenter {
     // - MVP pattern delegate
     weak var delegate: ProvisioningDelegate?
     
+    func migrate() {
+        if let code = CommonProperties.provisioningCode.value as? String {
+            if let _ = CommonProperties.migrated.value as? Bool {
+                self.checkProvisioning()
+                return
+            }
+
+            // - Remove the current code
+            CommonProperties.provisioningCode.remove()
+
+            // - We have a code from a previous version
+            self.delegate?.disableProvisioning()
+            self.delegate?.showSpinner("Migrating your account...")
+            self.provision(code)
+        }
+        else {
+            self.checkProvisioning()
+        }
+    }
+    
     func checkProvisioning() {
         if let _ = CommonProperties.provisioningCode.value as? String {
             self.delegate?.disableProvisioning()
@@ -23,13 +43,15 @@ class ProvisioningPresenter {
         }
     }
     
-    func provision(_ code: String) {
+    func provision(_ code: String, _ completion: (() -> ())? = nil) {
         if let _ = CommonProperties.provisioningCode.value as? String {
+            completion?()
             return
         }
         
         if code.count == 0 {
             self.delegate?.provisioningFailed("Please enter a valid provisioning code.")
+            completion?()
             return
         }
 
@@ -42,6 +64,7 @@ class ProvisioningPresenter {
             if let error = error {
                 log.error(error)
                 self.delegate?.provisioningFailed(error.localizedDescription)
+                completion?()
                 return
             }
             
@@ -54,6 +77,9 @@ class ProvisioningPresenter {
                 CommonProperties.servicesBasePath.setValue(prov.url.absoluteString)
                 CommonProperties.title.setValue(prov.title)
                 
+                // - Update the migration flag
+                CommonProperties.migrated.setValue(true)
+                
                 // - Update the view
                 self.delegate?.provisioningSuccess(ThemePresenter.init())
             }
@@ -62,6 +88,8 @@ class ProvisioningPresenter {
                 log.debug("Provisioning failed.")
                 self.delegate?.provisioningFailed("The account could not be provisioned using code '\(code)'.")
             }
+            
+            completion?()
         }
     }
     
@@ -69,3 +97,4 @@ class ProvisioningPresenter {
         self.delegate?.navigate("login", LoginPresenter())
     }
 }
+

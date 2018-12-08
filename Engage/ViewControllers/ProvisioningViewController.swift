@@ -47,7 +47,7 @@ class ProvisioningViewController: UIViewController, OrientationConfigurable {
         self.provisioningCodeTextField.style()
 
 		// - Check if provisioning is needed
-		self.presenter.checkProvisioning()
+		self.presenter.migrate()
 	}
 	
     // MARK: - Actions

@@ -15,6 +15,7 @@ enum CommonProperties: String {
     case provisioningCode
     case title
     case userid
+    case migrated
     
     var value: Any? {
         get {

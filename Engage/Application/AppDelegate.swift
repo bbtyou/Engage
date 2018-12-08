@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var apnsToken: String?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
+        
         // - Configure firebase
         FirebaseApp.configure()
         
@@ -79,9 +79,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-// - Push registration
+// - Private
 fileprivate extension AppDelegate {
 
+    // - Push registration
     @objc func registerForPush() {
         guard let token = self.apnsToken else {
             log.warning("Unable to register for push notifications because the push token could not be verified.")
@@ -100,8 +101,7 @@ fileprivate extension AppDelegate {
                 log.verbose("Push registration data: \(dataString))")
             }
         }
-    }
-    
+    }    
 }
 
 // MARK: - UNUserNotificationCenterDelegate
