@@ -106,7 +106,6 @@
 		13A8B0FD219D0546003CCFC5 /* AssetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A8B0FC219D0546003CCFC5 /* AssetTableViewCell.swift */; };
 		13A8B0FF219D0570003CCFC5 /* AssetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A8B0FE219D0570003CCFC5 /* AssetCollectionViewCell.swift */; };
 		13D3D6A121BB94C5004608E0 /* postrequest.js in Resources */ = {isa = PBXBuildFile; fileRef = 13D3D6A021BB94C5004608E0 /* postrequest.js */; };
-		13D3D6A521BC49F4004608E0 /* ServiceURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D3D6A421BC49F4004608E0 /* ServiceURLProtocol.swift */; };
 		57EFED75A364F1AC1E1D37CA /* Pods_EngageUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8224EE2C1EA7386123DCAB2E /* Pods_EngageUITests.framework */; };
 		78CD6E2075C0602E1E9E24DE /* Pods_EngageTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F479B823E11AA59D5F69AC29 /* Pods_EngageTests.framework */; };
 		7C71D6450D8B3712714FFD5D /* Pods_Engage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D3FFE013487F476449D44A /* Pods_Engage.framework */; };
@@ -248,7 +247,6 @@
 		13A8B0FC219D0546003CCFC5 /* AssetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetTableViewCell.swift; sourceTree = "<group>"; };
 		13A8B0FE219D0570003CCFC5 /* AssetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetCollectionViewCell.swift; sourceTree = "<group>"; };
 		13D3D6A021BB94C5004608E0 /* postrequest.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = postrequest.js; sourceTree = "<group>"; };
-		13D3D6A421BC49F4004608E0 /* ServiceURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceURLProtocol.swift; sourceTree = "<group>"; };
 		3CA598D839A4524F973C7FF0 /* Pods-Engage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Engage.release.xcconfig"; path = "Pods/Target Support Files/Pods-Engage/Pods-Engage.release.xcconfig"; sourceTree = "<group>"; };
 		5BDDC33486B8FB1E13793A10 /* Pods-Engage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Engage.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Engage/Pods-Engage.debug.xcconfig"; sourceTree = "<group>"; };
 		5CE7EBEFE1975DA3276E9DD3 /* Pods-EngageTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EngageTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EngageTests/Pods-EngageTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -532,7 +530,6 @@
 				13A8B0CB219A2263003CCFC5 /* Stylable.swift */,
 				138CBC552199E00600015EDC /* Waitable.swift */,
 				13796D7A21AE4410008FCA13 /* Shareable.swift */,
-				13D3D6A421BC49F4004608E0 /* ServiceURLProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -907,7 +904,6 @@
 				13A8B0DA219A57E3003CCFC5 /* LoginDelegate.swift in Sources */,
 				134805E721A551AB00AF9BAF /* RootNavigationController.swift in Sources */,
 				138CBC4121965F3800015EDC /* RestResponseCheckable.swift in Sources */,
-				13D3D6A521BC49F4004608E0 /* ServiceURLProtocol.swift in Sources */,
 				1398257E21AA400D00AE5702 /* CalendarDetailDelegate.swift in Sources */,
 				134805EB21A6032800AF9BAF /* InboxViewController.swift in Sources */,
 				138CBC712199E2E200015EDC /* Date+Extensions.swift in Sources */,
