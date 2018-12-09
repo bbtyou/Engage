@@ -21,12 +21,21 @@ class WebViewController: EngageViewController, UIPopoverPresentationControllerDe
     
     // - Web view
     fileprivate lazy var webView: WKWebView = {
-        let web = WKWebView()
+        // - Config
+        let config = WKWebViewConfiguration.init()
+        
+        // - Create the user content controller
+        let userContentController = WKUserContentController.init()
+        userContentController.add(self, name: "wkPost")
+        config.userContentController = userContentController
+        
+        let web = WKWebView.init(frame: .zero, configuration: config)
         web.translatesAutoresizingMaskIntoConstraints = false
         web.backgroundColor = UIColor.clear
         web.configuration.allowsInlineMediaPlayback = true
         web.navigationDelegate = self
-
+        
+        
         return web
     }()
     
@@ -202,6 +211,10 @@ extension WebViewController: WebViewDelegate {
 // - MARK: WKNavigationDelegate
 
 extension WebViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        
+    }
+    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         self.hideSpinner()
         
@@ -256,6 +269,8 @@ extension WebViewController: WKNavigationDelegate {
         let request = navigationAction.request
         let base = CommonProperties.servicesBasePath.value as? String ?? ""
         
+        log.verbose("Request: \(request)")
+        
         // - Handle any links that are outside of the application domain.
         // - These links should be opened in an external browser.
         if let url = request.url, navigationAction.navigationType == .linkActivated, let host = url.host, base.contains(host) == false {
@@ -285,10 +300,21 @@ extension WebViewController: WKNavigationDelegate {
     }
 }
 
+// MARK: - WKWebViewUIDelegate
+
+extension WebViewController: WKUIDelegate {
+
+}
+
 // MARK: - WKScriptMessageHandler
 
-extension WebViewController: WKScriptMessageHandler {
+extension WebViewController: WKScriptMessageHandler {    
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        // - Receive the post parameters
+        log.verbose("Received message body from JavaScript: \(message.body)")
+        
+        // - Process the body
+        self.presenter?.loadPagePost(message.body)
     }
 }
 

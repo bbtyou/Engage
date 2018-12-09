@@ -52,6 +52,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
+        // - Register the custom url protocol
+        URLProtocol.registerClass(ServiceURLProtocol.self)
+        
         return true
     }
 
@@ -101,7 +104,7 @@ fileprivate extension AppDelegate {
                 log.verbose("Push registration data: \(dataString))")
             }
         }
-    }    
+    }
 }
 
 // MARK: - UNUserNotificationCenterDelegate
