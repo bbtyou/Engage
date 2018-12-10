@@ -168,7 +168,7 @@ class WebViewPresenter {
             var postBody = ""
             for index in 0...post.post.count - 1 {
                 postBody.append(contentsOf: "\(post.post[index].name)=\(post.post[index].value)")
-                if index > 0 && index < post.post.count - 1 {
+                if index < post.post.count - 1 && post.post.count > 1 {
                     postBody += "&"
                 }
             }
