@@ -129,6 +129,10 @@ extension HomeViewController: HomeDelegate {
         self.emptyFavoritesView.isHidden = true
         self.view.sendSubviewToBack(self.emptyFavoritesView)
     }
+    
+    func showBanner(_ message: String) {
+        self.notify(message: message, 2.0)
+    }
 }
 
 // - MARK: - UITableView

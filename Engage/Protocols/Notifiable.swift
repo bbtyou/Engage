@@ -11,10 +11,8 @@ import UIKit
 
 // This protocol defines an animated banner that can come in from the top of a view.
 protocol Notifiable: class {
-    
     // The view that actually makes up the banner
     var notifyContainer: UIView? { get set }
-
 }
 
 extension Notifiable where Self: UIViewController {
@@ -36,7 +34,8 @@ extension Notifiable where Self: UIViewController {
         textLabel.textColor = UIColor.white
         textLabel.font = UIFont.init(name: "Helvetica-Medium", size: 15)
         textLabel.textAlignment = .left
-        textLabel.numberOfLines = 2
+        textLabel.numberOfLines = 0
+        textLabel.lineBreakMode = .byWordWrapping
         textLabel.text = message
         
         let imageView = UIImageView.init(frame: .zero)
@@ -44,7 +43,6 @@ extension Notifiable where Self: UIViewController {
         imageView.image = CommonImages.notify.image?.maskedImage(with: UIColor.white)
 
         container.addSubview(imageView)
-        imageView.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 32.0).isActive = true
         imageView.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 15).isActive = true
         imageView.centerYAnchor.constraint(equalTo: container.centerYAnchor).isActive = true
@@ -59,14 +57,15 @@ extension Notifiable where Self: UIViewController {
         self.view.bringSubviewToFront(container)
         container.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         container.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        container.heightAnchor.constraint(equalToConstant: 44).isActive = true
         
         let bottomAnchor = container.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: 0)
         bottomAnchor.isActive = true
 
         self.view.layoutIfNeeded()
-
-        bottomAnchor.constant = (UIApplication.shared.statusBarFrame.size.height + (self.navigationController?.navigationBar.frame.size.height ?? 44) + 44.5)
+        
+        let containerHeight = container.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
+        bottomAnchor.constant = (UIApplication.shared.statusBarFrame.size.height + (self.navigationController?.navigationBar.frame.size.height ?? 44) + containerHeight)
+        
         UIView.animate(withDuration: 0.5, animations: {
             self.view.layoutIfNeeded()
         }) { (finished) in

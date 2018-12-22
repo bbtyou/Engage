@@ -37,4 +37,7 @@ protocol HomeDelegate: Waitable {
 
     // - Notify the view to hide empty favorites
     func hideEmptyFavorites()
+    
+    // - Show a notification banner
+    func showBanner(_ message: String)
 }

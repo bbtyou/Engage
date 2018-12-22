@@ -86,13 +86,18 @@ class HomePresenter {
         self.sections.removeAll()
         
         dataSource.fetchCategories { (categories, error) in
+            self.delegate?.hideSpinner()
+
             if let e = error {
-                self.delegate?.hideSpinner()
                 self.delegate?.showEmpty(e.localizedDescription)
                 return
             }
             
             // - Fetch the favorites
+            if showSpinner {
+                self.delegate?.showSpinner("Updating favorites...")
+            }
+            
             dataSource.fetchFavorites({ (favorites, error) in
                 self.delegate?.hideSpinner()
                 
@@ -151,7 +156,7 @@ class HomePresenter {
         
         let request: Request = isFavorite ? UnsetFavoriteRequest.init(unid: file.id) : SetFavoriteRequest.init(unid: file.id)
         
-        self.delegate?.showSpinner("Updating favorites...")
+        self.delegate?.showBanner(isFavorite ? "Removing \(file.title) from favorites." : "Adding \(file.title) to favorites.")
         request.sendRequest { (response, data, error) in
             if let error = error {
                 log.warning("The message with id \(file.id) could not be set as a favorite. \(error)")
@@ -161,8 +166,6 @@ class HomePresenter {
             // - Update the view to display the favorite properly
             self.fetchAssets(false)
         }
-        
-        
     }
     
     func selectAsset(_ section: Int, index: Int) {
