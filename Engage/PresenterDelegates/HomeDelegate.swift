@@ -7,9 +7,10 @@
 //
 
 import Foundation
+import wvslib
 
 // - Type alias for asset content
-typealias Asset = (title: String, mimeType: String, url: URL?, imagePath: String, isFavorite: Bool)
+typealias Asset = (title: String, mimeType: String, url: URL?, imagePath: String?, isFavorite: Bool)
 
 protocol HomeDelegate: Waitable {
     

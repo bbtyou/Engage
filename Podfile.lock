@@ -3,12 +3,12 @@ PODS:
     - DateToolsSwift
     - Neon
   - DateToolsSwift (4.0.0)
-  - Firebase/Core (5.14.0):
+  - Firebase/Core (5.15.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.4.0)
-  - Firebase/CoreOnly (5.14.0):
-    - FirebaseCore (= 5.1.9)
-  - Firebase/Messaging (5.14.0):
+  - Firebase/CoreOnly (5.15.0):
+    - FirebaseCore (= 5.1.10)
+  - Firebase/Messaging (5.15.0):
     - Firebase/CoreOnly
     - FirebaseMessaging (= 3.2.2)
   - FirebaseAnalytics (5.4.0):
@@ -21,7 +21,7 @@ PODS:
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
   - FirebaseAnalyticsInterop (1.1.0)
-  - FirebaseCore (5.1.9):
+  - FirebaseCore (5.1.10):
     - GoogleUtilities/Logger (~> 5.2)
   - FirebaseInstanceID (3.3.0):
     - FirebaseCore (~> 5.1)
@@ -65,11 +65,13 @@ PODS:
   - nanopb/encode (0.3.901)
   - Neon (0.4.0)
   - Protobuf (3.6.1)
+  - wvslib (0.1.0)
 
 DEPENDENCIES:
   - CalendarKit
   - Firebase/Core
   - Firebase/Messaging
+  - wvslib (from `https://github.com/giantblue76/wvslib.git`, branch `master`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -87,13 +89,23 @@ SPEC REPOS:
     - Neon
     - Protobuf
 
+EXTERNAL SOURCES:
+  wvslib:
+    :branch: master
+    :git: https://github.com/giantblue76/wvslib.git
+
+CHECKOUT OPTIONS:
+  wvslib:
+    :commit: 783d984dcffcc7190c8d113f1d02e808d0838afb
+    :git: https://github.com/giantblue76/wvslib.git
+
 SPEC CHECKSUMS:
   CalendarKit: c9d69204e97226a2da3e6b99dfbe35a57f205c1e
   DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
-  Firebase: 963d5685fae888a56d6d4d9cfce6b9c976958798
+  Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae
   FirebaseAnalytics: c06f9d70577d79074214700a71fd5d39de5550fb
   FirebaseAnalyticsInterop: e5f21be9af6548372e2f0815834ff909bff395a2
-  FirebaseCore: 8f49b70f57ab5cbb032ef41d64992ded21606459
+  FirebaseCore: 35747502d9e8c6ee217385ad04446c7c2aaf9c5c
   FirebaseInstanceID: e2fa4cb35ef5558c200f7f0ad8a53e212215f93e
   FirebaseMessaging: b412996f6a09337d232bb3a6676ce4d1f353d024
   GoogleAppMeasurement: 98b71f5e04142793729a5ef23e5b96651ff4b70f
@@ -101,7 +113,8 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Neon: 7fb5a9327e7e57911843f608e08f4893a74deaf9
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
+  wvslib: 272f43bd9b35b97a0bf3baa9e7d7d8748670d278
 
-PODFILE CHECKSUM: b4f6cdc051f6aac75a07020f35673ba34512a9e0
+PODFILE CHECKSUM: cb36213ba764d73644deffb1fa1c861e8327b2aa
 
 COCOAPODS: 1.5.3

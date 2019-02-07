@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import wvslib
 
-class InboxPresenter: RestResponseCheckable {
+class InboxPresenter {
     
     weak var delegate: InboxDelegate?
     
@@ -26,18 +27,11 @@ class InboxPresenter: RestResponseCheckable {
         // - Clear the existing messages
         self.messages.removeAll()
         
-        dataSource.fetchMessages { (messages, error) in
+        dataSource.fetchMessages({ (messages) in
             self.delegate?.hideSpinner()
-
+            
             self.messages = messages
 
-            if let e = error {
-                log.error(e.localizedDescription)
-                self.delegate?.showError(withMessage: e.localizedDescription)
-                self.delegate?.showEmpty()
-                return
-            }
-            
             if self.messages.count == 0 {
                 self.delegate?.showEmpty()
                 return
@@ -46,6 +40,12 @@ class InboxPresenter: RestResponseCheckable {
             self.delegate?.messagesLoaded(self.messages.map({ (message) -> InboxMessage in
                 return (Date.dateFromUTCString(utc: message.time) ?? Date(), message.subject, message.body, message.author, message.read.count > 0)
             }))
+        }) { (error) in
+            self.delegate?.hideSpinner()
+            
+            log.error(error)
+            self.delegate?.showError(withMessage: error)
+            self.delegate?.showEmpty()
         }
     }
     

@@ -16,23 +16,13 @@ class ThemePresenter {
         let ds = ThemeDataSource.init()
         
         self.delegate?.showSpinner("Updating theme...")
-        ds.fetchTheme { (theme, error) in
+        ds.fetchTheme({ (theme) in
             self.delegate?.hideSpinner()
-            
-            if let e = error {
-                log.error(e)
-                self.delegate?.themeFailed()
-                return
-            }
-            
-            if let theme = theme {
-                AppConfigurator.shared.updateTheme(withTheme: theme)
-                self.delegate?.themeLoaded()
-                return
-            }
-            
+            AppConfigurator.shared.updateTheme(withTheme: theme)
+            self.delegate?.themeLoaded()
+        }) { (error) in
+            log.error(error)
             self.delegate?.themeFailed()
         }
     }
-    
 }

@@ -8,227 +8,11 @@
 
 import Foundation
 import UIKit
-
-// - HTTP Method types
-enum httpMethod: String {
-
-    case options = "OPTIONS"
-    case get     = "GET"
-    case head    = "HEAD"
-    case post    = "POST"
-    case put     = "PUT"
-    case patch   = "PATCH"
-    case delete  = "DELETE"
-    case trace   = "TRACE"
-    case connect = "CONNECT"
-
-}
-
-// - HTTP body encoding for post requests
-enum HTTPBodyEncoding {
-    case json
-    case url
-}
-
-// - Parameters for the request
-typealias HTTPParamaters = [String: Any]
-
-// - HTTP Headers
-typealias HTTPHeaders = [String: String]
-
-// MARK - Request types
-
-protocol Request {
-    
-    // = The identifier of the request
-    var id: String { get }
-    
-    // - The base path for this request
-    var basePath: String { get }
-    
-    // - The relative path for this request
-    var relativePath: String { get }
-    
-    // - The full path for this request
-    var fullPath: String { get }
-    
-    // - HTTP method
-    var method: httpMethod { get }
-
-    // - HTTP Body
-    var body: HTTPParamaters? { get }
-    
-    // - HTTP Headers
-    var headers: HTTPHeaders? { get }
-    
-    // - Parameter encoding
-    var parameterEncoding: HTTPBodyEncoding { get }
-    
-}
-
-extension Request {
-
-    var fullPath: String {
-        get {
-            return "\(self.basePath)\(self.relativePath)"
-        }
-    }
-    
-    var basePath: String {
-        get {
-            return CommonProperties.servicesBasePath.value as? String ?? ""
-        }
-    }
-    
-    var body: HTTPParamaters? {
-        get {
-            return nil
-        }
-    }
-    
-    var headers: HTTPHeaders? {
-        get {
-            return nil
-        }
-    }
-    
-    var parameterEncoding: HTTPBodyEncoding {
-        return self.method == .get ? .url : .json
-    }
-    
-    // - Send the request
-    func sendRequest(timeout: TimeInterval = 20, useCache cache: Bool = true, _ completion: @escaping (_ response: HTTPURLResponse?, _ data: Data?, _ error: Error?) -> ()) {
-        
-        // - If this request is cacheable then attempt to retrieve from the cache
-        let session = URLSession.shared
-
-        // - Configure the session
-        session.configuration.httpShouldSetCookies = true
-        session.configuration.allowsCellularAccess = true
-        session.configuration.httpMaximumConnectionsPerHost = 5
-        session.configuration.urlCache = cache == true ? URLCache.shared : nil
-        session.configuration.requestCachePolicy = cache == true ? .returnCacheDataElseLoad : .reloadIgnoringCacheData
-        session.configuration.httpCookieAcceptPolicy = .always
-        session.configuration.timeoutIntervalForRequest = timeout
-        
-        // - Create the request with the url
-        guard let url = URL.init(string: self.fullPath) else {
-            completion(nil, nil, RestClientError.invalidUrl)
-            return
-        }
-
-        var request = URLRequest(url: url)
-        
-        // - Add additional headers
-        self.headers?.forEach({ (header) in
-            request.addValue(header.value, forHTTPHeaderField: header.key)
-        })
-        
-        // - Set the body parameters after proper encoding
-        if let body = self.body {
-            if self.parameterEncoding == .json, let bodyData = body.jsonEncoding {
-                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.httpBody = bodyData
-            }
-            else if let bodyData = body.urlEncoding {
-                request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-                request.httpBody = bodyData
-            }
-        }
-        
-        // - Set the http request method
-        request.httpMethod = self.method.rawValue
-        
-        let task = session.dataTask(with: request) { (data, response, error) in
-            if let data = data, let cacheable = self as? Cacheable {
-                cacheable.write(data)
-            }
-            
-            DispatchQueue.main.async {
-                completion(response as? HTTPURLResponse, data, error)
-            }
-        }
-        
-        task.taskDescription = self.id
-    
-        // - Add the task to the task manager
-        RequestTaskManager.shared.addTask(task)
-        
-    }
-
-    func cancel() {
-        RequestTaskManager.shared.cancel(taskId: self.id)
-    }
-    
-    func suspend() {
-        RequestTaskManager.shared.suspend(taskId: self.id)
-    }
-}
-
-struct ImageRequest: Request, Cacheable {
-    var path: String = ""
-    
-    var id: String {
-        get {
-            return "imageRequest_\(UUID.init().uuidString)"
-        }
-    }
-    
-    var relativePath: String {
-        get {
-            var path: String = ""
-            
-            if self.path.starts(with: "/") {
-                path = self.path.getSubstring(from: 1, to: nil) ?? self.path
-            }
-            else {
-                path = self.path
-            }
-            
-            return path.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        }
-    }
-    
-    var method: httpMethod {
-        get {
-            return .get
-        }
-    }
-    
-}
-
-struct DownloadRequest: Request, Cacheable {
-    var path = ""
-    
-    var id: String {
-        get {
-            return "downloadRequest_\(UUID.init().uuidString)"
-        }
-    }
-    
-    var relativePath: String {
-        get {
-            var path: String = ""
-            
-            if self.path.starts(with: "/") {
-                path = self.path.getSubstring(from: 1, to: nil) ?? self.path
-            }
-            else {
-                path = self.path
-            }
-
-            return path
-        }
-    }
-    
-    var method: httpMethod {
-        get {
-            return .get
-        }
-    }
-}
+import wvslib
 
 struct AuthenticateRequest: Request {
+    typealias T = Bool
+    
     var username: String?
     var password: String?
     
@@ -265,9 +49,24 @@ struct AuthenticateRequest: Request {
             return .url
         }
     }
+    
+    func convertData(_ data: Data) -> Bool? {
+        do {
+            if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any], let success = json["success"] as? Bool, success == true {
+                return true
+            }
+        }
+        catch {
+            log.error("Unable to retrieve the authentication response.  \(error.localizedDescription)")
+        }
+        
+        return false
+    }
 }
 
 struct ProfileRequest: Request {
+    typealias T = Data
+    
     var id: String {
         get {
             return "profile"
@@ -285,9 +84,15 @@ struct ProfileRequest: Request {
             return .post
         }
     }
+    
+    func convertData(_ data: Data) -> Data? {
+        return data
+    }
 }
 
 struct CalendarRequest: Request {
+    typealias T = Data
+    
     var id: String {
         get {
             return "calendar"
@@ -305,9 +110,15 @@ struct CalendarRequest: Request {
             return .post
         }
     }
+    
+    func convertData(_ data: Data) -> Data? {
+        return data
+    }
 }
 
 struct PortalRequest: Request {
+    typealias T = Data
+    
     var id: String {
         get {
             return "portal_\(UUID.init().uuidString))"
@@ -325,9 +136,15 @@ struct PortalRequest: Request {
             return .post
         }
     }
+    
+    func convertData(_ data: Data) -> Data? {
+        return data
+    }
 }
 
 struct ThemeRequest: Request {
+    typealias T = Data
+    
     var id: String {
         get {
             return "theme"
@@ -345,9 +162,15 @@ struct ThemeRequest: Request {
             return .get
         }
     }
+    
+    func convertData(_ data: Data) -> Data? {
+        return data
+    }
 }
 
 struct ProvisionRequest: Request {
+    typealias T = Data
+    
     var id: String {
         get {
             return "provision"
@@ -388,9 +211,15 @@ struct ProvisionRequest: Request {
     
     // - The provisioning code
     var code: String = ""
+    
+    func convertData(_ data: Data) -> Data? {
+        return data
+    }
 }
 
 struct LogoutRequest: Request {
+    typealias T = Data
+    
     var id: String {
         get {
             return "logout"
@@ -418,9 +247,15 @@ struct LogoutRequest: Request {
             return .post
         }
     }
+    
+    func convertData(_ data: Data) -> Data? {
+        return data
+    }
 }
 
 struct MarkMessageReadRequest: Request {
+    typealias T = Data
+    
     var id: String {
         get {
             return "markmessageread"
@@ -453,11 +288,17 @@ struct MarkMessageReadRequest: Request {
         }
     }
     
+    func convertData(_ data: Data) -> Data? {
+        return data
+    }
+    
     // - The ID for the message to be marked read
     let messageId: String
 }
 
 struct DeleteMessageRequest: Request {
+    typealias T = Data
+    
     var id: String {
         get {
             return "deletemessage"
@@ -490,11 +331,17 @@ struct DeleteMessageRequest: Request {
         }
     }
     
+    func convertData(_ data: Data) -> Data? {
+        return data
+    }
+    
     // - The ID for the message to be deleted
     let messageId: String
 }
 
 struct SetFavoriteRequest: Request {
+    typealias T = Data
+    
     var id: String {
         get {
             return "setfavorite"
@@ -527,10 +374,16 @@ struct SetFavoriteRequest: Request {
         }
     }
     
+    func convertData(_ data: Data) -> Data? {
+        return data
+    }
+    
     let unid: String
 }
 
 struct UnsetFavoriteRequest: Request {
+    typealias T = Data
+    
     var id: String {
         get {
             return "unsetfavorite"
@@ -563,10 +416,16 @@ struct UnsetFavoriteRequest: Request {
         }
     }
     
+    func convertData(_ data: Data) -> Data? {
+        return data
+    }
+    
     let unid: String
 }
 
 struct PushRegisterRequest: Request {
+    typealias T = Data
+    
     var id: String {
         get {
             return "pushregister"
@@ -597,6 +456,10 @@ struct PushRegisterRequest: Request {
         get {
             return .url
         }
+    }
+    
+    func convertData(_ data: Data) -> Data? {
+        return data
     }
     
     let token: String

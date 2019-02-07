@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import wvslib
 
 class AssetTableViewCell: UITableViewCell {
 
@@ -85,7 +86,10 @@ extension AssetTableViewCell: UICollectionViewDelegate, UICollectionViewDataSour
         
         // - Setup the cell
         if let asset = self.assets?.assets[indexPath.item] {
-            cell.assetImageView.fetchImage(asset.imagePath, true)
+            if let imagePath = asset.imagePath {
+                cell.assetImageView.fetchImage(imagePath, true)
+            }
+            
             asset.isFavorite ? cell.drawBorder() : cell.clearBorder()
         }
         

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import wvslib
 
 // - Defined calendar event type for the calendar view
 typealias CalendarDayEvent = (start: Date, end: Date, isAllDay: Bool, title: String, body: String)

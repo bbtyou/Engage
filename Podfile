@@ -9,7 +9,8 @@ target 'Engage' do
   pod 'CalendarKit'
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
-  
+  pod 'wvslib', :git => 'https://github.com/giantblue76/wvslib.git', :branch => 'master'
+
   target 'EngageTests' do
     inherit! :search_paths
     # Pods for testing

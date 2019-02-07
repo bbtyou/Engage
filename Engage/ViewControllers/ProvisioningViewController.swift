@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import wvslib
 
 class ProvisioningViewController: UIViewController, OrientationConfigurable {
     

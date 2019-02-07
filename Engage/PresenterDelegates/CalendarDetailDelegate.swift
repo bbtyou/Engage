@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import wvslib
 
 // Event detail type for the view
 typealias CalendarEventDetail = (time: String, date: String, topic: String, body: String)

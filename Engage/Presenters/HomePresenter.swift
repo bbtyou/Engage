@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import wvslib
 
 class HomePresenter {
     
@@ -42,21 +43,10 @@ class HomePresenter {
     func fetchDailyUpdates() {
         let dataSource = PortalDataSource.init()
         
-        dataSource.fetchMarquee { (marquee, error) in
-            if let error = error {
-                log.error("The daily inspiration could not be loaded. \(error)")
-                return
-            }
-            
-            guard let updates = marquee?.text, updates.count > 0 else {
-                log.debug("There were no daily quotes to update.")
-                return
-            }
-            
-            guard let dailyUpdates = marquee?.text, let delayString = marquee?.delay, let delayInt = Int(delayString) else {
-                log.debug("Daily updates could not be displayed due to missing information.")
-                return
-            }
+        dataSource.fetchMarquee({ (marquee) in
+            let dailyUpdates = marquee.text
+            let delayString = marquee.delay
+            let delayInt = Int(delayString) ?? 3
             
             var updateIndex = 0
             self.dailyUpdateTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(delayInt), repeats: true, block: { [weak self] (timer) in
@@ -64,14 +54,15 @@ class HomePresenter {
                     timer.invalidate()
                     return
                 }
-
+                
                 if updateIndex >= dailyUpdates.count {
                     updateIndex = 0
                 }
-
+                
                 self.delegate?.marqueeUpdated(dailyUpdates[updateIndex])
                 updateIndex += 1
             })
+        }) { (error) in
         }
     }
     
@@ -84,21 +75,16 @@ class HomePresenter {
         
         self.filesBySection.removeAll()
         self.sections.removeAll()
-        
-        dataSource.fetchCategories { (categories, error) in
+    
+        dataSource.fetchCategories({ (categories) in
             self.delegate?.hideSpinner()
 
-            if let e = error {
-                self.delegate?.showEmpty(e.localizedDescription)
-                return
-            }
-            
             // - Fetch the favorites
             if showSpinner {
                 self.delegate?.showSpinner("Updating favorites...")
             }
-            
-            dataSource.fetchFavorites({ (favorites, error) in
+
+            dataSource.fetchFavorites({ (favorites) in
                 self.delegate?.hideSpinner()
                 
                 if let e = error {
@@ -122,10 +108,10 @@ class HomePresenter {
                     self.sections.append(section.title)
                     self.filesBySection.append(section.files)
                 })
-
+                
                 // - Load the favorites
                 self.loadFavorites()
-
+                
                 if self.isFavorites {
                     self.toggleFavorites(true)
                 }
@@ -141,7 +127,13 @@ class HomePresenter {
                         })
                     }), self.sections)
                 }
+            }, { (error) in
+                self.delegate?.hideSpinner()
+                log.error("The favorites could not be loaded. \(error).")
             })
+        }) { (error) in
+            self.delegate?.hideSpinner()
+            self.delegate?.showEmpty(error)
         }
     }
     
@@ -153,47 +145,51 @@ class HomePresenter {
         let isFavorite = self.favorites.contains { (favorite) -> Bool in
             return favorite.id == file.id
         }
-        
-        let request: Request = isFavorite ? UnsetFavoriteRequest.init(unid: file.id) : SetFavoriteRequest.init(unid: file.id)
-        
+
         self.delegate?.showBanner(isFavorite ? "Removing \(file.title) from favorites." : "Adding \(file.title) to favorites.")
-        request.sendRequest { (response, data, error) in
-            if let error = error {
-                log.warning("The message with id \(file.id) could not be set as a favorite. \(error)")
-                return
+
+        if isFavorite {
+            let request = UnsetFavoriteRequest.init(unid: file.id)
+            request.sendRequest { (result) in
+                switch result {
+                    case .error(let error):
+                        log.warning("The asset '\(file.title)' could not be removed from favorites.")
+                    
+                    case .success(let data):
+                        break
+                }
             }
-            
-            // - Update the view to display the favorite properly
-            self.fetchAssets(false)
         }
+        else {
+            let request = SetFavoriteRequest.init(unid: file.id)
+            request.sendRequest { (result) in
+                switch result {
+                    case .error(let error):
+                        log.warning("The asset '\(file.title)' could not be added to favorites.")
+                    
+                    case .success(let data):
+                        break
+                }
+            }
+        }
+        
+        // - Update the view to display the favorite properly
+        self.fetchAssets(false)
     }
     
     func selectAsset(_ section: Int, index: Int) {
         let asset = self.isFavorites ? self.favoritesBySection[section][index] : self.filesBySection[section][index]
-
         self.delegate?.showSpinner("Loading content for \(asset.title)...")
         
         let dataSource = AssetFileDataSource.init()
-        dataSource.fetchAsset(fromModel: asset) { (data, error) in
+        dataSource.fetchAsset(fromFile: asset, { (data) in
             self.delegate?.hideSpinner()
-            
-            if let error = error {
-                log.error("The asset file could not be loaded. \(error)")
-                // Show error
-                return
-            }
-            
-            guard let data = data else {
-                // - Display an error
-                return
-            }
-            
-            // - Get the path extension for the mimetype
-            let mime = MimeMap.shared
-            let pathExtension = mime.pathExtension(forMime: asset.mimetype)
-            
-            self.delegate?.fileOpened(WebViewPresenter.init(withData: data, pathExtension, asset.title))
-        }
+            self.delegate?.fileOpened(WebViewPresenter.init(withData: data, MimeMap.shared.pathExtension(forMime: asset.mimetype), asset.title))
+        }) { (error) in
+            log.error(error)
+            self.delegate?.hideSpinner()
+            self.delegate?.showBanner(error)
+        }        
     }
     
     func toggleFavorites() {

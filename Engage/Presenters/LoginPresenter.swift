@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import wvslib
 
 class LoginPresenter {
     
@@ -21,32 +22,28 @@ class LoginPresenter {
 		self.delegate?.showSpinner("Logging in...")
 		
 		let dataSource = AuthenticationDataSource.init(username, password)
-		dataSource.authenticate { (error) in
-			self.delegate?.hideSpinner()
-			
-			if let e = error {
-				self.delegate?.loginFailed(e.localizedDescription)
-				return
-			}
-			
+        dataSource.authenticate({
+            self.delegate?.hideSpinner()
+            
             var userData = UserData()
             userData.password = password
             userData.userId = username
             
             AppConfigurator.shared.userInfo = userData
             
-			self.delegate?.loginCompleted()
-			
+            self.delegate?.loginCompleted()
+            
             // - Save the username
             CommonProperties.userid.setValue(username)
             
-			// - Navigate to the home screen
-			self.delegate?.navigate("home", DrawerPresenter())
+            // - Navigate to the home screen
+            self.delegate?.navigate("home", DrawerPresenter())
             
             // - Notify listeners that login has completed
             NotificationCenter.default.post(name: NSNotification.Name.init("loginCompleted"), object: nil)
-		}
+        }) { (error) in
+            self.delegate?.hideSpinner()
+            self.delegate?.loginFailed(error)
+        }
     }
-	
-    
 }

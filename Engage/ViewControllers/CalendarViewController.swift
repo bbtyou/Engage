@@ -7,6 +7,7 @@
 //
 
 import CalendarKit
+import wvslib
 
 class CalendarViewController: DayViewController, Notifiable {
 

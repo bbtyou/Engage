@@ -67,9 +67,11 @@ struct File: Codable {
     let id: String
     let title: String
     let description: String
-    let thumbnail: String
     let mimetype: String
     let url: String
+    
+    // - Optional
+    var thumbnail: String?
     
 }
 

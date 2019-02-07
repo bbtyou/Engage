@@ -7,37 +7,25 @@
 //
 
 import Foundation
+import wvslib
 
-class ThemeDataSource: RestResponseCheckable {
+class ThemeDataSource {
     
     let request = ThemeRequest.init()
     
-    func fetchTheme(_ completion: @escaping (_ theme: Theme?, _ error: Error?) -> ()) {
-        request.sendRequest { (response, data, error) in
-            if let err = self.checkResponse(response, data, error) {
-                completion(nil, err)
-                return
-            }
-            
-            do {
+    func fetchTheme(_ onSuccess: @escaping (_ theme: Theme) -> (), _ onFailure: @escaping (_ error: String) -> ()) {
+        self.request.sendRequest { (result) in
+            switch result {
+                case .error(let error):
+                    onFailure(error.localizedDescription)
                 
-                // - Get the theme data
-                guard let data = data else {
-                    let jsonError = JSONError.jsonObject(error: nil)
-                    
-                    log.error(jsonError)
-                    completion(nil, jsonError)
-                    return
-                }
-
-                let theme = try JSONDecoder().decode(Theme.self, from: data)
-                completion(theme, nil)
-                
-            }
-            catch {
-                let jsonError = JSONError.exception(error: error)
-                log.error(jsonError)
-                completion(nil, jsonError)
+                case .success(let data):
+                    do {
+                        onSuccess(try JSONDecoder().decode(Theme.self, from: data))
+                    }
+                    catch {
+                        onFailure(error.localizedDescription)
+                    }
             }
         }
     }

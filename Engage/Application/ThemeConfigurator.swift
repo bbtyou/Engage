@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import wvslib
 
 enum ThemeLogo: Int {
     case small

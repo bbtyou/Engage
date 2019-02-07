@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import wvslib
 
 fileprivate enum DrawerState: Int {
     case open
@@ -31,20 +32,7 @@ class DrawerPresenter {
     func loadActions() {
         let dataSource = PortalDataSource.init()
 
-        dataSource.fetchCategories { (categories, error) in
-            if let e = error {
-                log.error(e)
-                
-                // - Show empty drawer error
-                self.delegate?.showEmptyDrawer(withMessage: e.localizedDescription)
-                return
-            }
-            
-            if categories.count == 0 {
-                self.delegate?.showEmptyDrawer(withMessage: nil)
-                return
-            }
-            
+        dataSource.fetchCategories({ (categories) in
             // - Filter out all categories that are actions
             self.drawerActions = categories.filter({ (category) -> Bool in
                 return category.action.trimmingCharacters(in: .whitespaces).count > 0
@@ -60,10 +48,10 @@ class DrawerPresenter {
             let home = Category.init(id: "home", title: "Home", icon: CommonImages.home.rawValue, banner: "", lft: "0", level: "", action: "app://home", files: [])
             self.drawerActions.insert(home, at: 0)
             
-            let calendar = Category.init(id: "calendar", title: "Calendar", icon: CommonImages.calendar.rawValue, banner: "", lft: "0", level: "", action: "app://calendar", files: [])
+            let calendar = Category.init(id: "calendar", title: "Calendar", icon: "calendar", banner: "", lft: "0", level: "", action: "app://calendar", files: [])
             self.drawerActions.insert(calendar, at: 1)
             
-            let inbox = Category.init(id: "inbox", title: "Inbox", icon: CommonImages.inbox.rawValue, banner: "", lft: "0", level: "", action: "app://inbox", files: [])
+            let inbox = Category.init(id: "inbox", title: "Inbox", icon: "inbox", banner: "", lft: "0", level: "", action: "app://inbox", files: [])
             self.drawerActions.insert(inbox, at: 2)
             
             // - Map the actions to our domain object tuple and notify the view
@@ -71,33 +59,17 @@ class DrawerPresenter {
             self.delegate?.contentsLoaded(self.drawerActions.map({ (category) -> DrawerItem in
                 return (category.title, category.icon)
             }))
+        }) { (error) in
+            // - Show empty drawer error
+            self.delegate?.showEmptyDrawer(withMessage: error)
         }
         
         self.delegate?.updateFooterView(withImage: "logout", text: "Logout")
     }
     
     func pressFooter() {
-        let logoutRequest = LogoutRequest.init()
-        
         self.delegate?.showSpinner("Logging out...")
-        
-        logoutRequest.sendRequest { (response, data, error) in
-            self.delegate?.hideSpinner()
-            
-            if let response = response {
-                log.verbose(response)
-            }
-            
-            if let data = data, let json = String.init(data: data, encoding: .utf8) {
-                log.debug(json)
-            }
-            
-            if let error = error {
-                log.error(error)
-            }
-            
-            self.delegate?.exitComplete()
-        }
+        self.delegate?.exitComplete()
     }
     
     func panOpenDrawer() {
