@@ -10,10 +10,14 @@ import Foundation
 
 class ProvisioningDataSource: RestResponseCheckable {
     
-    let request = ProvisionRequest.init()
+    let request: ProvisionRequest
+    
+    init(_ request: ProvisionRequest) {
+        self.request = request
+    }
     
     func provision(_ completion: @escaping (_ provisioning: Provision?, _ error: Error?) -> ()) {
-        request.sendRequest { (response, data, error) in
+        self.request.sendRequest { (response, data, error) in
             if let err = self.checkResponse(response, data, error) {
                 completion(nil, err)
                 return

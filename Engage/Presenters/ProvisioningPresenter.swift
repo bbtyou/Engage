@@ -57,13 +57,13 @@ class ProvisioningPresenter {
 
         self.delegate?.showSpinner("Provisioning account...")
         
-        let dataSource = ProvisioningDataSource.init()
+        let dataSource = ProvisioningDataSource.init(ProvisionRequest.init(code: code))
         dataSource.provision { (provision, error) in
             self.delegate?.hideSpinner()
             
             if let error = error {
                 log.error(error)
-                self.delegate?.provisioningFailed(error.localizedDescription)
+                self.delegate?.provisioningFailed("The provisioning code you entered was not recognized.  Please enter a valid provisioning code or contact your administrator for assistance.")
                 completion?()
                 return
             }

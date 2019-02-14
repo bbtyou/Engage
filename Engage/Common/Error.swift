@@ -54,7 +54,7 @@ enum RestClientError: LocalizedError {
                     return "The server understood the request, but is refusing to fulfill it."
                 
                 case .notFound:
-                    return "The server has not found anything matching the Request-UR."
+                    return "The server has not found anything matching the Request."
                 
                 case .invalidUrl:
                     return "The request could not be completed because the URL was invalid."

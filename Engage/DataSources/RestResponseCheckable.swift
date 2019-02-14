@@ -22,13 +22,11 @@ extension RestResponseCheckable {
             log.error(e)
             respError = e
         }
+        else if let code = response?.statusCode, code != 200 {
+            respError = RestClientError.error(forCode: code)
+        }
         else if data == nil {
-            if let code = response?.statusCode {
-                respError = RestClientError.error(forCode: code)
-            }
-            else {
-                respError = RestClientError.unknown
-            }
+            respError = RestClientError.unknown
         }
         
         return respError
