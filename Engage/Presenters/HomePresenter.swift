@@ -31,48 +31,8 @@ class HomePresenter {
     // - Favorites sections
     fileprivate var favoritesSections = [String]()
     
-    // - Marquee timer
-    fileprivate var dailyUpdateTimer: Timer?
-    
     deinit {
         log.verbose("** Deallocated \(HomePresenter.self).")
-        self.dailyUpdateTimer?.invalidate()
-    }
-    
-    func fetchDailyUpdates() {
-        let dataSource = PortalDataSource.init()
-        
-        dataSource.fetchMarquee { (marquee, error) in
-            if let error = error {
-                log.error("The daily inspiration could not be loaded. \(error)")
-                return
-            }
-            
-            guard let updates = marquee?.text, updates.count > 0 else {
-                log.debug("There were no daily quotes to update.")
-                return
-            }
-            
-            guard let dailyUpdates = marquee?.text, let delayString = marquee?.delay, let delayInt = Int(delayString) else {
-                log.debug("Daily updates could not be displayed due to missing information.")
-                return
-            }
-            
-            var updateIndex = 0
-            self.dailyUpdateTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(delayInt), repeats: true, block: { [weak self] (timer) in
-                guard let self = self else {
-                    timer.invalidate()
-                    return
-                }
-
-                if updateIndex >= dailyUpdates.count {
-                    updateIndex = 0
-                }
-
-                self.delegate?.marqueeUpdated(dailyUpdates[updateIndex])
-                updateIndex += 1
-            })
-        }
     }
     
     func fetchAssets(_ showSpinner: Bool = true) {
@@ -131,6 +91,7 @@ class HomePresenter {
                 }
                 else {
                     // - Update the view with the assets and section names
+                    self.delegate?.hideEmpty()
                     self.delegate?.assetsLoaded(self.filesBySection.map({ (fileArray) -> [Asset] in
                         return fileArray.map({ (file) -> Asset in
                             let isFavorite = self.favorites.contains(where: { (favorite) -> Bool in

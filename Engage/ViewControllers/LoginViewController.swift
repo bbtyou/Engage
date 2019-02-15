@@ -53,6 +53,16 @@ class LoginViewController: UIViewController, OrientationConfigurable {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        // Get the image
+        AppConfigurator.shared.themeConfigurator?.logo(.small, { (image) in
+            guard let image = image else {
+                self.loginImageView.image = CommonImages.logo.image
+                return
+            }
+            
+            self.loginImageView.image = image
+        })
+        
         self.loginButton?.style()
 
 		self.usernameTextField.style()

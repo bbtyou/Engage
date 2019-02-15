@@ -24,7 +24,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rbe-Qe-kU9">
                                         <rect key="frame" x="0.0" y="30" width="280" height="60"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="engagelogo" translatesAutoresizingMaskIntoConstraints="NO" id="Be3-zT-vLy">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Be3-zT-vLy">
                                                 <rect key="frame" x="119" y="9" width="42" height="42"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="42" id="eCQ-IG-Z1L"/>
@@ -200,6 +200,7 @@
                         <outlet property="drawerTableView" destination="WcW-cJ-fis" id="jok-O1-JWn"/>
                         <outlet property="footerButton" destination="fFh-No-lKU" id="rB9-B8-2QJ"/>
                         <outlet property="leadingConstraint" destination="Y8s-Kk-omt" id="ipx-Nw-omX"/>
+                        <outlet property="logoImageView" destination="Be3-zT-vLy" id="aiB-3I-fGE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MUK-Ic-y1p" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -220,7 +221,4 @@
             <point key="canvasLocation" x="-217.26618705035972" y="125.71942446043165"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="engagelogo" width="245.75999450683594" height="245.75999450683594"/>
-    </resources>
 </document>

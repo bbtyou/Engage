@@ -21,6 +21,7 @@ class DrawerViewController: EngageViewController, Containerable {
 	@IBOutlet fileprivate var drawerTableView: UITableView!
     @IBOutlet fileprivate var leadingConstraint: NSLayoutConstraint!
     @IBOutlet fileprivate var footerButton: UIButton!
+    @IBOutlet fileprivate var logoImageView: UIImageView!
     
 	// - MARK - Containerable
 	
@@ -45,6 +46,16 @@ class DrawerViewController: EngageViewController, Containerable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Update the logo
+        AppConfigurator.shared.themeConfigurator?.logo(.small, { (image) in
+            guard let image = image else {
+                self.logoImageView.image = CommonImages.logo.image
+                return
+            }
+            
+            self.logoImageView.image = image
+        })
         
 		// - Create container view
         self.close()

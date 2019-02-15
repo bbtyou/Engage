@@ -26,6 +26,9 @@ protocol HomeDelegate: Waitable {
     // - Tell the view to show empty data with an optional additional message
     func showEmpty(_ message: String?)
     
+    // - Tell the view to hide the empty data view
+    func hideEmpty()
+    
     // - Notify the view that favorites have been enabled
     func favoritesEnabled()
     

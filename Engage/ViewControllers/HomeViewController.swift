@@ -13,12 +13,13 @@ class HomeViewController: EngageViewController {
     // - Outlets
     @IBOutlet fileprivate var assetTableView: UITableView!
     @IBOutlet fileprivate var marqueeView: UIView!
+    @IBOutlet fileprivate var emptyView: UIView!
+    @IBOutlet fileprivate var emptyLabel: UILabel!
+    @IBOutlet fileprivate var emptyImageView: UIImageView!
     @IBOutlet fileprivate var emptyFavoritesView: UIView!
     @IBOutlet fileprivate var emptyFavoritesLabel: UILabel!
     @IBOutlet fileprivate var emptyFavoritesInstructionLabel: UILabel!
     @IBOutlet fileprivate var emptyFavoritesImageView: UIImageView!
-    @IBOutlet fileprivate var dailyUpdateView: UIView!
-    @IBOutlet fileprivate var dailyUpdateTextView: UITextView!
     
     // - Presenter for view
     var presenter: HomePresenter? {
@@ -50,9 +51,9 @@ class HomeViewController: EngageViewController {
         self.emptyFavoritesLabel.textColor = AppConfigurator.shared.themeConfigurator?.headerTextColor
         self.emptyFavoritesInstructionLabel.textColor = AppConfigurator.shared.themeConfigurator?.bodyTextColor
         self.emptyFavoritesImageView.image = CommonImages.longpress.image?.maskedImage(with: UIColor.lightGray)
-        
-        // - Load the daily updates
-        self.presenter?.fetchDailyUpdates()
+
+        self.emptyLabel.textColor = AppConfigurator.shared.themeConfigurator?.headerTextColor
+        self.emptyImageView.image = CommonImages.emptyimage.image?.maskedImage(with: UIColor.lightGray)
 
         // - Load the assets
         self.presenter?.fetchAssets()
@@ -88,20 +89,17 @@ extension HomeViewController: HomeDelegate {
     func showEmpty(_ message: String?) {
         self.assets = []
         self.sections = []
+        
+        self.emptyView.isHidden = false
+        self.view.bringSubviewToFront(self.emptyView)
+    }
+    
+    func hideEmpty() {
+        self.emptyView.isHidden = true
+        self.view.sendSubviewToBack(self.emptyView)
     }
     
     func marqueeUpdated(_ text: String) {
-        UIView.animate(withDuration: 0.35, animations: {
-            self.dailyUpdateTextView.alpha = 0
-        }) { (finished) in
-            if finished {
-                self.dailyUpdateTextView.text = text
-                
-                UIView.animate(withDuration: 0.35, animations: {
-                    self.dailyUpdateTextView.alpha = 1.0
-                })
-            }
-        }
     }
     
     func favoritesEnabled() {
