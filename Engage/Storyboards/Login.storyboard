@@ -172,7 +172,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" image="engagelogo" translatesAutoresizingMaskIntoConstraints="NO" id="8oi-NI-SBm">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="8oi-NI-SBm">
                                 <rect key="frame" x="0.0" y="82" width="375" height="108"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="375" id="4Rb-V1-Hsl"/>
@@ -350,7 +350,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="engagelogo" width="245.75999450683594" height="245.75999450683594"/>
         <image name="password_icon" width="21.5" height="28"/>
         <image name="provisioning_icon" width="26" height="26.5"/>
         <image name="username_icon" width="24.5" height="26.5"/>
