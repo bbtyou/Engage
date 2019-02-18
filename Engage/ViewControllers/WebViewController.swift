@@ -190,7 +190,9 @@ extension WebViewController: WebViewDelegate {
     }
     
     func enableShare() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .action, target: self, action: #selector(shareTapped(_:)))
+        let themeColor = AppConfigurator.shared.themeConfigurator?.themeColor ?? UIColor.darkGray
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "share")?.maskedImage(with: themeColor), style: .plain, target: self, action: #selector(shareTapped(_:)))
+        self.navigationItem.rightBarButtonItem?.tintColor = themeColor
     }
     
     func disableShare() {

@@ -98,7 +98,7 @@ class HomePresenter {
                                 return favorite.id == file.id
                             })
                             
-                            return (file.title, file.mimetype, URL.init(string: file.url), file.thumbnail, isFavorite)
+                            return (file.title, file.mimetype, URL.init(string: file.url), file.thumbnail ?? "", isFavorite)
                         })
                     }), self.sections)
                 }
@@ -194,7 +194,7 @@ class HomePresenter {
                         return favorite.id == file.id
                     })
 
-                    return (file.title, file.mimetype, URL.init(string: file.url), file.thumbnail, isFavorite)
+                    return (file.title, file.mimetype, URL.init(string: file.url), file.thumbnail ?? "", isFavorite)
                 })
             }), self.sections)
             
@@ -208,7 +208,7 @@ class HomePresenter {
                         return favorite.id == file.id
                     })
 
-                    return (file.title, file.mimetype, URL.init(string: file.url), file.thumbnail, isFavorite)
+                    return (file.title, file.mimetype, URL.init(string: file.url), file.thumbnail ?? "", isFavorite)
                 })
             }), self.favoritesSections)
 

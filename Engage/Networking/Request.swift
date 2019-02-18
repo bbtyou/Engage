@@ -356,7 +356,7 @@ struct ProvisionRequest: Request {
     
     var basePath: String {
         get {
-            return "http://myengageapp.com"
+            return "https://myengageapp.com"
         }
     }
     
