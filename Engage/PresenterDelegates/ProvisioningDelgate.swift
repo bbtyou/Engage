@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ProvisioningDelegate: Waitable {
+protocol ProvisioningDelegate: class {
     
     // - Provisioining completed successfully with no errors and passes along the theme presenter
     func provisioningSuccess(_ tp: ThemePresenter)

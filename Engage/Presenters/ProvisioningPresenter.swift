@@ -7,34 +7,15 @@
 //
 
 import Foundation
+import wvslib
 
 class ProvisioningPresenter {
     
     // - MVP pattern delegate
     weak var delegate: ProvisioningDelegate?
     
-    func migrate() {
-        if let code = CommonProperties.provisioningCode.value as? String {
-            if let _ = CommonProperties.migrated.value as? Bool {
-                self.checkProvisioning()
-                return
-            }
-
-            // - Remove the current code
-            CommonProperties.provisioningCode.remove()
-
-            // - We have a code from a previous version
-            self.delegate?.disableProvisioning()
-            self.delegate?.showSpinner("Migrating your account...")
-            self.provision(code)
-        }
-        else {
-            self.checkProvisioning()
-        }
-    }
-    
     func checkProvisioning() {
-        if let _ = CommonProperties.provisioningCode.value as? String {
+        if LocalCurrent.code().count > 0 {
             self.delegate?.disableProvisioning()
             self.delegate?.provisioningSuccess(ThemePresenter())
         }
@@ -43,53 +24,31 @@ class ProvisioningPresenter {
         }
     }
     
-    func provision(_ code: String, _ completion: (() -> ())? = nil) {
-        if let _ = CommonProperties.provisioningCode.value as? String {
-            completion?()
+    func provision(code: String) {
+        if LocalCurrent.code().count > 0 {
             return
         }
         
         if code.count == 0 {
             self.delegate?.provisioningFailed("Please enter a valid provisioning code.")
-            completion?()
             return
         }
-
-        self.delegate?.showSpinner("Provisioning account...")
         
-        let dataSource = ProvisioningDataSource.init(ProvisionRequest.init(code: code))
-        dataSource.provision { (provision, error) in
-            self.delegate?.hideSpinner()
+        (self.delegate as? Waitable)?.showSpinner("Provisioning your account...")
+        
+        LocalCurrent.provisioning().provision(code) { result in
+            (self.delegate as? Waitable)?.hideSpinner()
             
-            if let error = error {
-                log.error(error)
-                self.delegate?.provisioningFailed("The provisioning code you entered was not recognized.  Please enter a valid provisioning code or contact your administrator for assistance.")
-                completion?()
-                return
-            }
-            
-            // - Provisioning request completed
-            if let prov = provision, prov.title.count > 0, prov.url.absoluteString.count > 0 {
-                log.debug("Provisioning completed successfully \(prov).")
-
-                // - Update the common properties to store the code, title and base URL
-                CommonProperties.provisioningCode.setValue(code)
-                CommonProperties.servicesBasePath.setValue(prov.url.absoluteString)
-                CommonProperties.title.setValue(prov.title)
+            switch result {
+            case .success(let prov):
+                Properties.basepath.setValue(value: prov.url.absoluteString)
+                Properties.title.setValue(value: prov.title)
+                Properties.provisioningCode.setValue(value: code)
+                self.delegate?.provisioningSuccess(ThemePresenter())
                 
-                // - Update the migration flag
-                CommonProperties.migrated.setValue(true)
-                
-                // - Update the view
-                self.delegate?.provisioningSuccess(ThemePresenter.init())
+            case .failure(let error):
+                self.delegate?.provisioningFailed(error.localizedDescription)
             }
-            else {
-                CommonProperties.provisioningCode.remove()
-                log.debug("Provisioning failed.")
-                self.delegate?.provisioningFailed("The account could not be provisioned using code '\(code)'.")
-            }
-            
-            completion?()
         }
     }
     

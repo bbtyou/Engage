@@ -7,32 +7,28 @@
 //
 
 import Foundation
+import wvslib
 
 class ThemePresenter {
-    
+    // - View delegate
     weak var delegate: ThemeDelegate?
     
     func loadTheme() {
-        let ds = ThemeDataSource.init()
+        (self.delegate as? Waitable)?.showSpinner("Updating application theme...")
         
-        self.delegate?.showSpinner("Updating theme...")
-        ds.fetchTheme { (theme, error) in
-            self.delegate?.hideSpinner()
+        LocalCurrent.theming().theme { result in
+            (self.delegate as? Waitable)?.hideSpinner()
             
-            if let e = error {
-                log.error(e)
-                self.delegate?.themeFailed()
-                return
-            }
-            
-            if let theme = theme {
-                AppConfigurator.shared.updateTheme(withTheme: theme)
+            switch result {
+            case .success(let theme):
+                Properties<String>.themeColor.setValue(value: theme.themeColor)
+                Properties<String>.logoUrl.setValue(value: theme.smallLogoUrl)
                 self.delegate?.themeLoaded()
-                return
+                
+            case .failure(let error):
+                Current.log().error(error)
+                self.delegate?.themeFailed()
             }
-            
-            self.delegate?.themeFailed()
         }
     }
-    
 }

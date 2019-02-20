@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import wvslib
 
 class HomePresenter {
     
@@ -32,65 +33,38 @@ class HomePresenter {
     fileprivate var favoritesSections = [String]()
     
     deinit {
-        log.verbose("** Deallocated \(HomePresenter.self).")
+        Current.log().verbose("** Deallocated \(HomePresenter.self).")
     }
     
     func fetchAssets(_ showSpinner: Bool = true) {
-        let dataSource = PortalDataSource.init()
-        
         if showSpinner {
-            self.delegate?.showSpinner("Loading tools and assets...")
+            (self.delegate as? Waitable)?.showSpinner("Loading collateral...")
         }
         
         self.filesBySection.removeAll()
         self.sections.removeAll()
         
-        dataSource.fetchCategories { (categories, error) in
-            self.delegate?.hideSpinner()
-
-            if let e = error {
-                self.delegate?.showEmpty(e.localizedDescription)
-                return
-            }
+        LocalCurrent.main().portal { result in
+            (self as? Waitable)?.hideSpinner()
             
-            // - Fetch the favorites
-            if showSpinner {
-                self.delegate?.showSpinner("Updating favorites...")
-            }
-            
-            dataSource.fetchFavorites({ (favorites, error) in
-                self.delegate?.hideSpinner()
+            switch result {
+            case .success(let portal):
+                self.favorites = portal.favorites
                 
-                if let e = error {
-                    log.warning("The favorites could not be retrieved. \(e)")
-                }
-                else {
-                    self.favorites = favorites
-                }
-                
-                // - Filter out only categories
-                let sections = categories.filter({ (category) -> Bool in
-                    return category.files.count > 0
-                })
-                
+                let sections = portal.categories.filter({ $0.files.count > 0 })
                 if sections.count == 0 {
                     self.delegate?.showEmpty(nil)
                     return
                 }
                 
-                sections.forEach({ (section) in
-                    self.sections.append(section.title)
-                    self.filesBySection.append(section.files)
-                })
-
-                // - Load the favorites
+                self.sections = sections.map({ $0.title })
+                self.filesBySection = sections.map({ $0.files })
                 self.loadFavorites()
-
+                
                 if self.isFavorites {
                     self.toggleFavorites(true)
                 }
                 else {
-                    // - Update the view with the assets and section names
                     self.delegate?.hideEmpty()
                     self.delegate?.assetsLoaded(self.filesBySection.map({ (fileArray) -> [Asset] in
                         return fileArray.map({ (file) -> Asset in
@@ -102,7 +76,10 @@ class HomePresenter {
                         })
                     }), self.sections)
                 }
-            })
+                
+            case .failure(let error):
+                self.delegate?.showEmpty(error.localizedDescription)
+            }
         }
     }
     
@@ -115,45 +92,50 @@ class HomePresenter {
             return favorite.id == file.id
         }
         
-        let request: Request = isFavorite ? UnsetFavoriteRequest.init(unid: file.id) : SetFavoriteRequest.init(unid: file.id)
-        
         self.delegate?.showBanner(isFavorite ? "Removing \(file.title) from favorites." : "Adding \(file.title) to favorites.")
-        request.sendRequest { (response, data, error) in
-            if let error = error {
-                log.warning("The message with id \(file.id) could not be set as a favorite. \(error)")
-                return
+        if isFavorite {
+            LocalCurrent.unsetFavorite().unset(file.id) { result in
+                switch result {
+                case .failure(let error):
+                    Current.log().error("The message with id \(file.id) could not be unset as a favorite. \(error)")
+                    return
+                    
+                case .success(_):
+                    self.fetchAssets(false)
+                }
             }
-            
-            // - Update the view to display the favorite properly
-            self.fetchAssets(false)
+        }
+        else {
+            LocalCurrent.setFavorite().set(file.id) { result in
+                switch result {
+                case .failure(let error):
+                    Current.log().error("The message with id \(file.id) could not be set as a favorite. \(error)")
+                    return
+                    
+                case .success(_):
+                    self.fetchAssets(false)
+                }
+            }
         }
     }
     
     func selectAsset(_ section: Int, index: Int) {
         let asset = self.isFavorites ? self.favoritesBySection[section][index] : self.filesBySection[section][index]
-
-        self.delegate?.showSpinner("Loading content for \(asset.title)...")
+        (self.delegate as? Waitable)?.showSpinner("Loading content for \(asset.title)...")
         
-        let dataSource = AssetFileDataSource.init()
-        dataSource.fetchAsset(fromModel: asset) { (data, error) in
-            self.delegate?.hideSpinner()
+        LocalCurrent.collateral().download(asset.url) { result in
+            (self.delegate as? Waitable)?.hideSpinner()
             
-            if let error = error {
-                log.error("The asset file could not be loaded. \(error)")
-                // Show error
-                return
+            switch result {
+            case .success(let data):
+                let mime = MimeMap.shared
+                let pathExtension = mime.pathExtension(forMime: asset.mimetype)
+                self.delegate?.fileOpened(WebViewPresenter.init(withData: data, pathExtension, asset.title))
+
+            case .failure(let error):
+                Current.log().error("This asset file could not be loaded. \(error)")
+                self.delegate?.showBanner(error.localizedDescription)
             }
-            
-            guard let data = data else {
-                // - Display an error
-                return
-            }
-            
-            // - Get the path extension for the mimetype
-            let mime = MimeMap.shared
-            let pathExtension = mime.pathExtension(forMime: asset.mimetype)
-            
-            self.delegate?.fileOpened(WebViewPresenter.init(withData: data, pathExtension, asset.title))
         }
     }
     

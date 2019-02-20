@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import wvslib
 
 class LoginPresenter {
     
@@ -18,34 +19,27 @@ class LoginPresenter {
 			return
 		}
 		
-		self.delegate?.showSpinner("Logging in...")
+		(self.delegate as? Waitable)?.showSpinner("Logging in...")
 		
-		let dataSource = AuthenticationDataSource.init(username, password)
-		dataSource.authenticate { (error) in
-			self.delegate?.hideSpinner()
-			
-			if let e = error {
-				self.delegate?.loginFailed(e.localizedDescription)
-				return
-			}
-			
-            var userData = UserData()
-            userData.password = password
-            userData.userId = username
-            
-            AppConfigurator.shared.userInfo = userData
-            
-			self.delegate?.loginCompleted()
-			
-            // - Save the username
-            CommonProperties.userid.setValue(username)
-            
-			// - Navigate to the home screen
-			self.delegate?.navigate("home", DrawerPresenter())
-            
-            // - Notify listeners that login has completed
-            NotificationCenter.default.post(name: NSNotification.Name.init("loginCompleted"), object: nil)
-		}
+        LocalCurrent.auth().authenticate(username, password, { result in
+            (self.delegate as? Waitable)?.hideSpinner()
+
+            switch result {
+            case .success(let login):
+                if let success = login.success, success == true {
+                    // - Notify listeners that login has completed
+                    NotificationCenter.default.post(name: NSNotification.Name.init("loginCompleted"), object: nil)
+                    self.delegate?.loginCompleted()
+                    self.delegate?.navigate("home", DrawerPresenter())
+                }
+                else {
+                    self.delegate?.loginFailed(login.failure ?? "The system was unable to log you in.  Please contact your administrator for assistance.")
+                }
+                
+            case .failure(let error):
+                self.delegate?.loginFailed(error.localizedDescription)
+            }
+        })
     }
 	
     

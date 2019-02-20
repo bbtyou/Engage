@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import wvslib
 
-class ProvisioningViewController: UIViewController, OrientationConfigurable {
+class ProvisioningViewController: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet fileprivate var provisioningCodeTextField: UITextField!
@@ -34,20 +35,15 @@ class ProvisioningViewController: UIViewController, OrientationConfigurable {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.presenter.delegate = self
-        
         // - Do not show the nav bar for the provisioning view
         self.navigationController?.isNavigationBarHidden = true
         
-        // - Style the button
         self.provisionButton.style()
-        
-        // - Styled text field
         self.provisioningCodeTextField.delegate = self
         self.provisioningCodeTextField.style()
 
-		// - Check if provisioning is needed
-		self.presenter.migrate()
+        self.presenter.delegate = self
+        self.presenter.checkProvisioning()
 	}
 	
     // MARK: - Actions
@@ -55,7 +51,7 @@ class ProvisioningViewController: UIViewController, OrientationConfigurable {
     @IBAction func provisionTapped(_ sender: UIButton) {
         let code = self.provisioningCodeTextField.text ?? ""
         self.view.endEditing(true)
-        self.presenter.provision(code)
+        self.presenter.provision(code: code, ProvisioningDataSource())
     }
     
     // MARK: - Navigation
@@ -72,10 +68,9 @@ class ProvisioningViewController: UIViewController, OrientationConfigurable {
 
 extension ProvisioningViewController: ProvisioningDelegate {
     func provisioningSuccess(_ tp: ThemePresenter) {
-        tp.delegate = self
-		
-		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-			tp.loadTheme()
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            tp.delegate = self
+			tp.loadTheme(ThemeDataSource())
 		}
     }
     
@@ -140,3 +135,11 @@ extension ProvisioningViewController: UITextFieldDelegate {
         return true
     }
 }
+
+// MARK: - OrientationConfigurable
+
+extension ProvisioningViewController: OrientationConfigurable {}
+
+// MARK: - Themeable
+
+extension ProvisioningViewController: Themeable {}

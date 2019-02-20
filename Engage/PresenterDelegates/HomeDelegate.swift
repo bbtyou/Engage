@@ -11,13 +11,10 @@ import Foundation
 // - Type alias for asset content
 typealias Asset = (title: String, mimeType: String, url: URL?, imagePath: String, isFavorite: Bool)
 
-protocol HomeDelegate: Waitable {
+protocol HomeDelegate: class {
     
     // - Tells the view that the assets have been loaded
     func assetsLoaded(_ assets: [[Asset]], _ sections: [String])
-    
-    // - Tells the view that the marquee text has been updated
-    func marqueeUpdated(_ text: String)
     
     // - Tells the view that an asset has been selected and it needs to be rendered with
     // - the web view presenter that has been passed along

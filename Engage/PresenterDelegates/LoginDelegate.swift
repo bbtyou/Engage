@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol LoginDelegate: Waitable {
+protocol LoginDelegate: class {
     
     // - Authentication completed successfully
     func loginCompleted()

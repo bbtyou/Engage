@@ -8,12 +8,10 @@
 
 import Foundation
 
-protocol ThemeDelegate: Waitable {
-    
+protocol ThemeDelegate: class {
     // - Invoked when the theme has successfully loaded
     func themeLoaded()
     
     // - Invoked when the theme has failed to load
     func themeFailed()
-    
 }

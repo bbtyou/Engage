@@ -110,3 +110,28 @@ struct Marquee: Codable {
     let delay: String
     
 }
+
+// MARK: Portal
+struct Portal: Codable {
+    // Contact info
+    let contact: Contact
+    
+    // Favorited assets
+    let favorites: [Favorite]
+    
+    // Inbox messages
+    let messages: [Message]
+    
+    // Menu and asset categories
+    let categories: [Category]
+}
+
+// MARK: - Success/Failure
+
+struct Success: Codable {
+    // Successful completion of task
+    var success: Bool?
+
+    // Failure with a string
+    var failure: String?
+}

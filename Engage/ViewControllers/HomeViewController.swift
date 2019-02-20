@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import wvslib
 
-class HomeViewController: EngageViewController {
+class HomeViewController: UIViewController {
 
     // - Outlets
     @IBOutlet fileprivate var assetTableView: UITableView!
@@ -45,7 +46,7 @@ class HomeViewController: EngageViewController {
         
         // - Set up the favorites button
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: CommonImages.favoritesdisabled.image, style: .plain, target: self, action: #selector(favoritesTapped))
-        self.navigationItem.rightBarButtonItem?.tintColor = AppConfigurator.shared.themeConfigurator?.themeColor
+        self.navigationItem.rightBarButtonItem?.tintColor = self.themeColor
         
         // - Style the empty favorites view
         self.emptyFavoritesLabel.textColor = AppConfigurator.shared.themeConfigurator?.headerTextColor
@@ -159,3 +160,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return UIDevice.current.sizeClass == .compact ? 230.0 : 250.0
     }
 }
+
+// MARK: - Waitable
+
+extension HomeViewController: Waitable {}
+
+// MARK: - Themeable
+
+extension HomeViewController: Themeable {}

@@ -1,27 +1,24 @@
 //
-//  Themable.swift
+//  Stylable.swift
 //  Engage
 //
-//  Created by Charles Imperato on 11/12/18.
-//  Copyright © 2018 PerpetuityMD. All rights reserved.
+//  Created by Charles Imperato on 2/18/19.
+//  Copyright © 2019 PerpetuityMD. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 protocol Stylable {}
 
 // MARK: - UIButton
+extension UIButton: Stylable {}
 
 extension Stylable where Self: UIButton {
     func style() {
-        guard let themer = AppConfigurator.shared.themeConfigurator else {
-            log.warning("Unable to theme button because the theme configuration could not be found.")
-            return
-        }
-        
         self.layer.cornerRadius = 5.0
         
-        if let image = UIImage.imageFromColor(color: themer.themeColor) {
+        if let theme: String = Properties.themeColor.value, let color = UIColor.colorWithAlphaHexValue(theme), let image = UIImage.imageFromColor(color: color) {
             self.setBackgroundImage(image, for: .normal)
         }
         
@@ -32,6 +29,7 @@ extension Stylable where Self: UIButton {
 }
 
 // MARK: - UITextField
+extension UITextField: Stylable {}
 
 extension Stylable where Self: UITextField {
     func style() {
@@ -43,15 +41,12 @@ extension Stylable where Self: UITextField {
 }
 
 // MARK: - UIBarButtonItem
+extension UIBarButtonItem: Stylable {}
 
 extension Stylable where Self: UIBarButtonItem {
-	func style() {
-		guard let themer = AppConfigurator.shared.themeConfigurator else {
-			log.warning("Unable to theme button because the theme configuration could not be found.")
-			return
-		}
-		
-		self.tintColor = themer.themeColor
-	}
-	
+    func style() {
+        if let theme: String = Properties.themeColor.value, let color = UIColor.colorWithAlphaHexValue(theme) {
+            self.tintColor = color
+        }
+    }
 }
