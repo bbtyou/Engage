@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import wvslib
 
 fileprivate enum DrawerState: Int {
     case open
@@ -28,76 +29,44 @@ class DrawerPresenter {
     fileprivate var drawerActions = [Category]()
     
     // - Load the actions
-    func loadActions() {
-        let dataSource = PortalDataSource.init()
-
-        dataSource.fetchCategories { (categories, error) in
-            if let e = error {
-                log.error(e)
+    func loadActions(_ useCache: Bool = true) {
+        CurrentLocal.main().portal(useCache) { result in
+            switch result {
+            case .success(let portal):
+                if portal.categories.count == 0 {
+                    self.delegate?.showEmptyDrawer(withMessage: nil)
+                    return
+                }
                 
-                // - Show empty drawer error
-                self.delegate?.showEmptyDrawer(withMessage: e.localizedDescription)
-                return
+                // Filter actions and sort
+                self.drawerActions = portal.categories.filter({ $0.action.count > 0 }).sorted(by: { $0.lft < $1.lft })
+                
+                // - Insert the built in categories included in the app
+                // - Home, Calendar, Inbox
+                let home = Category.init(id: "home", title: "Home", icon: Images.home.rawValue, banner: "", lft: "0", level: "", action: "app://home", files: [])
+                self.drawerActions.insert(home, at: 0)
+                
+                let calendar = Category.init(id: "calendar", title: "Calendar", icon: Images.calendar.rawValue, banner: "", lft: "0", level: "", action: "app://calendar", files: [])
+                self.drawerActions.insert(calendar, at: 1)
+                
+                let inbox = Category.init(id: "inbox", title: "Inbox", icon: Images.inbox.rawValue, banner: "", lft: "0", level: "", action: "app://inbox", files: [])
+                self.drawerActions.insert(inbox, at: 2)
+                
+                // - Map the actions to our domain object tuple and notify the view
+                // - that the contents have loaded.
+                self.delegate?.contentsLoaded(self.drawerActions.map({ ($0.title, $0.icon) }))
+                
+            case .failure(let error):
+                Current.log().error(error)
+                self.delegate?.showEmptyDrawer(withMessage: error.localizedDescription)
             }
-            
-            if categories.count == 0 {
-                self.delegate?.showEmptyDrawer(withMessage: nil)
-                return
-            }
-            
-            // - Filter out all categories that are actions
-            self.drawerActions = categories.filter({ (category) -> Bool in
-                return category.action.trimmingCharacters(in: .whitespaces).count > 0
-            })
-            
-            // - Sort the actions in based on what we get from the server for order
-            self.drawerActions.sort(by: { (firstCat, secondCat) -> Bool in
-                return (Int(secondCat.lft) ?? 0) > (Int(firstCat.lft) ?? 0)
-            })
-            
-            // - Insert the built in categories included in the app
-            // - Home, Calendar, Inbox
-            let home = Category.init(id: "home", title: "Home", icon: CommonImages.home.rawValue, banner: "", lft: "0", level: "", action: "app://home", files: [])
-            self.drawerActions.insert(home, at: 0)
-            
-            let calendar = Category.init(id: "calendar", title: "Calendar", icon: CommonImages.calendar.rawValue, banner: "", lft: "0", level: "", action: "app://calendar", files: [])
-            self.drawerActions.insert(calendar, at: 1)
-            
-            let inbox = Category.init(id: "inbox", title: "Inbox", icon: CommonImages.inbox.rawValue, banner: "", lft: "0", level: "", action: "app://inbox", files: [])
-            self.drawerActions.insert(inbox, at: 2)
-            
-            // - Map the actions to our domain object tuple and notify the view
-            // - that the contents have loaded.
-            self.delegate?.contentsLoaded(self.drawerActions.map({ (category) -> DrawerItem in
-                return (category.title, category.icon)
-            }))
         }
-        
+
         self.delegate?.updateFooterView(withImage: "logout", text: "Logout")
     }
     
     func pressFooter() {
-        let logoutRequest = LogoutRequest.init()
-        
-        self.delegate?.showSpinner("Logging out...")
-        
-        logoutRequest.sendRequest { (response, data, error) in
-            self.delegate?.hideSpinner()
-            
-            if let response = response {
-                log.verbose(response)
-            }
-            
-            if let data = data, let json = String.init(data: data, encoding: .utf8) {
-                log.debug(json)
-            }
-            
-            if let error = error {
-                log.error(error)
-            }
-            
-            self.delegate?.exitComplete()
-        }
+        self.delegate?.exitComplete()
     }
     
     func panOpenDrawer() {

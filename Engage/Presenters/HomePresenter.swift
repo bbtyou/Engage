@@ -44,7 +44,7 @@ class HomePresenter {
         self.filesBySection.removeAll()
         self.sections.removeAll()
         
-        LocalCurrent.main().portal { result in
+        CurrentLocal.main().portal { result in
             (self as? Waitable)?.hideSpinner()
             
             switch result {
@@ -94,7 +94,7 @@ class HomePresenter {
         
         self.delegate?.showBanner(isFavorite ? "Removing \(file.title) from favorites." : "Adding \(file.title) to favorites.")
         if isFavorite {
-            LocalCurrent.unsetFavorite().unset(file.id) { result in
+            CurrentLocal.unsetFavorite().unset(file.id) { result in
                 switch result {
                 case .failure(let error):
                     Current.log().error("The message with id \(file.id) could not be unset as a favorite. \(error)")
@@ -106,7 +106,7 @@ class HomePresenter {
             }
         }
         else {
-            LocalCurrent.setFavorite().set(file.id) { result in
+            CurrentLocal.setFavorite().set(file.id) { result in
                 switch result {
                 case .failure(let error):
                     Current.log().error("The message with id \(file.id) could not be set as a favorite. \(error)")
@@ -123,7 +123,7 @@ class HomePresenter {
         let asset = self.isFavorites ? self.favoritesBySection[section][index] : self.filesBySection[section][index]
         (self.delegate as? Waitable)?.showSpinner("Loading content for \(asset.title)...")
         
-        LocalCurrent.collateral().download(asset.url) { result in
+        CurrentLocal.collateral().download(asset.url) { result in
             (self.delegate as? Waitable)?.hideSpinner()
             
             switch result {

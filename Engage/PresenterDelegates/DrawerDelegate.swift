@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol DrawerDelegate: Waitable {
+protocol DrawerDelegate: class {
 	
     // - Opens the drawer if it is closed
     func open()

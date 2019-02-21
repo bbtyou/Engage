@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import wvslib
 
-struct LocalWorld {
+struct WorldLocal {
     // Base server path
     var base = { Properties<String>.basepath.value ?? "" }
     
@@ -38,6 +38,7 @@ struct LocalWorld {
     // Unset a favorite
     var unsetFavorite = { UnsetFavorite() }
     
+    // - File collection
     var collateral = { CollateralFile() }
     
     // All image requests
@@ -45,9 +46,9 @@ struct LocalWorld {
 }
 
 #if DEBUG
-var LocalCurrent = LocalWorld()
+var CurrentLocal = WorldLocal()
 #else
-let LocalCurrent = LocalWorld()
+let CurrentLocal = WorldLocal()
 #endif
 
 // MARK: - Request calls
@@ -56,7 +57,7 @@ let LocalCurrent = LocalWorld()
 // - Each of these variables can have their implementation swapped out for unit testing.
 struct Authentication {
     var authenticate: (_ username: String, _ password: String, _ closure: @escaping ResultClosure<Login>) -> () = { username, password, closure in
-        Request<Login>(path: "\(LocalCurrent.base)/api/authenticate", .shared, .post, ["login": username, "passwd": password], nil, .url).send({ (result) in
+        Request<Login>(path: "\(CurrentLocal.base)/api/authenticate", .shared, .post, ["login": username, "passwd": password], nil, .url).send({ (result) in
             closure(result)
         })
     }
@@ -72,26 +73,58 @@ struct Provisioning {
 
 struct Theming {
     var theme: (_ closure: @escaping ResultClosure<Theme>) -> () = { closure in
-        Request<Theme>(path: "\(LocalCurrent.base)/theme.json").send({ (result) in
+        Request<Theme>(path: "\(CurrentLocal.base)/theme.json").send({ (result) in
             closure(result)
         })
     }
 }
 
 struct Main {
-    var portal: (_ closure: @escaping ResultClosure<Portal>) -> () = { closure in
-        Request<Portal>(path: "\(LocalCurrent.base)/portal.json").send({ (result) in
-            closure(result)
+    var portal: (_ useCache: Bool, _ closure: @escaping ResultClosure<Portal>) -> () = { useCache, closure in
+        let path = "\(CurrentLocal.base)/portal.json"
+
+        if !useCache {
+            Request<Portal>(path: path).send({ (result) in
+                closure(result)
+            })
+            
+            return
+        }
+        
+        Current.dataCache().item(forKey: path, { (codable) in
+            if let data = codable?.data {
+                do {
+                    let decoder = JSONDecoder()
+                    let portal = try decoder.decode(Portal.self, from: data)
+                    closure(.success(portal))
+                    return
+                }
+                catch {
+                    Current.log().error(error)
+                }
+                
+                Request<Portal>(path: path).send({ (result) in
+                    switch result {
+                    case .success(let portal):
+                        try? (portal as? Cacheable)?.persist(withKey: path)
+                        
+                    default:
+                        break
+                    }
+                    
+                    closure(result)
+                })
+            }
         })
     }
 }
 
 struct SetFavorite {
     var set: (_ id: String, _ closure: @escaping ResultClosure<String>) -> () = { id, closure in
-        Request<Success>(path: "\(LocalCurrent.base)/api/setfavorite", .shared, .post, ["id": id], nil, .url).send({ (result) in
+        Request<PostResult>(path: "\(CurrentLocal.base)/api/setfavorite", .shared, .post, ["id": id], nil, .url).send({ (result) in
             switch result {
             case .success(let success):
-                if let set = success.success, set == true {
+                if let set = success.ok, set == true {
                     closure(.success(id))
                 }
                 else {
@@ -107,10 +140,10 @@ struct SetFavorite {
 
 struct UnsetFavorite {
     var unset: (_ id: String, _ closure: @escaping ResultClosure<String>) -> () = { id, closure in
-        Request<Success>(path: "\(LocalCurrent.base)/api/unsetfavorite", .shared, .post, ["id": id], nil, .url).send({ (result) in
+        Request<PostResult>(path: "\(CurrentLocal.base)/api/unsetfavorite", .shared, .post, ["id": id], nil, .url).send({ (result) in
             switch result {
             case .success(let success):
-                if let unset = success.success, unset == true {
+                if let unset = success.ok, unset == true {
                     closure(.success(id))
                 }
                 else {
@@ -126,15 +159,15 @@ struct UnsetFavorite {
 
 struct CollateralFile {
     var download: (_ path: String, _ closure: @escaping ResultClosure<Data>) -> () = { path, closure in
-        Request<Data>(path: "\(LocalCurrent.base)/\(path)").send({ (result) in
+        Request<Data>(path: "\(CurrentLocal.base)/\(path)").send({ (result) in
             closure(result)
         })
     }
 }
 
 struct Image {
-    var image: (_ closure: @escaping ResultClosure<UIImage>) -> () = { closure in
-        ImageRequest(path: "\(LocalCurrent.base)/\(LocalCurrent.logopath)").send({ (result) in
+    var image: (_ closure: @escaping ResultClosure<(UIImage, String)>) -> () = { closure in
+        ImageRequest(path: "\(CurrentLocal.base)/\(CurrentLocal.logopath)").send({ (result) in
             closure(result)
         })
     }

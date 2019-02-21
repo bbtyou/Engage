@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		132A7ED2221E01DC004C7E35 /* AuthenticationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132A7ED1221E01DC004C7E35 /* AuthenticationTests.swift */; };
+		132A7ED4221E0542004C7E35 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132A7ED3221E0542004C7E35 /* Images.swift */; };
 		13461D98221BA41A00E8BC30 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13461D97221BA41A00E8BC30 /* Login.swift */; };
 		13461D9B221BA51B00E8BC30 /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13461D9A221BA51B00E8BC30 /* Properties.swift */; };
 		13461D9D221BA7F800E8BC30 /* Themeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13461D9C221BA7F800E8BC30 /* Themeable.swift */; };
@@ -97,6 +99,8 @@
 
 /* Begin PBXFileReference section */
 		08DC33DB7D0BE11A4E0A761F /* Pods-EngageUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EngageUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EngageUITests/Pods-EngageUITests.release.xcconfig"; sourceTree = "<group>"; };
+		132A7ED1221E01DC004C7E35 /* AuthenticationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationTests.swift; sourceTree = "<group>"; };
+		132A7ED3221E0542004C7E35 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		13461D97221BA41A00E8BC30 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		13461D9A221BA51B00E8BC30 /* Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Properties.swift; sourceTree = "<group>"; };
 		13461D9C221BA7F800E8BC30 /* Themeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Themeable.swift; sourceTree = "<group>"; };
@@ -216,6 +220,7 @@
 				13461D9C221BA7F800E8BC30 /* Themeable.swift */,
 				13B5163C221BBE2D00EFBFB4 /* Stylable.swift */,
 				13B51642221CD8C800EFBFB4 /* Shared.swift */,
+				132A7ED3221E0542004C7E35 /* Images.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -277,6 +282,7 @@
 			children = (
 				138CBBFB219240ED00015EDC /* EngageTests.swift */,
 				138CBBFD219240ED00015EDC /* Info.plist */,
+				132A7ED1221E01DC004C7E35 /* AuthenticationTests.swift */,
 			);
 			path = EngageTests;
 			sourceTree = "<group>";
@@ -672,6 +678,7 @@
 				13461D9D221BA7F800E8BC30 /* Themeable.swift in Sources */,
 				13796D8621B510C2008FCA13 /* SupportPresenter.swift in Sources */,
 				13A8B0E9219C8931003CCFC5 /* WebViewPresenter.swift in Sources */,
+				132A7ED4221E0542004C7E35 /* Images.swift in Sources */,
 				13A8B0EB219C8949003CCFC5 /* WebViewDelegate.swift in Sources */,
 				138CBC4D2199321D00015EDC /* ProvisioningViewController.swift in Sources */,
 				13796D8A21B51164008FCA13 /* SupportViewController.swift in Sources */,
@@ -714,6 +721,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				138CBBFC219240ED00015EDC /* EngageTests.swift in Sources */,
+				132A7ED2221E01DC004C7E35 /* AuthenticationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

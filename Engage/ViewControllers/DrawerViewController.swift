@@ -7,14 +7,14 @@
 //
 
 import UIKit
+import wvslib
 
-// Type for drawer contents
+// Type for drawer contents89
 typealias DrawerItem = (title: String, iconPath: String)
 
 // - View Controller which defines the main menu drawer
 // - which can slide out from the left side of the screen
-class DrawerViewController: EngageViewController, Containerable {
-
+class DrawerViewController: UIViewController {
 	// MARK: - Outlets
 	
     @IBOutlet fileprivate var drawerContainer: UIView!
@@ -230,6 +230,7 @@ extension DrawerViewController: DrawerDelegate {
     }
     
     func openItem(_ item: (action: String, title: String)) {
+        // TODO: Replace with action handler
         let handler = AppConfigurator.shared.actionHandler
         
         if let viewController = handler.handleAction(item.action, item.title) {
@@ -244,10 +245,7 @@ extension DrawerViewController: DrawerDelegate {
     func updateFooterView(withImage name: String, text: String) {
         let image = UIImage.init(named: name)
         
-        if let themeColor = AppConfigurator.shared.themeConfigurator?.themeColor {
-            self.footerButton.setImage(image?.maskedImage(with: themeColor).resize(toWidth: 39.0)?.resize(toHeight: 39.0), for: .normal)
-        }
-        
+        self.footerButton.setImage(image?.maskedImage(with: self.themeColor).resize(toWidth: 39.0)?.resize(toHeight: 39.0), for: .normal)
         self.footerButton.setTitle(text, for: .normal)
         self.footerButton.setBackgroundImage(UIImage.imageFromColor(color: UIColor.gray.withAlphaComponent(0.5)), for: .highlighted)
         self.footerButton.setBackgroundImage(UIImage.imageFromColor(color: UIColor.white), for: .normal)
@@ -279,12 +277,7 @@ extension DrawerViewController: UITableViewDelegate, UITableViewDataSource {
         if self.drawerItems.count == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DrawerEmptyTableViewCell", for: indexPath) as! DrawerTableViewCell
             
-            var iconImage = CommonImages.infosignal.image
-            if let themeColor = AppConfigurator.shared.themeConfigurator?.themeColor {
-                iconImage = iconImage?.maskedImage(with: themeColor)
-            }
-            
-            cell.iconImageView.image = iconImage
+            cell.iconImageView.image = CommonImages.infosignal.image?.maskedImage(with: self.themeColor)
             cell.titleLabel.text = "There are no menu items to display.\n" + "\(self.emptyDrawerMsg ?? "")"
             
             return cell
@@ -295,7 +288,7 @@ extension DrawerViewController: UITableViewDelegate, UITableViewDataSource {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "DrawerTableViewCell", for: indexPath) as! DrawerTableViewCell
         cell.titleLabel.text = drawerItem.title
-        cell.iconImageView.fetchImage(drawerItem.iconPath, false, CommonImages.webpage.image, CGSize.init(width: 39.0, height: 39.0), AppConfigurator.shared.themeConfigurator?.themeColor)
+        cell.iconImageView.fetchImage(drawerItem.iconPath, false, Images.webpage.image, CGSize.init(width: 39.0, height: 39.0), self.themeColor)
 
         return cell
     }
@@ -308,3 +301,15 @@ extension DrawerViewController: UITableViewDelegate, UITableViewDataSource {
         return .none
     }
 }
+
+// MARK: - Waitable
+
+extension DrawerViewController: Waitable {}
+
+// MARK: - Containerable
+
+extension DrawerViewController: Containerable {}
+
+// MARK: - Themeable
+
+extension DrawerViewController: Themeable {}

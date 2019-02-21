@@ -128,9 +128,9 @@ struct Portal: Codable {
 
 // MARK: - Success/Failure
 
-struct Success: Codable {
+struct PostResult: Codable {
     // Successful completion of task
-    var success: Bool?
+    var ok: Bool?
 
     // Failure with a string
     var failure: String?

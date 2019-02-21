@@ -21,7 +21,7 @@ class LoginPresenter {
 		
 		(self.delegate as? Waitable)?.showSpinner("Logging in...")
 		
-        LocalCurrent.auth().authenticate(username, password, { result in
+        CurrentLocal.auth().authenticate(username, password, { result in
             (self.delegate as? Waitable)?.hideSpinner()
 
             switch result {
