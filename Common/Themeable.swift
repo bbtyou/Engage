@@ -40,10 +40,10 @@ extension Themeable {
     }
     
     func logo(_ completion: @escaping (_ image: UIImage?) -> ()) {
-        CurrentLocal.image().image { result in
+        Current.image().logo { result in
             switch result {
             case .success(let image):
-                completion(image)
+                completion(image.0)
                 
             case .failure(let error):
                 Current.log().error(error)

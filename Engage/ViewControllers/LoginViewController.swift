@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import wvslib
 
-class LoginViewController: UIViewController, OrientationConfigurable {
+class LoginViewController: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet fileprivate var usernameTextField: UITextField!
@@ -43,7 +44,7 @@ class LoginViewController: UIViewController, OrientationConfigurable {
 	}
 	
 	deinit {
-		log.verbose("** Deallocated viewController \(LoginViewController.self).")
+		Current.log().verbose("** Deallocated viewController \(LoginViewController.self).")
 		
 		NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
 		NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -54,21 +55,21 @@ class LoginViewController: UIViewController, OrientationConfigurable {
 
         // Do any additional setup after loading the view.
         // Get the image
-        AppConfigurator.shared.themeConfigurator?.logo(.small, { (image) in
-            guard let image = image else {
-                self.loginImageView.image = CommonImages.logo.image
-                return
+        Current.image().logo { result in
+            switch result {
+            case .success(let tuple):
+                self.loginImageView.image = tuple.0
+                
+            case .failure(let error):
+                Current.log().error("The logo image could not be retrieved: \(error).")
+                self.loginImageView.image = Images.logo.image
             }
-            
-            self.loginImageView.image = image
-        })
+        }
         
         self.loginButton?.style()
-
 		self.usernameTextField.style()
 		self.usernameTextField.delegate = self
-        self.usernameTextField.text = CommonProperties.userid.value as? String
-        
+        self.usernameTextField.text = Properties.userid.value
         self.passwordTextField.style()
 		self.passwordTextField.delegate = self
         
@@ -142,7 +143,7 @@ class LoginViewController: UIViewController, OrientationConfigurable {
 
 extension LoginViewController: LoginDelegate {
     func loginCompleted() {
-		log.debug("Authentication completed successfully.")
+		Current.log().debug("Authentication completed successfully.")
     }
     
     func loginFailed(_ message: String) {
@@ -168,3 +169,11 @@ extension LoginViewController: UITextFieldDelegate {
 		return true
 	}
 }
+
+// MARK: - OrientationConfigurable
+
+extension LoginViewController: OrientationConfigurable {}
+
+// MARK: - Waitable
+
+extension LoginViewController: Waitable {}

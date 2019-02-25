@@ -7,6 +7,15 @@
 //
 
 import Foundation
+import wvslib
+
+struct CalendarDayEvent {
+    let start: Date
+    let end: Date
+    let isAllDay: Bool
+    let title: String
+    let description: String
+}
 
 class CalendarPresenter {
     
@@ -18,42 +27,34 @@ class CalendarPresenter {
     
     // - Loads the calendar data
     func loadCalendar() {
-        let dataSource = CalendarDataSource.init()
+
+        (self.delegate as? Waitable)?.showSpinner("Loading calendar...")
         
-        self.delegate?.showSpinner("Loading calendar data...")
-        dataSource.fetchEvents { (events, error) in
-            self.delegate?.hideSpinner()
+        Current.calendar().cal { result in
+            (self.delegate as? Waitable)?.hideSpinner()
             
-            self.events = events
-            
-            if let error = error {
-                log.error("The calendar data could not be retrieved. \(error).")
-                // TODO: Show calendar error
-                return
+            switch result {
+            case .success(let events):
+                self.events = events
+                self.delegate?.eventsLoaded(
+                    self.events.map({
+                        CalendarDayEvent.init(start: Date.dateFromUTCString(utc: $0.start) ?? Date(), end: Date.dateFromUTCString(utc: $0.end) ?? Date(), isAllDay: false, title: $0.title, description: $0.description)
+                    }))
+
+            case .failure(let error):
+                // TODO: Show error
+                Current.log().error(error)
             }
-            
-            if self.events.count == 0 {
-                // TODO: Show empty
-                return
-            }
-            
-            self.delegate?.eventsLoaded(self.events.map({ (calEvent) -> CalendarDayEvent in
-                return (Date.dateFromUTCString(utc: calEvent.start) ?? Date(),
-                            Date.dateFromUTCString(utc: calEvent.end) ?? Date(),
-                                false,
-                                    calEvent.title,
-                                        calEvent.description)
-            }))
         }
     }
     
     // - AN event was selected
     func selectEvent(_ index: Int) {
-        guard index < self.events.count, index >= 0 else {
-            log.warning("The calendar event could not be selected because the index value is not within range of the current calendar item structure.")
+        guard self.events.indices.contains(index) else {
+            Current.log().warning("The calendar event could not be selected because the index value is not within range of the current calendar item structure.")
             return
         }
-        
+
         self.delegate?.didSelectEvent(CalendarDetailPresenter.init(self.events[index]))
     }
 }

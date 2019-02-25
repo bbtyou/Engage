@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol InboxDelegate: Waitable {
+protocol InboxDelegate: class {
     
     // - Notifies the view that the messages have been loaded
     func messagesLoaded(_ messages: [InboxMessage])

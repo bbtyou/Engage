@@ -10,15 +10,24 @@ import Foundation
 import UIKit
 import wvslib
 
-struct WorldLocal {
+struct World {
+    // Log
+    var log = { Log() }
+    
+    // REST cache
+    var restCache = { DefaultCache<Data>(name: "engage-rest-cache") }
+    
+    // Images cache
+    var imageCache = { DefaultCache<CodableImage>(name: "engage-image-cache") }
+    
     // Base server path
-    var base = { Properties<String>.basepath.value ?? "" }
+    var base = { return Properties.basepath.value ?? "" }
     
     /// Provisioning code
-    var code = { Properties<String>.provisioningCode.value ?? "" }
+    var code = { return Properties.provisioningCode.value ?? "" }
     
     // Relative path for the logo
-    var logopath = { Properties<String>.logoUrl.value ?? "" }
+    var logopath = { return Properties.logoUrl.value ?? "" }
     
     /// Authentication
     var auth = { Authentication() }
@@ -38,17 +47,26 @@ struct WorldLocal {
     // Unset a favorite
     var unsetFavorite = { UnsetFavorite() }
     
+    // Mark a message as read
+    var messageAction = { MessageAction() }
+    
+    // Register for push
+    var registerPush = { RegisterPush() }
+    
     // - File collection
     var collateral = { CollateralFile() }
+    
+    // - Calendar
+    var calendar = { Calendar() }
     
     // All image requests
     var image = { Image() }
 }
 
 #if DEBUG
-var CurrentLocal = WorldLocal()
+var Current = World()
 #else
-let CurrentLocal = WorldLocal()
+let Current = World()
 #endif
 
 // MARK: - Request calls
@@ -57,63 +75,59 @@ let CurrentLocal = WorldLocal()
 // - Each of these variables can have their implementation swapped out for unit testing.
 struct Authentication {
     var authenticate: (_ username: String, _ password: String, _ closure: @escaping ResultClosure<Login>) -> () = { username, password, closure in
-        Request<Login>(path: "\(CurrentLocal.base)/api/authenticate", .shared, .post, ["login": username, "passwd": password], nil, .url).send({ (result) in
-            closure(result)
+        Request<Login>(base: Current.base(), path: "/api/authenticate", .shared, .post, ["login": username, "passwd": password], nil, .url).send({ (result) in
+            DispatchQueue.main.async {
+                closure(result)
+            }
         })
     }
 }
 
 struct Provisioning {
     var provision: (_ code: String, _ closure: @escaping ResultClosure<Provision>) -> () = { code, closure in
-        Request<Provision>(path: "https://myengageapp.com/provision.json", .shared, .post, ["code": code], nil, .url).send({ (result) in
-            closure(result)
+        Request<Provision>(base: "https://myengageapp.com", path: "/provision.json", .shared, .post, ["code": code], nil, .url).send({ (result) in
+            DispatchQueue.main.async {
+                closure(result)
+            }
         })
     }
 }
 
 struct Theming {
     var theme: (_ closure: @escaping ResultClosure<Theme>) -> () = { closure in
-        Request<Theme>(path: "\(CurrentLocal.base)/theme.json").send({ (result) in
-            closure(result)
+        Request<Theme>(base: Current.base(), path: "/theme.json").send({ (result) in
+            DispatchQueue.main.async {
+                closure(result)
+            }
         })
     }
 }
 
 struct Main {
     var portal: (_ useCache: Bool, _ closure: @escaping ResultClosure<Portal>) -> () = { useCache, closure in
-        let path = "\(CurrentLocal.base)/portal.json"
-
         if !useCache {
-            Request<Portal>(path: path).send({ (result) in
-                closure(result)
+            Request<Portal>(base: Current.base(), path: "/portal.json").send({ (result) in
+                DispatchQueue.main.async {
+                    closure(result)
+                }
             })
             
             return
         }
         
-        Current.dataCache().item(forKey: path, { (codable) in
-            if let data = codable?.data {
-                do {
-                    let decoder = JSONDecoder()
-                    let portal = try decoder.decode(Portal.self, from: data)
-                    closure(.success(portal))
-                    return
-                }
-                catch {
-                    Current.log().error(error)
-                }
-                
-                Request<Portal>(path: path).send({ (result) in
-                    switch result {
-                    case .success(let portal):
-                        try? (portal as? Cacheable)?.persist(withKey: path)
-                        
-                    default:
-                        break
+        Current.restCache().item(forKey: "\(Current.base())/portal.json", { (codable) in
+            DispatchQueue.main.async {
+                if let data = codable {
+                    do {
+                        let decoder = JSONDecoder()
+                        let portal = try decoder.decode(Portal.self, from: data)
+                        closure(.success(portal))
+                        return
                     }
-                    
-                    closure(result)
-                })
+                    catch {
+                        Current.log().error(error)
+                    }
+                }
             }
         })
     }
@@ -121,18 +135,20 @@ struct Main {
 
 struct SetFavorite {
     var set: (_ id: String, _ closure: @escaping ResultClosure<String>) -> () = { id, closure in
-        Request<PostResult>(path: "\(CurrentLocal.base)/api/setfavorite", .shared, .post, ["id": id], nil, .url).send({ (result) in
-            switch result {
-            case .success(let success):
-                if let set = success.ok, set == true {
-                    closure(.success(id))
+        Request<PostResult>(base: Current.base(), path: "/api/setfavorite", .shared, .post, ["id": id], nil, .url).send({ (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let success):
+                    if let set = success.ok, set == 1 {
+                        closure(.success(id))
+                    }
+                    else {
+                        closure(.success(success.failure ?? id))
+                    }
+                    
+                case .failure(let error):
+                    closure(.failure(error))
                 }
-                else {
-                    closure(.success(success.failure ?? id))
-                }
-                
-            case .failure(let error):
-                closure(.failure(error))
             }
         })
     }
@@ -140,35 +156,141 @@ struct SetFavorite {
 
 struct UnsetFavorite {
     var unset: (_ id: String, _ closure: @escaping ResultClosure<String>) -> () = { id, closure in
-        Request<PostResult>(path: "\(CurrentLocal.base)/api/unsetfavorite", .shared, .post, ["id": id], nil, .url).send({ (result) in
-            switch result {
-            case .success(let success):
-                if let unset = success.ok, unset == true {
-                    closure(.success(id))
+        Request<PostResult>(base: Current.base(), path: "/api/unsetfavorite", .shared, .post, ["id": id], nil, .url).send({ (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let success):
+                    if let unset = success.ok, unset == 1 {
+                        closure(.success(id))
+                    }
+                    else {
+                        closure(.success(success.failure ?? id))
+                    }
+                    
+                case .failure(let error):
+                    closure(.failure(error))
                 }
-                else {
-                    closure(.success(success.failure ?? id))
+            }
+        })
+    }
+}
+
+struct MessageAction {
+    var markRead: (_ id: String, _ closure: @escaping ResultClosure<String>) -> () = { id, closure in
+        Request<PostResult>(base: Current.base(), path: "/api/messageread", .shared, .post, ["id": id], nil, .url).send({ (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let success):
+                    if let read = success.ok, read == 1 {
+                        closure(.success(id))
+                    }
+                    else {
+                        closure(.success(success.failure ?? id))
+                    }
+                    
+                case .failure(let error):
+                    closure(.failure(error))
                 }
-                
-            case .failure(let error):
-                closure(.failure(error))
+            }
+        })
+    }
+    
+    var delete: (_ id: String, _ closure: @escaping ResultClosure<String>) -> () = { id, closure in
+        Request<PostResult>(base: Current.base(), path: "/api/messagedelete", .shared, .post, ["id": id], nil, .url).send({ (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let success):
+                    if let read = success.ok, read == 1 {
+                        closure(.success(id))
+                    }
+                    else {
+                        closure(.success(success.failure ?? id))
+                    }
+                    
+                case .failure(let error):
+                    closure(.failure(error))
+                }
+            }
+        })
+    }
+}
+
+struct RegisterPush {
+    var push: (_ id: String, _ closure: @escaping ResultClosure<String>) -> () = { id, closure in
+        Request<PostResult>(base: Current.base(), path: "/api/register", .shared, .post, ["id": id], nil, .url).send({ (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let success):
+                    if let reg = success.ok, reg == 1 {
+                        closure(.success(id))
+                    }
+                    else {
+                        closure(.success(success.failure ?? id))
+                    }
+                    
+                case .failure(let error):
+                    closure(.failure(error))
+                }
             }
         })
     }
 }
 
 struct CollateralFile {
-    var download: (_ path: String, _ closure: @escaping ResultClosure<Data>) -> () = { path, closure in
-        Request<Data>(path: "\(CurrentLocal.base)/\(path)").send({ (result) in
-            closure(result)
+    var download: (_ base: String, _ path: String, _ closure: @escaping ResultClosure<Data>) -> () = { basepath, path, closure in
+        // Check the cache first
+        Current.restCache().item(forKey: "\(Current.base())/\(path)", { (data) in
+            guard let data = data else {
+                Request<Data>(base: Current.base(), path: path).send({ (result) in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let data):
+                            Current.restCache().set(data, forKey: "\(Current.base())/\(path)")
+                            
+                        default:
+                            break
+                        }
+                        
+                        closure(result)
+                    }
+                })
+                return
+            }
+            
+            DispatchQueue.main.async {
+                closure(.success(data))
+            }
+        })
+    }
+}
+
+struct Calendar {
+    var cal: (_ closure: @escaping ResultClosure<[CalendarEvent]>) -> () = { closure in
+        Request<[CalendarEvent]>.init(base: Current.base(), path: "/calendar.json").send({ (result) in
+            DispatchQueue.main.async {
+                closure(result)
+            }
         })
     }
 }
 
 struct Image {
-    var image: (_ closure: @escaping ResultClosure<(UIImage, String)>) -> () = { closure in
-        ImageRequest(path: "\(CurrentLocal.base)/\(CurrentLocal.logopath)").send({ (result) in
-            closure(result)
+    var logo: (_ closure: @escaping ResultClosure<(UIImage, String)>) -> () = { closure in
+        // Check the cache first
+        Current.imageCache().item(forKey: "\(Current.base())/\(Current.logopath())", { (codable) in
+            guard let image = codable?.image else {
+                ImageRequest(base: Current.base(), path: Current.logopath()).send({ (result) in
+                    DispatchQueue.main.async {
+                        closure(result)
+                    }
+                })
+                
+                return
+            }
+            
+            DispatchQueue.main.async {
+                closure(.success((image, "\(Current.base)/\(Current.logopath())")))
+            }
         })
     }
 }

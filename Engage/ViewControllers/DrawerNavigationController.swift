@@ -15,7 +15,6 @@ class DrawerNavigationController: UINavigationController {
     // - Notifiable container view
     var container: UIView?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
  

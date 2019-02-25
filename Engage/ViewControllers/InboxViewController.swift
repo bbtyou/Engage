@@ -11,7 +11,7 @@ import UIKit
 // - Type alias for view data
 typealias InboxMessage = (time: Date, subject: String, body: String, author: String, read: Bool)
 
-class InboxViewController: EngageViewController {
+class InboxViewController: UIViewController {
 
     // - MARK: Outlets
     
@@ -47,17 +47,14 @@ class InboxViewController: EngageViewController {
         self.title = "Inbox"
 
         // - Style the empty view
-        self.emptyViewLabel.textColor = AppConfigurator.shared.themeConfigurator?.bodyTextColor
-        self.emptyViewInstructionLabel.textColor = AppConfigurator.shared.themeConfigurator?.bodyTextColor
+        self.emptyViewLabel.textColor = self.bodyTextColor
+        self.emptyViewInstructionLabel.textColor = self.bodyTextColor
         self.emptyViewImageView.image = UIImage.init(named: "pulldown")?.maskedImage(with: UIColor.lightGray)
         
         // - Set up the refresh control
-        let themeColor = AppConfigurator.shared.themeConfigurator?.themeColor ?? UIColor.darkText
-        
         self.refresh.attributedTitle = NSAttributedString.init(string: "Pull to refresh", attributes: [NSAttributedString.Key.foregroundColor: themeColor])
-        self.refresh.tintColor = themeColor
+        self.refresh.tintColor = self.themeColor
         self.refresh.addTarget(self, action: #selector(refreshInbox), for: .valueChanged)
-        
         self.inboxTableView.addSubview(self.refresh)
         
         // Do any additional setup after loading the view.
@@ -74,7 +71,7 @@ class InboxViewController: EngageViewController {
     }
     
     deinit {
-        log.verbose("** Deallocated viewController \(InboxViewController.self).")
+        Current.log().verbose("** Deallocated viewController \(InboxViewController.self).")
     }
     
     // MARK: - Actions
@@ -83,6 +80,10 @@ class InboxViewController: EngageViewController {
         self.presenter?.load()
     }
 }
+
+// MARK: - Themeable
+
+extension InboxViewController: Themeable {}
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
 

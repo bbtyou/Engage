@@ -32,7 +32,7 @@ class AssetTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        self.titleUnderlineView.backgroundColor = AppConfigurator.shared.themeConfigurator?.themeColor
+        self.titleUnderlineView.backgroundColor = self.themeColor
         
         // - Add the long press gesture
         let favoriteLongPress = UILongPressGestureRecognizer.init(target: self, action: #selector(toggleFavorite(_:)))
@@ -85,7 +85,7 @@ extension AssetTableViewCell: UICollectionViewDelegate, UICollectionViewDataSour
         
         // - Setup the cell
         if let asset = self.assets?.assets[indexPath.item] {
-            cell.assetImageView.fetchImage(asset.imagePath, true)
+            cell.assetImageView.fetchImage(Current.base(), asset.imagePath, Current.imageCache(), true)
             asset.isFavorite ? cell.drawBorder() : cell.clearBorder()
         }
         
@@ -100,3 +100,7 @@ extension AssetTableViewCell: UICollectionViewDelegate, UICollectionViewDataSour
         return 1
     }
 }
+
+// MARK: - Themeable
+
+extension AssetTableViewCell: Themeable {}

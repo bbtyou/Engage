@@ -16,12 +16,12 @@ class ThemePresenter {
     func loadTheme() {
         (self.delegate as? Waitable)?.showSpinner("Updating application theme...")
         
-        CurrentLocal.theming().theme { result in
+        Current.theming().theme { result in
             (self.delegate as? Waitable)?.hideSpinner()
             
             switch result {
             case .success(let theme):
-                Properties.themeColor.setValue(value: theme.themeColor)
+                Properties.themeColor.setValue(value: theme.themeColor.replacingOccurrences(of: "#", with: ""))
                 Properties.logoUrl.setValue(value: theme.smallLogoUrl)
                 self.delegate?.themeLoaded()
                 

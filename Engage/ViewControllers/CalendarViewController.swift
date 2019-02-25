@@ -7,8 +7,9 @@
 //
 
 import CalendarKit
+import wvslib
 
-class CalendarViewController: DayViewController, Notifiable {
+class CalendarViewController: DayViewController {
 
     // - Notifiable
     var notifyContainer: UIView?
@@ -29,21 +30,22 @@ class CalendarViewController: DayViewController, Notifiable {
     
     // - Detail presenter
     fileprivate var detailPresenter: CalendarDetailPresenter?
+
+    // - Refresh control
+    let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "Calendar"
-
-        // - Get the theme color if the theme is available.  Otherwise we default to purple
-        let themeColor = AppConfigurator.shared.themeConfigurator?.themeColor ?? UIColor.purple
-        
-        // - Add and style the refresh button
-        let refreshButton = UIBarButtonItem.init(title: "Refresh", style: .plain, target: self, action: #selector(refresh))
-        refreshButton.image = CommonImages.refresh.image
-        refreshButton.tintColor = themeColor
-        
-        self.navigationItem.rightBarButtonItem = refreshButton
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh the calendar")
+        self.refreshControl.tintColor = self.themeColor
+        self.refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        self.dayView.subviews.forEach { (view) in
+            if let scroll = view as? UIScrollView {
+                scroll.refreshControl = self.refreshControl
+            }
+        }
         
         // - Style the calendar
         let style = CalendarStyle.init()
@@ -107,13 +109,15 @@ extension CalendarViewController: CalendarDelegate {
     func eventsLoaded(_ events: [CalendarDayEvent]) {
         var index = 0
         
+        self.refreshControl.endRefreshing()
+        
         // - Map the events to an EventDescriptor
-        let calEvents = events.map { (start, end, isAllDay, title, description) -> Event in
+        let calEvents = events.map { (dayEvent) -> Event in
             let event = Event()
             
-            event.startDate = start
-            event.endDate = end
-            event.isAllDay = isAllDay
+            event.startDate = dayEvent.start
+            event.endDate = dayEvent.end
+            event.isAllDay = dayEvent.isAllDay
             
             let titleAttr: [NSAttributedString.Key: Any] = [
                 NSAttributedString.Key.font: UIFont.init(name: "Helvetica-Bold", size: 12.0) as Any,
@@ -125,17 +129,16 @@ extension CalendarViewController: CalendarDelegate {
                 NSAttributedString.Key.foregroundColor: UIColor.darkText
             ]
             
-            let attributedText = NSMutableAttributedString.init(string: "\(title)\n", attributes: titleAttr)
+            let attributedText = NSMutableAttributedString.init(string: "\(dayEvent.title)\n", attributes: titleAttr)
             attributedText.append(NSAttributedString.init(string: "\(description)", attributes: bodyAttr))
             event.attributedText = attributedText
             
             // - Update the event color
-            let eventColor = (AppConfigurator.shared.themeConfigurator?.themeColor ?? UIColor.magenta).withAlphaComponent(0.25)
+            let eventColor = self.themeColor.withAlphaComponent(0.25)
             event.backgroundColor = eventColor
             event.userInfo = index
 
             index += 1
-            
             return event
         }
         
@@ -148,4 +151,14 @@ extension CalendarViewController: CalendarDelegate {
     }
 }
 
+// MARK: - Notifiable
 
+extension CalendarViewController: Notifiable {}
+
+// MARK: - Waitable
+
+extension CalendarViewController: Waitable {}
+
+// MARK: - Themable
+
+extension CalendarViewController: Themeable {}

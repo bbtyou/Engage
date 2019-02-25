@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import wvslib
 
 class WebViewPresenter {
     
@@ -62,14 +63,14 @@ class WebViewPresenter {
         if path.starts(with: "http://") || path.starts(with: "https://") {
             url = URL.init(string: path)
         }
-        else if let base = CommonProperties.servicesBasePath.value as? String {
+        else if Current.base().count > 0 {
             var trimmedPath = path
             
             if path.starts(with: "/"), let newPath = path.getSubstring(from: 1, to: nil) {
                 trimmedPath = newPath
             }
             
-            url = URL.init(string: "\(base)\(trimmedPath)")
+            url = URL.init(string: "\(Current.base)\(trimmedPath)")
         }
 
         guard let requestUrl = url else {
@@ -92,10 +93,10 @@ class WebViewPresenter {
         }
 
         if let title = self.title {
-            self.delegate?.showSpinner("Loading \(title) content...")
+            (self.delegate as? Waitable)?.showSpinner("Loading \(title) content...")
         }
         else {
-            self.delegate?.showSpinner("Loading content...")
+            (self.delegate as? Waitable)?.showSpinner("Loading content...")
         }
 
         self.delegate?.enableNav()
@@ -131,10 +132,10 @@ class WebViewPresenter {
         }
         
         if let title = self.title {
-            self.delegate?.showSpinner("Loading \(title) content...")
+            (self.delegate as? Waitable)?.showSpinner("Loading \(title) content...")
         }
         else {
-            self.delegate?.showSpinner("Loading content...")
+            (self.delegate as? Waitable)?.showSpinner("Loading content...")
         }
 
         self.delegate?.load(withRequest: newRequest, self.title)
@@ -148,7 +149,7 @@ class WebViewPresenter {
             
             // - Decode to a Post struct
             let post = try JSONDecoder.init().decode(WKPost.self, from: data)
-            log.debug("Decoded post object: \(post)")
+            Current.log().debug("Decoded post object: \(post)")
             
             // - Create the new request
             var url = post.url
@@ -159,7 +160,7 @@ class WebViewPresenter {
             
             // - Construct the request
             guard let requestUrl = URL.init(string: url) else {
-                log.warning("The web page could not be loaded because the url was invalid.")
+                Current.log().warning("The web page could not be loaded because the url was invalid.")
                 //TODO: Show error
                 return
             }
@@ -173,7 +174,7 @@ class WebViewPresenter {
                 }
             }
             
-            log.verbose("The resulting post body: \(postBody)")
+            Current.log().verbose("The resulting post body: \(postBody)")
             
             // - Create the new request
             var request = URLRequest.init(url: requestUrl)
@@ -184,7 +185,7 @@ class WebViewPresenter {
             self.loadRedirectRequest(fromRequest: request)
         }
         catch {
-            log.error("Unable to navigate to the specified page due to an invalid post body. \(error)")
+            Current.log().error("Unable to navigate to the specified page due to an invalid post body. \(error)")
             self.delegate?.showError(error.localizedDescription)
         }
     }

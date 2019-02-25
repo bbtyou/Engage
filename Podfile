@@ -12,7 +12,7 @@ target 'Engage' do
   pod 'wvslib', :git => 'https://github.com/giantblue76/wvslib.git', :branch => 'master'  
 
   target 'EngageTests' do
-    inherit! :search_paths
+    inherit! :complete
     # Pods for testing
   end
 

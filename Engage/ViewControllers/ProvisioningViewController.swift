@@ -51,7 +51,7 @@ class ProvisioningViewController: UIViewController {
     @IBAction func provisionTapped(_ sender: UIButton) {
         let code = self.provisioningCodeTextField.text ?? ""
         self.view.endEditing(true)
-        self.presenter.provision(code: code, ProvisioningDataSource())
+        self.presenter.provision(code: code)
     }
     
     // MARK: - Navigation
@@ -70,7 +70,7 @@ extension ProvisioningViewController: ProvisioningDelegate {
     func provisioningSuccess(_ tp: ThemePresenter) {
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
             tp.delegate = self
-			tp.loadTheme(ThemeDataSource())
+            tp.loadTheme()
 		}
     }
     
@@ -143,3 +143,7 @@ extension ProvisioningViewController: OrientationConfigurable {}
 // MARK: - Themeable
 
 extension ProvisioningViewController: Themeable {}
+
+// MARK: - Waitable
+
+extension ProvisioningViewController: Waitable {}

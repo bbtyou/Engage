@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import wvslib
 
 enum SupportType: Int {
     case rep
@@ -31,75 +32,66 @@ class SupportPresenter {
     
     func load() {
         switch self.type {
-            case .rep:
-                self.delegate?.setTitle("Rep Questions")
-            
-            case .tech:
-                self.delegate?.setTitle("Tech Support")
-            
-            default:
-                self.delegate?.setTitle("Support")
+        case .rep:
+            self.delegate?.setTitle("Rep Questions")
+        
+        case .tech:
+            self.delegate?.setTitle("Tech Support")
+        
+        default:
+            self.delegate?.setTitle("Support")
         }
         
-        self.delegate?.showSpinner("Loading contact info...")
+        (self.delegate as? Waitable)?.showSpinner("Loading contact info...")
         
-        let dataSource = PortalDataSource.init()
-        dataSource.fetchSupportContact { (contact, error) in
-            self.delegate?.hideSpinner()
+        Current.main().portal(false) { result in
+            (self.delegate as? Waitable)?.hideSpinner()
             
-            if let error = error {
-                log.error("The support contact info could not be retrieved. \(error.localizedDescription).")
-                self.delegate?.showError("Support contact information was not able to be retrieved.  \(error.localizedDescription).")
-                return
-            }
-            
-            guard let contact = contact else {
-                log.warning("No contact info was found.")
-                self.delegate?.showError("No contact info was found.")
-                return
-            }
-            
-            self.delegate?.hideError()
-            
-            // - Tell the view which image to load
-            var imageName = "support_large"
-            if self.type == .tech {
-                imageName = "techsupport_large"
-                if contact.techSupport.count == 0 {
-                    self.delegate?.showError("Oops!  There is no support contact information available at this time.")
-                    return
-                }
-            }
-            else if self.type == .rep {
-                if contact.repEmail.count == 0, contact.repPhone.count == 0, contact.repSMS.count == 0 {
-                    self.delegate?.showError("Oops!  There is no support contact information available at this time.")
-                    return
-                }
-            }
-            
-            // - Set the image
-            self.delegate?.setImage(withName: imageName)
+            switch result {
+            case .success(let portal):
+                self.delegate?.hideError()
 
-            if self.type == .rep {
-                contact.repEmail.count == 0 ? self.delegate?.hideEmail() : self.delegate?.showEmail(contact.repEmail)
-                contact.repPhone.count == 0 ? self.delegate?.hidePhone() : self.delegate?.showPhone(contact.repPhone)
-                contact.repSMS.count == 0 ? self.delegate?.hideSMS() : self.delegate?.showSMS(contact.repSMS)
-            }
-            else if self.type == .tech {
-                contact.techSupport.count == 0 ? self.delegate?.hideEmail() : self.delegate?.showEmail(contact.techSupport)
+                var imageName = "support_large"
+                if self.type == .tech {
+                    imageName = "techsupport_large"
+                    if portal.contact.techSupport.count == 0 {
+                        self.delegate?.showError("Oops! There is no support contact information available at this time.")
+                    }
+                }
+                else if self.type == .rep {
+                    if portal.contact.repEmail.count == 0, portal.contact.repPhone.count == 0, portal.contact.repSMS.count == 0 {
+                        self.delegate?.showError("Oops! There is no support contact information available at this time.")
+                        return
+                    }
+                }
                 
-                // - Tech support only has email
-                self.delegate?.hideSMS()
-                self.delegate?.hidePhone()
+                // - Set the image
+                self.delegate?.setImage(withName: imageName)
+                
+                if self.type == .rep {
+                    portal.contact.repEmail.count == 0 ? self.delegate?.hideEmail() : self.delegate?.showEmail(portal.contact.repEmail)
+                    portal.contact.repPhone.count == 0 ? self.delegate?.hidePhone() : self.delegate?.showPhone(portal.contact.repPhone)
+                    portal.contact.repSMS.count == 0 ? self.delegate?.hideSMS() : self.delegate?.showSMS(portal.contact.repSMS)
+                }
+                else if self.type == .tech {
+                    portal.contact.techSupport.count == 0 ? self.delegate?.hideEmail() : self.delegate?.showEmail(portal.contact.techSupport)
+                    
+                    // - Tech support only has email
+                    self.delegate?.hideSMS()
+                    self.delegate?.hidePhone()
+                }
+                
+                self.contact = portal.contact
+                
+            case .failure(let error):
+                self.delegate?.showError(error.localizedDescription)
             }
-            
-            self.contact = contact
         }
     }
     
     func sendEmail() {
         guard let contact = self.contact else {
-            log.warning("The email could not be sent because there is no contact information available.")
+            Current.log().warning("The email could not be sent because there is no contact information available.")
             return
         }
         
@@ -113,7 +105,7 @@ class SupportPresenter {
     
     func sendText() {
         guard let contact = self.contact else {
-            log.warning("The message could not be sent because there is no contact information available.")
+            Current.log().warning("The message could not be sent because there is no contact information available.")
             return
         }
         
@@ -124,12 +116,12 @@ class SupportPresenter {
     
     func phoneCall() {
         guard let contact = self.contact else {
-            log.warning("The phone call could not be made because there is no contact information available.")
+            Current.log().warning("The phone call could not be made because there is no contact information available.")
             return
         }
         
         if self.type == .rep {
-            self.delegate?.phoneCall(contact.repPhone)
+            self.delegate?.phoneCall(contact.repPhone.filter("0123456789.".contains))
         }
     }
 }

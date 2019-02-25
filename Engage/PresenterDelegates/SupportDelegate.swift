@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol SupportDelegate: Waitable {
+protocol SupportDelegate: class {
     
     // - Show email
     func showEmail(_ email: String)

@@ -37,19 +37,14 @@ class InboxTableViewCell: UITableViewCell {
         // Initialization code
         
         // Text colors
-        guard let theme = AppConfigurator.shared.themeConfigurator else {
-            log.warning("Unable to style inbox cell since no theme was configured.")
-            return
-        }
-        
         // - Style the inbox cell ui
-        self.dateLabel.textColor = theme.themeColor
-        self.fromLabel.textColor = theme.headerTextColor
-        self.topicLabel.textColor = theme.headerTextColor
-        self.bodyLabel.textColor = theme.bodyTextColor
+        self.dateLabel.textColor = self.themeColor
+        self.fromLabel.textColor = self.headerTextColor
+        self.topicLabel.textColor = self.headerTextColor
+        self.bodyLabel.textColor = self.bodyTextColor
         
         // - Set the background
-        self.contentView.backgroundColor = theme.backgroundColor
+        self.contentView.backgroundColor = self.backgroundColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -57,5 +52,6 @@ class InboxTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }
+
+extension InboxTableViewCell: Themeable {}

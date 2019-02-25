@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import wvslib
 
 // - Tuple that represents info for a detail
 typealias InboxDetail = (date: String, subject: String, author: String, body: String)
@@ -25,7 +26,7 @@ class InboxDetailPresenter {
     
     func load() {
         guard let details = self.details else {
-            log.warning("The message details could not be loaded.")
+            Current.log().warning("The message details could not be loaded.")
             // - Show error
             return
         }

@@ -14,6 +14,10 @@ enum Images: String {
     case home
     case inbox
     case webpage
+    case logo
+    case favoritesdisabled
+    case favoritesenabled
+    case longpress
     
     var image: UIImage? {
         get {

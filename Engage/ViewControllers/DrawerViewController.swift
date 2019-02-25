@@ -48,14 +48,16 @@ class DrawerViewController: UIViewController {
         super.viewDidLoad()
         
         // Update the logo
-        AppConfigurator.shared.themeConfigurator?.logo(.small, { (image) in
-            guard let image = image else {
-                self.logoImageView.image = CommonImages.logo.image
-                return
+        Current.image().logo { result in
+            switch result {
+            case .success(let image):
+                self.logoImageView.image = image.0
+                
+            case .failure(let error):
+                Current.log().error(error)
+                self.logoImageView.image = Images.logo.image
             }
-            
-            self.logoImageView.image = image
-        })
+        }
         
 		// - Create container view
         self.close()
@@ -198,16 +200,12 @@ extension DrawerViewController: DrawerDelegate {
         self.leadingConstraint.constant = -(self.drawerContainer.bounds.size.width)
         
         UIView.animate(withDuration: 0.2, animations: {
-            
             self.view.layoutSubviews()
-        
         }) { (finished) in
-        
             if finished {
                 self.view.viewWithTag(555)?.removeFromSuperview()
                 self.hideDrawerShadow()
             }
-            
         }
     }
 	
@@ -230,10 +228,7 @@ extension DrawerViewController: DrawerDelegate {
     }
     
     func openItem(_ item: (action: String, title: String)) {
-        // TODO: Replace with action handler
-        let handler = AppConfigurator.shared.actionHandler
-        
-        if let viewController = handler.handleAction(item.action, item.title) {
+        if let viewController = AppActionHandler().handleAction(item.action, item.title) {
             self.detailNavController.setViewControllers([viewController], animated: false)
         }
     }
@@ -276,10 +271,8 @@ extension DrawerViewController: UITableViewDelegate, UITableViewDataSource {
         // - Display the empty contents cell
         if self.drawerItems.count == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DrawerEmptyTableViewCell", for: indexPath) as! DrawerTableViewCell
-            
             cell.iconImageView.image = CommonImages.infosignal.image?.maskedImage(with: self.themeColor)
             cell.titleLabel.text = "There are no menu items to display.\n" + "\(self.emptyDrawerMsg ?? "")"
-            
             return cell
         }
         
@@ -288,8 +281,7 @@ extension DrawerViewController: UITableViewDelegate, UITableViewDataSource {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "DrawerTableViewCell", for: indexPath) as! DrawerTableViewCell
         cell.titleLabel.text = drawerItem.title
-        cell.iconImageView.fetchImage(drawerItem.iconPath, false, Images.webpage.image, CGSize.init(width: 39.0, height: 39.0), self.themeColor)
-
+        cell.iconImageView.fetchImage(Current.base(), drawerItem.iconPath, Current.imageCache(), false, Images.webpage.image, CGSize.init(width: 39.0, height: 39.0), self.themeColor)
         return cell
     }
     

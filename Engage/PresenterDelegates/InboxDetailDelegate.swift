@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol InboxDetailDelegate: Waitable {
+protocol InboxDetailDelegate: class {
     
     // - Notifies the view that the details for the message have loaded
     func detailsLoadComplete(_ details: InboxDetail)

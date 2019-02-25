@@ -24,12 +24,12 @@ class AssetCollectionViewCell: UICollectionViewCell {
         self.noImageLabel.textColor = UIColor.darkGray
 
         // - Add default border
-        self.layer.borderColor = AppConfigurator.shared.themeConfigurator?.themeColor.cgColor ?? UIColor.black.cgColor
+        self.layer.borderColor = self.themeColor.cgColor
         self.layer.borderWidth = 0.5
     }
     
     func drawBorder() {
-        self.layer.borderColor = AppConfigurator.shared.themeConfigurator?.themeColor.cgColor ?? UIColor.black.cgColor
+        self.layer.borderColor = self.themeColor.cgColor
         self.layer.borderWidth = 3.0
     }
     
@@ -37,5 +37,11 @@ class AssetCollectionViewCell: UICollectionViewCell {
         self.layer.borderWidth = 0.5
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()        
+        self.assetImageView.image = nil
+    }
     // MARK: - Private
 }
+
+extension AssetCollectionViewCell: Themeable {}

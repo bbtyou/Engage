@@ -8,8 +8,12 @@
 
 import Foundation
 import UIKit
+import wvslib
 
-class InboxDetailViewController: EngageViewController {
+class InboxDetailViewController: UIViewController {
+    
+    // Notifiable
+    var notifyContainer: UIView?
     
     // MARK: - Outlets
     
@@ -36,17 +40,17 @@ class InboxDetailViewController: EngageViewController {
         super.viewDidLoad()
         
         // - Set the font and text styles
-        self.dateLabel?.textColor = AppConfigurator.shared.themeConfigurator?.bodyTextColor
-        self.fromLabel?.textColor = AppConfigurator.shared.themeConfigurator?.headerTextColor
-        self.subjectLabel?.textColor = AppConfigurator.shared.themeConfigurator?.headerTextColor
-        self.bodyTextView?.textColor = AppConfigurator.shared.themeConfigurator?.bodyTextColor
+        self.dateLabel?.textColor = self.bodyTextColor
+        self.fromLabel?.textColor = self.headerTextColor
+        self.subjectLabel?.textColor = self.headerTextColor
+        self.bodyTextView?.textColor = self.bodyTextColor
         
         // - Update the background
-        self.view.backgroundColor = AppConfigurator.shared.themeConfigurator?.backgroundColor
+        self.view.backgroundColor = self.backgroundColor
 
         // - Update the photo image view
-        self.profilePhotoImageView.image = self.profilePhotoImageView.image?.maskedImage(with: AppConfigurator.shared.themeConfigurator?.themeColor ?? UIColor.white)
-        self.profilePhotoImageView?.backgroundColor = AppConfigurator.shared.themeConfigurator?.backgroundColor
+        self.profilePhotoImageView.image = self.profilePhotoImageView.image?.maskedImage(with: self.themeColor)
+        self.profilePhotoImageView?.backgroundColor = self.backgroundColor
         
         // - Load the contents
         self.presenter?.load()
@@ -74,14 +78,13 @@ class InboxDetailViewController: EngageViewController {
     }
     
     deinit {
-        log.verbose("** Deallocated viewController \(InboxDetailViewController.self).")
+        Current.log().verbose("** Deallocated viewController \(InboxDetailViewController.self).")
     }
 }
 
 // MARK: - InboxDetailDelegate
 
 extension InboxDetailViewController: InboxDetailDelegate {
-
     func detailsLoadComplete(_ details: InboxDetail) {
         self.dateLabel.text = details.date
         self.fromLabel.text = details.author
@@ -89,5 +92,12 @@ extension InboxDetailViewController: InboxDetailDelegate {
         self.subjectLabel.text = details.subject
         self.title = details.subject
     }
-    
 }
+
+// MARK: - Themable
+
+extension InboxDetailViewController: Themeable {}
+
+// MARK: - Notifiable
+
+extension InboxDetailViewController: Notifiable {}

@@ -9,8 +9,9 @@
 import UIKit
 import WebKit
 import MessageUI
+import wvslib
 
-class WebViewController: EngageViewController, UIPopoverPresentationControllerDelegate, Shareable {
+class WebViewController: UIViewController {
     
     // - Presenter
     var presenter: WebViewPresenter? {
@@ -34,33 +35,26 @@ class WebViewController: EngageViewController, UIPopoverPresentationControllerDe
         web.backgroundColor = UIColor.clear
         web.configuration.allowsInlineMediaPlayback = true
         web.navigationDelegate = self
-        
-        
         return web
     }()
     
     // - Navigation bar
     fileprivate lazy var webNavBar: UIView = {
-        let backgroundColor = AppConfigurator.shared.themeConfigurator?.backgroundColor ?? UIColor.lightGray
-        
         let view = UIView.init()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = backgroundColor
+        view.backgroundColor = self.backgroundColor
 
         return view
     }()
     
     // - Back button for web view
     fileprivate lazy var webBackButton: UIButton = {
-        let themeColor = AppConfigurator.shared.themeConfigurator?.themeColor ?? UIColor.purple
-        
         let back = UIButton.init(type: .custom)
         back.translatesAutoresizingMaskIntoConstraints = false
         back.backgroundColor = UIColor.clear
         back.isHidden = true
-        back.setImage(CommonImages.goback.image?.maskedImage(with: themeColor), for: .normal)
+        back.setImage(CommonImages.goback.image?.maskedImage(with: self.themeColor), for: .normal)
         back.addTarget(self, action: #selector(webBack), for: .touchUpInside)
-        
         return back
     }()
 
@@ -70,33 +64,41 @@ class WebViewController: EngageViewController, UIPopoverPresentationControllerDe
         backLabel.translatesAutoresizingMaskIntoConstraints = false
         backLabel.isHidden = true
         backLabel.font = UIFont.init(name: "Helvetica", size: 13.0)
-        backLabel.textColor = AppConfigurator.shared.themeConfigurator?.themeColor
+        backLabel.textColor = self.themeColor
         backLabel.text = "Go Back"
-
         return backLabel
     }()
     
     // - Reload button for web view
     fileprivate lazy var webReloadButton: UIButton = {
-        let themeColor = AppConfigurator.shared.themeConfigurator?.themeColor ?? UIColor.purple
-        
         let reload = UIButton.init(type: .custom)
         reload.translatesAutoresizingMaskIntoConstraints = false
         reload.backgroundColor = UIColor.clear
-        reload.setImage(CommonImages.reload.image?.maskedImage(with: themeColor), for: .normal)
+        reload.setImage(CommonImages.reload.image?.maskedImage(with: self.themeColor), for: .normal)
         reload.addTarget(self, action: #selector(webReload), for: .touchUpInside)
-
         return reload
     }()
 
     // - Height constraint for the nav bar
     fileprivate var webNavBarHeight: NSLayoutConstraint?
     
-    // - Shareable data
-    internal var shareData: Data?
+    // - The data which can be shared
+    var shareData: Data?
+
+    // - Supported share types
+    var supportedShareTypes: [ShareType] = [.email, .print]
     
-    // - Mimetype for the opened data
-    internal var mimeType: String?
+    // - The optional body of the shareable
+    var body: String?
+    
+    // - The mime type of the shareable data
+    var mimeType: String?
+    
+    // - The subject of the shareable
+    var subject: String?
+
+    // - The name of the share
+    var name: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,7 +128,7 @@ class WebViewController: EngageViewController, UIPopoverPresentationControllerDe
     }
     
     deinit {
-        log.verbose("** Deallocated viewController \(WebViewController.self).")
+        Current.log().verbose("** Deallocated viewController \(WebViewController.self).")
     }
     
     // - Actions
@@ -168,6 +170,9 @@ extension WebViewController: WebViewDelegate {
     func load(withData data: Data, _ pathExtension: String, _ title: String?) {
         self.title = title
         
+        // - Set the name of the shared data
+        self.name = title
+        
         // - Set the data used for share
         self.shareData = data
         
@@ -177,7 +182,7 @@ extension WebViewController: WebViewDelegate {
         // - Since WKWebView has issues loading from data even with the specified mime type, we create a temporary file to write the data to and load it
         let fm = FileManager.default
         let tempFileUrl = fm.temporaryDirectory.appendingPathComponent("temp").appendingPathExtension(pathExtension)
-        log.debug("loading file from \(tempFileUrl) into web view.")
+        Current.log().debug("loading file from \(tempFileUrl) into web view.")
 
         do {
             // - Write to temp before loading
@@ -190,7 +195,6 @@ extension WebViewController: WebViewDelegate {
     }
     
     func enableShare() {
-        let themeColor = AppConfigurator.shared.themeConfigurator?.themeColor ?? UIColor.darkGray
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "share")?.maskedImage(with: themeColor), style: .plain, target: self, action: #selector(shareTapped(_:)))
         self.navigationItem.rightBarButtonItem?.tintColor = themeColor
     }
@@ -252,7 +256,7 @@ extension WebViewController: WKNavigationDelegate {
         // - End unhandled errors
         // -
         
-        log.error(WebRequestError.loadError(error: error))
+        Current.log().error(WebRequestError.loadError(error: error))
         self.showError(WebRequestError.loadError(error: error).localizedDescription)
 
         if self.title == nil {
@@ -271,7 +275,7 @@ extension WebViewController: WKNavigationDelegate {
         let request = navigationAction.request
         let base = CommonProperties.servicesBasePath.value as? String ?? ""
         
-        log.verbose("Request: \(request)")
+        Current.log().verbose("Request: \(request)")
         
         // - Handle any links that are outside of the application domain.
         // - These links should be opened in an external browser.
@@ -281,7 +285,7 @@ extension WebViewController: WKNavigationDelegate {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
             else {
-                log.warning("Unable to open external link: \(url.absoluteString).")
+                Current.log().warning("Unable to open external link: \(url.absoluteString).")
             }
             
             decisionHandler(.cancel)
@@ -313,7 +317,7 @@ extension WebViewController: WKUIDelegate {
 extension WebViewController: WKScriptMessageHandler {    
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         // - Receive the post parameters
-        log.verbose("Received message body from JavaScript: \(message.body)")
+        Current.log().verbose("Received message body from JavaScript: \(message.body)")
         
         // - Process the body
         self.presenter?.loadPagePost(message.body)
@@ -323,7 +327,6 @@ extension WebViewController: WKScriptMessageHandler {
 // MARK: - MFMailComposeDelegate
 
 extension WebViewController: MFMailComposeViewControllerDelegate {
-    
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         var message: String?
         
@@ -346,9 +349,32 @@ extension WebViewController: MFMailComposeViewControllerDelegate {
                 self.present(alert, animated: true, completion: nil)
             }
         }
+    }
+}
+
+// MARK: - MFMessageComposeViewControllerDelegate
+
+extension WebViewController: MFMessageComposeViewControllerDelegate {
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         
     }
 }
+
+// MARK: - Themeable
+
+extension WebViewController: Themeable {}
+
+// MARK: - Notifiable
+
+extension WebViewController: Waitable {}
+
+// MARK: - Shareable
+
+extension WebViewController: Shareable {}
+
+// MARK: - Popoverpresentationdelegate
+
+extension WebViewController: UIPopoverPresentationControllerDelegate {}
 
 // MARK: - Private
 
@@ -395,7 +421,7 @@ fileprivate extension WebViewController {
         let reloadLabel = UILabel.init()
         reloadLabel.translatesAutoresizingMaskIntoConstraints = false
         reloadLabel.font = UIFont.init(name: "Helvetica", size: 13.0)
-        reloadLabel.textColor = AppConfigurator.shared.themeConfigurator?.themeColor
+        reloadLabel.textColor = self.themeColor
         reloadLabel.text = "Reload"
         
         self.webNavBar.addSubview(reloadLabel)

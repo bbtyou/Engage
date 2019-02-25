@@ -44,8 +44,8 @@ class HomePresenter {
         self.filesBySection.removeAll()
         self.sections.removeAll()
         
-        CurrentLocal.main().portal { result in
-            (self as? Waitable)?.hideSpinner()
+        Current.main().portal(false) { result in
+            (self.delegate as? Waitable)?.hideSpinner()
             
             switch result {
             case .success(let portal):
@@ -72,7 +72,7 @@ class HomePresenter {
                                 return favorite.id == file.id
                             })
                             
-                            return (file.title, file.mimetype, URL.init(string: file.url), file.thumbnail ?? "", isFavorite)
+                            return (file.title, file.mimetype, file.url, file.thumbnail ?? "", isFavorite)
                         })
                     }), self.sections)
                 }
@@ -94,10 +94,10 @@ class HomePresenter {
         
         self.delegate?.showBanner(isFavorite ? "Removing \(file.title) from favorites." : "Adding \(file.title) to favorites.")
         if isFavorite {
-            CurrentLocal.unsetFavorite().unset(file.id) { result in
+            Current.unsetFavorite().unset(file.id) { result in
                 switch result {
                 case .failure(let error):
-                    Current.log().error("The message with id \(file.id) could not be unset as a favorite. \(error)")
+                    Current.log().error("The file with id \(file.title) could not be unset as a favorite. \(error)")
                     return
                     
                 case .success(_):
@@ -106,7 +106,7 @@ class HomePresenter {
             }
         }
         else {
-            CurrentLocal.setFavorite().set(file.id) { result in
+            Current.setFavorite().set(file.id) { result in
                 switch result {
                 case .failure(let error):
                     Current.log().error("The message with id \(file.id) could not be set as a favorite. \(error)")
@@ -123,7 +123,7 @@ class HomePresenter {
         let asset = self.isFavorites ? self.favoritesBySection[section][index] : self.filesBySection[section][index]
         (self.delegate as? Waitable)?.showSpinner("Loading content for \(asset.title)...")
         
-        CurrentLocal.collateral().download(asset.url) { result in
+        Current.collateral().download(Current.base(), asset.url) { result in
             (self.delegate as? Waitable)?.hideSpinner()
             
             switch result {
@@ -176,7 +176,7 @@ class HomePresenter {
                         return favorite.id == file.id
                     })
 
-                    return (file.title, file.mimetype, URL.init(string: file.url), file.thumbnail ?? "", isFavorite)
+                    return (file.title, file.mimetype, file.url, file.thumbnail ?? "", isFavorite)
                 })
             }), self.sections)
             
@@ -190,7 +190,7 @@ class HomePresenter {
                         return favorite.id == file.id
                     })
 
-                    return (file.title, file.mimetype, URL.init(string: file.url), file.thumbnail ?? "", isFavorite)
+                    return (file.title, file.mimetype, file.url, file.thumbnail ?? "", isFavorite)
                 })
             }), self.favoritesSections)
 

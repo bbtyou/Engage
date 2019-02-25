@@ -15,7 +15,7 @@ class ProvisioningPresenter {
     weak var delegate: ProvisioningDelegate?
     
     func checkProvisioning() {
-        if CurrentLocal.code().count > 0 {
+        if Current.code().count > 0 {
             self.delegate?.disableProvisioning()
             self.delegate?.provisioningSuccess(ThemePresenter())
         }
@@ -25,7 +25,7 @@ class ProvisioningPresenter {
     }
     
     func provision(code: String) {
-        if CurrentLocal.code().count > 0 {
+        if Current.code().count > 0 {
             return
         }
         
@@ -36,7 +36,7 @@ class ProvisioningPresenter {
         
         (self.delegate as? Waitable)?.showSpinner("Provisioning your account...")
         
-        CurrentLocal.provisioning().provision(code) { result in
+        Current.provisioning().provision(code) { result in
             (self.delegate as? Waitable)?.hideSpinner()
             
             switch result {

@@ -29,15 +29,27 @@ class HomeViewController: UIViewController {
         }
     }
     
+    // - Favorites turned on
+    fileprivate var favoritesOn = false
+    
     // - The assets
     fileprivate var assets = [[Asset]]() {
         didSet {
             self.assetTableView.reloadData()
+            
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.5) {
+                    self.assetTableView.alpha = 1.0
+                }
+            }
         }
     }
     
     // - The section names
     fileprivate var sections = [String]()
+    
+    // - Notifiable
+    var notifyContainer: UIView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,23 +57,24 @@ class HomeViewController: UIViewController {
         self.title = "Home"
         
         // - Set up the favorites button
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: CommonImages.favoritesdisabled.image, style: .plain, target: self, action: #selector(favoritesTapped))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: Images.favoritesdisabled.image, style: .plain, target: self, action: #selector(favoritesTapped))
         self.navigationItem.rightBarButtonItem?.tintColor = self.themeColor
         
         // - Style the empty favorites view
-        self.emptyFavoritesLabel.textColor = AppConfigurator.shared.themeConfigurator?.headerTextColor
-        self.emptyFavoritesInstructionLabel.textColor = AppConfigurator.shared.themeConfigurator?.bodyTextColor
-        self.emptyFavoritesImageView.image = CommonImages.longpress.image?.maskedImage(with: UIColor.lightGray)
-
-        self.emptyLabel.textColor = AppConfigurator.shared.themeConfigurator?.headerTextColor
+        self.emptyFavoritesLabel.textColor = self.headerTextColor
+        self.emptyFavoritesInstructionLabel.textColor = self.bodyTextColor
+        self.emptyFavoritesImageView.image = Images.longpress.image?.maskedImage(with: UIColor.lightGray)
+        
+        self.emptyLabel.textColor = self.headerTextColor
         self.emptyImageView.image = CommonImages.emptyimage.image?.maskedImage(with: UIColor.lightGray)
-
+        self.hideEmptyFavorites()
+        
         // - Load the assets
         self.presenter?.fetchAssets()
     }
     
     deinit {
-        log.verbose("** Deallocated viewController \(HomeViewController.self).")
+        Current.log().verbose("** Deallocated viewController \(HomeViewController.self).")
     }
 
     // MARK: - Actions
@@ -83,8 +96,13 @@ extension HomeViewController: HomeDelegate {
     }
     
     func assetsLoaded(_ assets: [[Asset]], _ sections: [String]) {
+        self.assetTableView.alpha = 0
         self.sections = sections
         self.assets = assets
+        
+        if self.assets.count > 0 {
+            self.assetTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .none, animated: true)
+        }
     }
     
     func showEmpty(_ message: String?) {
@@ -104,19 +122,14 @@ extension HomeViewController: HomeDelegate {
     }
     
     func favoritesEnabled() {
-        self.navigationItem.rightBarButtonItem?.image = CommonImages.favoritesenabled.image
-        if self.assets.count > 0 {
-            self.assetTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
-        }
+        self.navigationItem.rightBarButtonItem?.image = Images.favoritesenabled.image
+        self.favoritesOn = true
     }
     
     func favoritesDisabled() {
-        self.navigationItem.rightBarButtonItem?.image = CommonImages.favoritesdisabled.image
+        self.navigationItem.rightBarButtonItem?.image = Images.favoritesdisabled.image
         self.hideEmptyFavorites()
-        
-        if self.assets.count > 0 {
-            self.assetTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
-        }
+        self.favoritesOn = false
     }
     
     func showEmptyFavorites() {
@@ -130,7 +143,7 @@ extension HomeViewController: HomeDelegate {
     }
     
     func showBanner(_ message: String) {
-        self.notify(message: message, 2.0)
+        self.notify(message: message, 1.5)
     }
 }
 
@@ -148,7 +161,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.homePresenter = self.presenter
         cell.sectionIndex = indexPath.row
         cell.assets = (indexPath.row, self.assets[indexPath.row])
-
         return cell
     }
     
@@ -168,3 +180,7 @@ extension HomeViewController: Waitable {}
 // MARK: - Themeable
 
 extension HomeViewController: Themeable {}
+
+// MARK: - Notifiable
+
+extension HomeViewController: Notifiable {}

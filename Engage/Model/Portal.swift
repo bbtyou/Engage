@@ -130,7 +130,7 @@ struct Portal: Codable {
 
 struct PostResult: Codable {
     // Successful completion of task
-    var ok: Bool?
+    var ok: Int?
 
     // Failure with a string
     var failure: String?

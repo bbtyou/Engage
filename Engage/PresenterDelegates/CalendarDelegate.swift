@@ -8,10 +8,7 @@
 
 import Foundation
 
-// - Defined calendar event type for the calendar view
-typealias CalendarDayEvent = (start: Date, end: Date, isAllDay: Bool, title: String, body: String)
-
-protocol CalendarDelegate: Waitable {
+protocol CalendarDelegate: class {
     
     // - Notifies the view that the calendar has been loaded
     func eventsLoaded(_ events: [CalendarDayEvent])

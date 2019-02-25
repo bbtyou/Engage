@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CalendarDetailViewController: EngageViewController {
+class CalendarDetailViewController: UIViewController {
 
     // - Outlets
     
@@ -30,14 +30,12 @@ class CalendarDetailViewController: EngageViewController {
         super.viewDidLoad()
         
         // - Update the style for the theme
-        if let theme = AppConfigurator.shared.themeConfigurator {
-            self.view.backgroundColor = theme.backgroundColor
-            self.timeLabel.textColor = theme.bodyTextColor
-            self.dateLabel.textColor = theme.bodyTextColor
-            self.topicLabel.textColor = theme.headerTextColor
-            self.additionalInfoLabel.textColor = theme.headerTextColor
-            self.bodyTextView.textColor = theme.bodyTextColor
-        }
+        self.view.backgroundColor = self.backgroundColor
+        self.timeLabel.textColor = self.bodyTextColor
+        self.dateLabel.textColor = self.bodyTextColor
+        self.topicLabel.textColor = self.headerTextColor
+        self.additionalInfoLabel.textColor = self.headerTextColor
+        self.bodyTextView.textColor = self.bodyTextColor
         
         // - Load the detail and complete any business logic
         self.presenter?.loadDetail()
@@ -62,7 +60,6 @@ class CalendarDetailViewController: EngageViewController {
 // MARK: - CalendarDetailDelegate
 
 extension CalendarDetailViewController: CalendarDetailDelegate {
-    
     // - Details load has completed
     func detailLoaded(_ detail: CalendarEventDetail) {
         self.title = detail.topic
@@ -71,5 +68,8 @@ extension CalendarDetailViewController: CalendarDetailDelegate {
         self.topicLabel.text = detail.topic
         self.bodyTextView.text = detail.body
     }
-    
 }
+
+// MARK: - Theme
+
+extension CalendarDetailViewController: Themeable {}

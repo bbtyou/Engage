@@ -15,6 +15,7 @@ enum Properties<T: Codable>: String {
     case provisioningCode
     case themeColor
     case logoUrl
+    case userid
     
     var value: T? {
         get {

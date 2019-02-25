@@ -8,8 +8,9 @@
 
 import UIKit
 import MessageUI
+import wvslib
 
-class SupportViewController: EngageViewController {
+class SupportViewController: UIViewController {
 
     // - Outlets
     @IBOutlet fileprivate var emailView: UIView!
@@ -27,6 +28,9 @@ class SupportViewController: EngageViewController {
     @IBOutlet fileprivate var phoneImageView: UIImageView!
     @IBOutlet fileprivate var textImageView: UIImageView!
     
+    // Notifiable
+    var notifyContainer: UIView?
+    
     // - Presenter for the view
     var presenter: SupportPresenter? {
         didSet {
@@ -37,7 +41,7 @@ class SupportViewController: EngageViewController {
     // - The error view
     fileprivate lazy var errorView: UIView = {
         let view = UIView.init(frame: .zero)
-        view.backgroundColor = AppConfigurator.shared.themeConfigurator?.backgroundColor
+        view.backgroundColor = self.backgroundColor
         view.translatesAutoresizingMaskIntoConstraints = false
 
         return view
@@ -69,8 +73,6 @@ class SupportViewController: EngageViewController {
 // - Private
 fileprivate extension SupportViewController {
     func theme() {
-        let themeColor = AppConfigurator.shared.themeConfigurator?.themeColor ?? UIColor.gray
-
         // - Theme the main image
         self.supportImageView.image = self.supportImageView.image?.maskedImage(with: themeColor)
         
@@ -85,7 +87,7 @@ fileprivate extension SupportViewController {
         self.textLabel.textColor = themeColor
         
         // - Set the background image
-        self.view.backgroundColor = AppConfigurator.shared.themeConfigurator?.backgroundColor ?? UIColor.white
+        self.view.backgroundColor = self.backgroundColor
     }
     
     func drawShadows() {
@@ -179,7 +181,6 @@ extension SupportViewController: SupportDelegate {
     }
     
     func setImage(withName name: String) {
-        let themeColor = AppConfigurator.shared.themeConfigurator?.themeColor ?? UIColor.gray
         self.supportImageView.image = UIImage.init(named: name)?.maskedImage(with: themeColor)
     }
     
@@ -192,8 +193,6 @@ extension SupportViewController: SupportDelegate {
         self.errorView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         
         // - Add the image view
-        let themeColor = AppConfigurator.shared.themeConfigurator?.themeColor ?? UIColor.gray
-
         let imageView = UIImageView.init(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = CommonImages.errorsignal.image?.maskedImage(with: themeColor)
@@ -204,7 +203,7 @@ extension SupportViewController: SupportDelegate {
         
         let messageLabel = UILabel.init(frame: .zero)
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
-        messageLabel.textColor = AppConfigurator.shared.themeConfigurator?.bodyTextColor
+        messageLabel.textColor = self.bodyTextColor
         messageLabel.font = UIFont.init(name: "Helvetica-Medium", size: 20.0)
         messageLabel.text = message
         messageLabel.numberOfLines = 0
@@ -277,8 +276,7 @@ extension SupportViewController: SupportDelegate {
 extension SupportViewController: MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         if let error = error {
-            log.error("The email could not be sent because an error occurred. \(error.localizedDescription).")
-            
+            Current.log().error("The email could not be sent because an error occurred. \(error.localizedDescription).")
             controller.dismiss(animated: true) {
                 let alert = UIAlertController.init(title: "Mail Send Error", message: "The email could not be sent. \(error.localizedDescription).", preferredStyle: .alert)
                 alert.addAction(UIAlertAction.init(title: "Close", style: .default, handler: nil))
@@ -291,14 +289,14 @@ extension SupportViewController: MFMailComposeViewControllerDelegate {
         controller.dismiss(animated: true) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                 switch result {
-                    case .sent:
-                        self.notify(message: "Your message was sent successfully!", 2.0)
-                    
-                    case .failed:
-                        self.notify(message: "Your message failed to send", 2.0)
-                    
-                    default:
-                        break
+                case .sent:
+                    self.notify(message: "Your message was sent successfully!", 2.0)
+                
+                case .failed:
+                    self.notify(message: "Your message failed to send", 2.0)
+                
+                default:
+                    break
                 }
             })
         }
@@ -312,17 +310,26 @@ extension SupportViewController: MFMessageComposeViewControllerDelegate {
         controller.dismiss(animated: true) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                 switch result {
-                    case .sent:
-                        self.notify(message: "Your message was sent successfully!", 2.0)
-                    
-                    case .failed:
-                        self.notify(message: "Your message failed to send", 2.0)
-                    
-                    default:
-                        break
+                case .sent:
+                    self.notify(message: "Your message was sent successfully!", 2.0)
+                
+                case .failed:
+                    self.notify(message: "Your message failed to send", 2.0)
+                
+                default:
+                    break
                 }
             })
         }
 
     }
 }
+
+// MARK: - Themeable
+extension SupportViewController: Themeable {}
+
+// MARK: - Waitable
+extension SupportViewController: Waitable {}
+
+// MARK: - Notifiable
+extension SupportViewController: Notifiable {}

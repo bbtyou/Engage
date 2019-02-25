@@ -29,8 +29,8 @@ class DrawerPresenter {
     fileprivate var drawerActions = [Category]()
     
     // - Load the actions
-    func loadActions(_ useCache: Bool = true) {
-        CurrentLocal.main().portal(useCache) { result in
+    func loadActions(_ useCache: Bool = false) {
+        Current.main().portal(useCache) { result in
             switch result {
             case .success(let portal):
                 if portal.categories.count == 0 {
@@ -54,6 +54,7 @@ class DrawerPresenter {
                 
                 // - Map the actions to our domain object tuple and notify the view
                 // - that the contents have loaded.
+                
                 self.delegate?.contentsLoaded(self.drawerActions.map({ ($0.title, $0.icon) }))
                 
             case .failure(let error):

@@ -7,9 +7,9 @@
 //
 
 import UIKit
+import wvslib
 
 class DrawerTableViewCell: UITableViewCell {
-
     // MARK: - Outlets
     
     @IBOutlet var iconImageView: UIImageView!
@@ -32,5 +32,7 @@ class DrawerTableViewCell: UITableViewCell {
         self.iconImageView.image = nil
         self.titleLabel.text = nil
     }
-
 }
+
+// MARK: - Reusable
+extension DrawerTableViewCell: ReusableView {}

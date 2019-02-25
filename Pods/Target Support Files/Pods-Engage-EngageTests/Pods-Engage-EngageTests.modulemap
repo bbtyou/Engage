@@ -1,0 +1,6 @@
+framework module Pods_Engage_EngageTests {
+  umbrella header "Pods-Engage-EngageTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

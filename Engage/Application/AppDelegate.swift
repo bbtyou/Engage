@@ -9,6 +9,7 @@
 import UIKit
 import UserNotifications
 import Firebase
+import wvslib
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -37,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { (allowed, error) in
             if let e = error {
-                log.error("Registration for push could not be completed. \(e).")
+                Current.log().error("Registration for push could not be completed. \(e).")
                 return
             }
             
@@ -85,20 +86,18 @@ fileprivate extension AppDelegate {
     // - Push registration
     @objc func registerForPush() {
         guard let token = self.apnsToken else {
-            log.warning("Unable to register for push notifications because the push token could not be verified.")
+            Current.log().warning("Unable to register for push notifications because the push token could not be verified.")
             return
         }
         
-        let request = PushRegisterRequest.init(token: token)
-        request.sendRequest { (response, data, error) in
-            if let error = error {
-                log.error("\(error)")
-                return
-            }
-            
-            if let data = data, let dataString = String.init(data: data, encoding: .utf8), let response = response {
-                log.verbose("Push registration response: \(response).")
-                log.verbose("Push registration data: \(dataString))")
+        // - Register for push notifications
+        Current.registerPush().push(token) { result in
+            switch result {
+            case .success(let id):
+                Current.log().debug("Successfully registered your device for push with id: \(id).")
+                
+            case .failure(let error):
+                Current.log().error("Push notification registration failed: \(error)")
             }
         }
     }
@@ -107,7 +106,6 @@ fileprivate extension AppDelegate {
 // MARK: - UNUserNotificationCenterDelegate
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-    
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo = notification.request.content.userInfo
         let contents = userInfo["aps"] as? [String: Any]
@@ -115,15 +113,15 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let body = alert?["body"]
         
         if let messageId = userInfo[self.fbMessageIDKey] {
-            log.debug("Push message id = \(messageId).")
+            Current.log().debug("Push message id = \(messageId).")
         }
         
         guard let view = UIApplication.topViewController() as? Notifiable & UIViewController, let message = body as? String else {
-            log.warning("Unable to display message notification because the top view controller could not be obtained.")
+            Current.log().warning("Unable to display message notification because the top view controller could not be obtained.")
             return
         }
-        
-        view.notify(message: message, 2.0)
+
+        view.notify(message: message, 5.0)
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -134,9 +132,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 // MARK: - MessagingDelegate
 
 extension AppDelegate: MessagingDelegate {
-    
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-        log.debug("Firebase registration token: \(fcmToken).")
+        Current.log().debug("Firebase registration token: \(fcmToken).")
         self.apnsToken = fcmToken
     }
     
@@ -145,6 +142,6 @@ extension AppDelegate: MessagingDelegate {
     // Receive data messages on iOS 10+ directly from FCM (bypassing APNs) when the app is in the foreground.
     // To enable direct data messages, you can set Messaging.messaging().shouldEstablishDirectChannel to true.
     func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-        log.verbose("Received data message: \(remoteMessage.appData)")
+        Current.log().verbose("Received data message: \(remoteMessage.appData)")
     }
 }

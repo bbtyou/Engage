@@ -9,7 +9,7 @@
 import Foundation
 import WebKit
 
-protocol WebViewDelegate: Waitable {
+protocol WebViewDelegate: class {
     
     // - Loads the url into the web view
     func load(withRequest urlRequest: URLRequest, _ title: String?)
