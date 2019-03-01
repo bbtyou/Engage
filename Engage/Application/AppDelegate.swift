@@ -143,5 +143,17 @@ extension AppDelegate: MessagingDelegate {
     // To enable direct data messages, you can set Messaging.messaging().shouldEstablishDirectChannel to true.
     func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
         Current.log().verbose("Received data message: \(remoteMessage.appData)")
+        
+        Current.main().portal(false) { result in
+            switch result {
+            case.success(let portal):
+                let totalMessages = portal.messages.count
+                let readMessages = portal.messages.filter({ $0.read.count > 0 }).count
+                UIApplication.shared.applicationIconBadgeNumber = totalMessages - readMessages
+                
+            case .failure(_):
+                UIApplication.shared.applicationIconBadgeNumber = 0
+            }
+        }
     }
 }

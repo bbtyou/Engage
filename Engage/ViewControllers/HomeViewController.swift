@@ -35,13 +35,10 @@ class HomeViewController: UIViewController {
     // - The assets
     fileprivate var assets = [[Asset]]() {
         didSet {
+            let contentOffset = self.favoritesOn ? CGPoint.zero : self.assetTableView.contentOffset
             self.assetTableView.reloadData()
-            
-            DispatchQueue.main.async {
-                UIView.animate(withDuration: 0.5) {
-                    self.assetTableView.alpha = 1.0
-                }
-            }
+            self.assetTableView.layoutIfNeeded()
+            self.assetTableView.setContentOffset(contentOffset, animated: false)
         }
     }
     
@@ -87,7 +84,6 @@ class HomeViewController: UIViewController {
 // MARK: - HomeDelegate
 
 extension HomeViewController: HomeDelegate {
-    
     func fileOpened(_ presenter: WebViewPresenter) {
         if let webViewController = UIStoryboard.init(name: "Web", bundle: nil).instantiateInitialViewController() as? WebViewController {
             webViewController.presenter = presenter
@@ -96,13 +92,8 @@ extension HomeViewController: HomeDelegate {
     }
     
     func assetsLoaded(_ assets: [[Asset]], _ sections: [String]) {
-        self.assetTableView.alpha = 0
         self.sections = sections
         self.assets = assets
-        
-        if self.assets.count > 0 {
-            self.assetTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .none, animated: true)
-        }
     }
     
     func showEmpty(_ message: String?) {

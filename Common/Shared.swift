@@ -10,15 +10,27 @@ import Foundation
 import UIKit
 import wvslib
 
-struct World {
-    // Log
-    var log = { Log() }
-    
+fileprivate struct Shared {
     // REST cache
-    var restCache = { DefaultCache<Data>(name: "engage-rest-cache") }
+    static let restCache = DefaultCache<CodableData>(name: "engage-rest-cache")
     
     // Images cache
-    var imageCache = { DefaultCache<CodableImage>(name: "engage-image-cache") }
+    static let imageCache = DefaultCache<CodableImage>(name: "engage-image-cache")
+    
+    // - Logger
+    static let log = Log()
+}
+
+struct World {
+    
+    // Log
+    var log = { Shared.log }
+    
+    // Rest response cache
+    var restCache = { Shared.restCache }
+    
+    // Image cache
+    var imageCache = { Shared.imageCache }
     
     // Base server path
     var base = { return Properties.basepath.value ?? "" }
@@ -107,6 +119,14 @@ struct Main {
     var portal: (_ useCache: Bool, _ closure: @escaping ResultClosure<Portal>) -> () = { useCache, closure in
         if !useCache {
             Request<Portal>(base: Current.base(), path: "/portal.json").send({ (result) in
+                do {
+                    let encoder = JSONEncoder()
+                    Current.restCache().set(CodableData(data: try encoder.encode(result.get())), forKey: "\(Current.base())/portal.json")
+                }
+                catch {
+                    Current.log().error("Unable to cache portal data: \(error).")
+                }
+                
                 DispatchQueue.main.async {
                     closure(result)
                 }
@@ -117,7 +137,7 @@ struct Main {
         
         Current.restCache().item(forKey: "\(Current.base())/portal.json", { (codable) in
             DispatchQueue.main.async {
-                if let data = codable {
+                if let data = codable?.data {
                     do {
                         let decoder = JSONDecoder()
                         let portal = try decoder.decode(Portal.self, from: data)
@@ -240,12 +260,12 @@ struct CollateralFile {
     var download: (_ base: String, _ path: String, _ closure: @escaping ResultClosure<Data>) -> () = { basepath, path, closure in
         // Check the cache first
         Current.restCache().item(forKey: "\(Current.base())/\(path)", { (data) in
-            guard let data = data else {
-                Request<Data>(base: Current.base(), path: path).send({ (result) in
+            guard let data = data?.data else {
+                DataRequest(base: Current.base(), path: path).send({ (result) in
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let data):
-                            Current.restCache().set(data, forKey: "\(Current.base())/\(path)")
+                            Current.restCache().set(CodableData(data: data), forKey: "\(Current.base())/\(path)")
                             
                         default:
                             break

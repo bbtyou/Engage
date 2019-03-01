@@ -152,9 +152,8 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e6z-hv-gua">
-                                                                <rect key="frame" x="0.0" y="0.0" width="67" height="97.5"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e6z-hv-gua">
+                                                                <rect key="frame" x="0.0" y="0.0" width="460" height="97.666666666666671"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <connections>
                                                                     <action selector="touchDown:" destination="ufe-jt-ts4" eventType="touchDown" id="qKc-EY-EVM"/>
@@ -165,7 +164,10 @@
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
+                                                            <constraint firstItem="e6z-hv-gua" firstAttribute="top" secondItem="vzv-nU-sGC" secondAttribute="top" id="4xA-6d-6I7"/>
+                                                            <constraint firstAttribute="bottom" secondItem="e6z-hv-gua" secondAttribute="bottom" id="EqL-ep-ZMN"/>
                                                             <constraint firstItem="4f0-ui-VDr" firstAttribute="centerX" secondItem="vzv-nU-sGC" secondAttribute="centerX" id="EsV-o9-IvO"/>
+                                                            <constraint firstAttribute="trailing" secondItem="e6z-hv-gua" secondAttribute="trailing" id="FRc-Xs-MNC"/>
                                                             <constraint firstItem="4f0-ui-VDr" firstAttribute="top" secondItem="vzv-nU-sGC" secondAttribute="top" constant="8" id="Gk5-A3-Wpn"/>
                                                             <constraint firstAttribute="trailing" secondItem="SJn-l6-DIL" secondAttribute="trailing" constant="8" id="LVc-BA-HWG"/>
                                                             <constraint firstItem="SJn-l6-DIL" firstAttribute="top" secondItem="4f0-ui-VDr" secondAttribute="bottom" constant="8" id="Mzd-Mj-G8A"/>
@@ -174,6 +176,7 @@
                                                             <constraint firstItem="ynX-xK-1Fg" firstAttribute="leading" secondItem="vzv-nU-sGC" secondAttribute="leading" constant="8" id="Sjv-1j-PeH"/>
                                                             <constraint firstItem="SJn-l6-DIL" firstAttribute="leading" secondItem="vzv-nU-sGC" secondAttribute="leading" constant="8" id="UlR-hk-en9"/>
                                                             <constraint firstAttribute="trailing" secondItem="ynX-xK-1Fg" secondAttribute="trailing" constant="8" id="faG-dF-LBS"/>
+                                                            <constraint firstItem="e6z-hv-gua" firstAttribute="leading" secondItem="vzv-nU-sGC" secondAttribute="leading" id="g8X-sv-ibh"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -231,7 +234,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sM3-Fw-eKO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2205" y="-416"/>
+            <point key="canvasLocation" x="-2205.7971014492755" y="-416.57608695652175"/>
         </scene>
     </scenes>
     <resources>

@@ -13,7 +13,7 @@ class AssetCollectionViewCell: UICollectionViewCell {
     // - Outlets
     @IBOutlet var assetImageView: UIImageView!
     @IBOutlet var noImageLabel: UILabel!
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
     }

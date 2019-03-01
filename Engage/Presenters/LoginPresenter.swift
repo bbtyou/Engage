@@ -34,7 +34,7 @@ class LoginPresenter {
                     Properties.userid.setValue(value: username)
                 }
                 else {
-                    self.delegate?.loginFailed(login.failure ?? "The system was unable to log you in.  Please contact your administrator for assistance.")
+                    self.delegate?.loginFailed(login.error ?? "The system was unable to log you in.  Please contact your administrator for assistance.")
                 }
                 
             case .failure(let error):

@@ -14,67 +14,86 @@ class HomePresenter {
     // - View delegate
     weak var delegate: HomeDelegate?
     
-    // - All assets by section
-    fileprivate var filesBySection = [[File]]()
-    
-    // - All sections in order
-    fileprivate var sections = [String]()
-    
-    // - Favorites toggle
-    fileprivate var isFavorites: Bool = false
-    
-    // - Favorite identifiers
-    fileprivate var favorites = [Favorite]()
+    // - All assets
+    fileprivate var files = [[File]]()
     
     // - Favorites files
-    fileprivate var favoritesBySection = [[File]]()
+    fileprivate var favoriteFiles = [[File]]()
     
-    // - Favorites sections
-    fileprivate var favoritesSections = [String]()
+    // - All asset sections
+    fileprivate var sections = [Category]()
+    
+    // - Favorite seections
+    fileprivate var favoriteSections = [Category]()
+    
+    // - IDs for favorites
+    fileprivate var favorites = Set<String>()
+    
+    // - If favorites are shown
+    fileprivate var isFavorites = false
     
     deinit {
         Current.log().verbose("** Deallocated \(HomePresenter.self).")
     }
     
-    func fetchAssets(_ showSpinner: Bool = true) {
+    func fetchAssets(_ showSpinner: Bool = true, _ useCache: Bool = false) {
         if showSpinner {
-            (self.delegate as? Waitable)?.showSpinner("Loading collateral...")
+            (self.delegate as? Waitable)?.showSpinner("Loading content...")
         }
         
-        self.filesBySection.removeAll()
-        self.sections.removeAll()
+        self.files = []
         
-        Current.main().portal(false) { result in
+        Current.main().portal(useCache) { result in
             (self.delegate as? Waitable)?.hideSpinner()
             
             switch result {
             case .success(let portal):
-                self.favorites = portal.favorites
-                
-                let sections = portal.categories.filter({ $0.files.count > 0 })
-                if sections.count == 0 {
+                self.sections = portal.categories.sorted(by: { (cat1, cat2) -> Bool in return cat1.lft < cat2.lft }).filter({ $0.files.count > 0 })
+                if self.sections.count == 0 {
                     self.delegate?.showEmpty(nil)
                     return
                 }
+
+                // - Get the files
+                self.files = self.sections.map({ $0.files })
                 
-                self.sections = sections.map({ $0.title })
-                self.filesBySection = sections.map({ $0.files })
-                self.loadFavorites()
+                // - Get the favorites
+                self.favorites = Set(portal.favorites.map({ $0.id }))
                 
                 if self.isFavorites {
-                    self.toggleFavorites(true)
+                    self.favoriteSections = [Category]()
+                    self.favoriteFiles = [[File]]()
+                    
+                    self.sections.forEach({ (section) in
+                        let files = section.files.filter({ self.favorites.contains($0.id) })
+                        if files.count > 0 {
+                            self.favoriteSections.append(section)
+                            self.favoriteFiles.append(files)
+                        }
+                    })
+                    
+                    if self.favoriteFiles.count > 0 {
+                        self.delegate?.hideEmptyFavorites()
+                        self.delegate?.assetsLoaded(
+                            self.favoriteFiles.map({
+                                return $0.map({ return ($0.title, $0.mimetype, $0.url, $0.thumbnail ?? "", true) }) }), self.favoriteSections.map({ $0.title }))
+                    }
+                    else {
+                        self.delegate?.assetsLoaded([], [])
+                        self.delegate?.showEmptyFavorites()
+                    }
                 }
                 else {
-                    self.delegate?.hideEmpty()
-                    self.delegate?.assetsLoaded(self.filesBySection.map({ (fileArray) -> [Asset] in
-                        return fileArray.map({ (file) -> Asset in
-                            let isFavorite = self.favorites.contains(where: { (favorite) -> Bool in
-                                return favorite.id == file.id
-                            })
-                            
-                            return (file.title, file.mimetype, file.url, file.thumbnail ?? "", isFavorite)
-                        })
-                    }), self.sections)
+                    if self.files.count == 0 {
+                        self.delegate?.assetsLoaded([], [])
+                        self.delegate?.showEmpty(nil)
+                    }
+                    else {
+                        self.delegate?.hideEmpty()
+                        self.delegate?.assetsLoaded(
+                            self.files.map({
+                                return $0.map({ return ($0.title, $0.mimetype, $0.url, $0.thumbnail ?? "", self.favorites.contains($0.id)) }) }), self.sections.map({ $0.title }))
+                    }
                 }
                 
             case .failure(let error):
@@ -84,16 +103,9 @@ class HomePresenter {
     }
     
     func toggleFavorite(_ index: Int, _ section: Int) {
-        // - Get the files based on whether favorites are enabled or not
-        let files = self.isFavorites ? self.favoritesBySection : self.filesBySection
+        let file = self.isFavorites ? self.favoriteFiles[section][index] : self.files[section][index]
 
-        let file = files[section][index]
-        let isFavorite = self.favorites.contains { (favorite) -> Bool in
-            return favorite.id == file.id
-        }
-        
-        self.delegate?.showBanner(isFavorite ? "Removing \(file.title) from favorites." : "Adding \(file.title) to favorites.")
-        if isFavorite {
+        if self.favorites.contains(file.id) {
             Current.unsetFavorite().unset(file.id) { result in
                 switch result {
                 case .failure(let error):
@@ -102,6 +114,7 @@ class HomePresenter {
                     
                 case .success(_):
                     self.fetchAssets(false)
+                    self.delegate?.showBanner("Removing \(file.title) from your favorites.")
                 }
             }
         }
@@ -114,16 +127,17 @@ class HomePresenter {
                     
                 case .success(_):
                     self.fetchAssets(false)
+                    self.delegate?.showBanner("Adding \(file.title) to your favorites.")
                 }
             }
         }
     }
     
     func selectAsset(_ section: Int, index: Int) {
-        let asset = self.isFavorites ? self.favoritesBySection[section][index] : self.filesBySection[section][index]
+        let asset = self.isFavorites ? self.favoriteFiles[section][index] : self.files[section][index]
+
         (self.delegate as? Waitable)?.showSpinner("Loading content for \(asset.title)...")
-        
-        Current.collateral().download(Current.base(), asset.url) { result in
+        Current.collateral().download(Current.base(), String(asset.url.dropFirst())) { result in
             (self.delegate as? Waitable)?.hideSpinner()
             
             switch result {
@@ -140,66 +154,10 @@ class HomePresenter {
     }
     
     func toggleFavorites() {
-        self.toggleFavorites(!self.isFavorites)
+        self.isFavorites = !self.isFavorites
+        self.isFavorites ? self.delegate?.favoritesEnabled() : self.delegate?.favoritesDisabled()
+        self.fetchAssets(false, true)
     }
     
     // MARK: - Private
-
-    fileprivate func loadFavorites() {
-        // - Filter favorites
-        var sectionIndex = 0
-        
-        self.favoritesSections.removeAll()
-        self.favoritesBySection.removeAll()
-        
-        self.filesBySection.forEach { (section) in
-            let files = section.filter({ (file) -> Bool in
-                return self.favorites.contains(where: { (favorite) -> Bool in
-                    favorite.id == file.id
-                })
-            })
-            
-            if files.count > 0 {
-                self.favoritesBySection.append(files)
-                self.favoritesSections.append(self.sections[sectionIndex])
-            }
-            
-            sectionIndex += 1
-        }
-    }
-    
-    fileprivate func toggleFavorites(_ enabled: Bool) {
-        if !enabled {
-            self.delegate?.assetsLoaded(self.filesBySection.map({ (fileArray) -> [Asset] in
-                return fileArray.map({ (file) -> Asset in
-                    let isFavorite = self.favorites.contains(where: { (favorite) -> Bool in
-                        return favorite.id == file.id
-                    })
-
-                    return (file.title, file.mimetype, file.url, file.thumbnail ?? "", isFavorite)
-                })
-            }), self.sections)
-            
-            self.isFavorites = false
-            self.delegate?.favoritesDisabled()
-        }
-        else {
-            self.delegate?.assetsLoaded(self.favoritesBySection.map({ (fileArray) -> [Asset] in
-                return fileArray.map({ (file) -> Asset in
-                    let isFavorite = self.favorites.contains(where: { (favorite) -> Bool in
-                        return favorite.id == file.id
-                    })
-
-                    return (file.title, file.mimetype, file.url, file.thumbnail ?? "", isFavorite)
-                })
-            }), self.favoritesSections)
-
-            if self.favorites.count == 0 {
-                self.delegate?.showEmptyFavorites()
-            }
-
-            self.isFavorites = true
-            self.delegate?.favoritesEnabled()
-        }
-    }
 }

@@ -10,5 +10,5 @@ import Foundation
 
 struct Login: Codable {
     var success: Bool?
-    var failure: String?
+    var error: String?
 }

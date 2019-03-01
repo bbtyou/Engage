@@ -21,7 +21,16 @@ class AssetTableViewCell: UITableViewCell {
     // - Asset domain data
     var assets: (section: Int, assets: [Asset])? {
         didSet {
+            let contentOffset = self.collectionView.contentOffset
             self.collectionView.reloadData()
+            self.collectionView.layoutIfNeeded()
+            
+            guard let indexPath = self.collectionView.indexPathForItem(at: contentOffset) else {
+                self.collectionView.setContentOffset(contentOffset, animated: false)
+                return
+            }
+            
+            self.collectionView.scrollToItem(at: indexPath, at: .left, animated: false)
         }
     }
     
@@ -85,7 +94,19 @@ extension AssetTableViewCell: UICollectionViewDelegate, UICollectionViewDataSour
         
         // - Setup the cell
         if let asset = self.assets?.assets[indexPath.item] {
-            cell.assetImageView.fetchImage(Current.base(), asset.imagePath, Current.imageCache(), true)
+            cell.assetImageView.showSpinner(nil)
+            Current.imageCache().fetchImage(Current.base(), asset.imagePath) { (image, url) in
+                DispatchQueue.main.async {
+                    cell.assetImageView.hideSpinner()
+                    if url?.absoluteString.contains(asset.imagePath.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "") == true {
+                        cell.assetImageView.image = image
+                    }
+                    else {
+                        cell.assetImageView.image = nil
+                    }
+                }
+            }
+
             asset.isFavorite ? cell.drawBorder() : cell.clearBorder()
         }
         

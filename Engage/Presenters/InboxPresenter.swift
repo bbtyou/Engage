@@ -19,7 +19,7 @@ class InboxPresenter {
     // - Loads the messages from the server
     func load(_ showSpinner: Bool = true) {
         if showSpinner {
-            (self.delegate as? Waitable)?.showSpinner("Loading collateral...")
+            (self.delegate as? Waitable)?.showSpinner("Loading messages...")
         }
         
         // - Clear the existing messages
@@ -71,7 +71,8 @@ class InboxPresenter {
                 self.messages.remove(at: index)
                 self.messages.insert(Message.init(id: message.id, time: message.time, subject: message.subject, body: message.body, author: message.author, read: "now"), at: index)
                 self.delegate?.messagesLoaded(self.messages.map({ (Date.dateFromUTCString(utc: $0.time) ?? Date(), $0.subject, $0.body, $0.author, $0.read.count > 0) }))
-
+                UIApplication.shared.applicationIconBadgeNumber -= 1
+                
             case .failure(let error):
                 Current.log().warning(error)
             }

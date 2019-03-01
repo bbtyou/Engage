@@ -256,10 +256,7 @@ extension SupportViewController: SupportDelegate {
     }
     
     func phoneCall(_ number: String) {
-        if let phoneUrl = URL.init(string: "tel://\(number)"), UIApplication.shared.canOpenURL(phoneUrl) {
-            UIApplication.shared.open(phoneUrl, options: [:], completionHandler: nil)
-        }
-        else {
+        if number.telephoneCall() == false {
             let alert = UIAlertController.init(title: "Phone Call", message: "The phone call could not be made at this time.", preferredStyle: .alert)
             alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
