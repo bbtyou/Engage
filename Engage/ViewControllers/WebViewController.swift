@@ -100,6 +100,9 @@ class WebViewController: UIViewController {
     // - The name of the share
     var name: String?
     
+    // - Notifiable
+    var notifyContainer: UIView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -365,6 +368,10 @@ extension WebViewController: MFMessageComposeViewControllerDelegate {
 extension WebViewController: Themeable {}
 
 // MARK: - Notifiable
+
+extension WebViewController: Notifiable {}
+
+// MARK: - Waitable
 
 extension WebViewController: Waitable {}
 

@@ -72,6 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        NotificationCenter.default.post(name: Notification.Name("updateDrawer"), object: nil)
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -108,20 +109,24 @@ fileprivate extension AppDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo = notification.request.content.userInfo
-        let contents = userInfo["aps"] as? [String: Any]
-        let alert = contents?["alert"] as? [String: Any]
-        let body = alert?["body"]
+//        let contents = userInfo["aps"] as? [String: Any]
+//        let alert = contents?["alert"] as? [String: Any]
+//        let body = alert?["body"] as? String
         
         if let messageId = userInfo[self.fbMessageIDKey] {
             Current.log().debug("Push message id = \(messageId).")
         }
         
-        guard let view = UIApplication.topViewController() as? Notifiable & UIViewController, let message = body as? String else {
+        NotificationCenter.default.post(name: Notification.Name("updateDrawer"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name("newMessage"), object: nil)
+        
+        guard let view = UIApplication.topViewController() as? Notifiable & UIViewController else {
             Current.log().warning("Unable to display message notification because the top view controller could not be obtained.")
             return
         }
 
-        view.notify(message: message, 5.0)
+        if view is InboxViewController { return }
+        view.notify(message: "You've received a new message.  Open your inbox to check your messages.", 5.0)
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -143,17 +148,5 @@ extension AppDelegate: MessagingDelegate {
     // To enable direct data messages, you can set Messaging.messaging().shouldEstablishDirectChannel to true.
     func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
         Current.log().verbose("Received data message: \(remoteMessage.appData)")
-        
-        Current.main().portal(false) { result in
-            switch result {
-            case.success(let portal):
-                let totalMessages = portal.messages.count
-                let readMessages = portal.messages.filter({ $0.read.count > 0 }).count
-                UIApplication.shared.applicationIconBadgeNumber = totalMessages - readMessages
-                
-            case .failure(_):
-                UIApplication.shared.applicationIconBadgeNumber = 0
-            }
-        }
     }
 }

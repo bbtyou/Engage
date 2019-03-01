@@ -36,7 +36,7 @@ class DrawerViewController: UIViewController {
 	}
 	
 	// - Navigation controller for detail views
-	fileprivate var detailNavController = UINavigationController.init()
+	fileprivate(set) var detailNavController = UINavigationController.init()
 	
     // - The contents for the drawer
     fileprivate var drawerItems = [DrawerItem]()
@@ -58,7 +58,7 @@ class DrawerViewController: UIViewController {
                 self.logoImageView.image = Images.logo.image
             }
         }
-        
+                
 		// - Create container view
         self.close()
         self.createContainer()
@@ -105,7 +105,7 @@ class DrawerViewController: UIViewController {
     }
     
 	// MARK: - Private
-
+    
     @objc fileprivate func touchOverlayTapped(_ sender: UITapGestureRecognizer) {
         self.presenter?.toggleDrawer()
     }
@@ -213,11 +213,12 @@ extension DrawerViewController: DrawerDelegate {
         self.drawerItems = contents
         self.drawerTableView.isScrollEnabled = true
         self.drawerTableView.reloadData()
-        
-        if contents.count > 0 {
-            self.presenter?.selectAction(0)
-            self.drawerTableView.selectRow(at: IndexPath.init(row: 0, section: 0), animated: false, scrollPosition: .none)
-        }
+    }
+    
+    func selectAction(_ index: Int) {
+        guard self.drawerItems.indices.contains(index) else { return }
+        self.presenter?.selectAction(0)
+        self.drawerTableView.selectRow(at: IndexPath.init(row: index, section: 0), animated: false, scrollPosition: .none)
     }
     
     func showEmptyDrawer(withMessage additionalMsg: String?) {

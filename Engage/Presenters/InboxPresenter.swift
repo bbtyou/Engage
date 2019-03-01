@@ -16,6 +16,14 @@ class InboxPresenter {
     // - The loaded messages
     fileprivate var messages = [Message]()
     
+    init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(newMessage), name: Notification.Name("newMessage"), object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("newMessage"), object: nil)
+    }
+    
     // - Loads the messages from the server
     func load(_ showSpinner: Bool = true) {
         if showSpinner {
@@ -71,7 +79,7 @@ class InboxPresenter {
                 self.messages.remove(at: index)
                 self.messages.insert(Message.init(id: message.id, time: message.time, subject: message.subject, body: message.body, author: message.author, read: "now"), at: index)
                 self.delegate?.messagesLoaded(self.messages.map({ (Date.dateFromUTCString(utc: $0.time) ?? Date(), $0.subject, $0.body, $0.author, $0.read.count > 0) }))
-                UIApplication.shared.applicationIconBadgeNumber -= 1
+                NotificationCenter.default.post(name: Notification.Name.init("updateDrawer"), object: nil)
                 
             case .failure(let error):
                 Current.log().warning(error)
@@ -95,7 +103,9 @@ class InboxPresenter {
                 else {
                     self.delegate?.messagesLoaded(self.messages.map({ (Date.dateFromUTCString(utc: $0.time) ?? Date(), $0.subject, $0.body, $0.author, $0.read.count > 0) }))
                 }
-                
+
+                NotificationCenter.default.post(name: Notification.Name.init("updateDrawer"), object: nil)
+
             case .failure(let error):
                 Current.log().warning(error)
             }
@@ -106,6 +116,14 @@ class InboxPresenter {
 // - Private
 
 fileprivate extension InboxPresenter {
+    @objc func newMessage() {
+        (self.delegate as? Notifiable & UIViewController)?.notify(message: "You've received a new message.  The inbox will be refreshed.", 5.0)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            self.load(false)
+        }
+    }
+    
     func formatTime(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM-dd-yyyy hh:mm a"

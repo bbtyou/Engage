@@ -19,6 +19,9 @@ protocol DrawerDelegate: class {
     // - Loaded the contents
     func contentsLoaded(_ contents: [DrawerItem])
     
+    // - Selects the given item in the drawer
+    func selectAction(_ index: Int)
+    
     // - Shows empty drawer contents with an optional additional message
     func showEmptyDrawer(withMessage additionalMsg: String?)
  

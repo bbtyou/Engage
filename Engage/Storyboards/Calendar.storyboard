@@ -32,6 +32,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bGY-MG-7wC"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <segue destination="BW0-gu-zXR" kind="show" identifier="eventdetail" id="fWQ-o5-9h1"/>
                     </connections>
@@ -128,6 +129,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yHW-2E-E1a"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="additionalInfoLabel" destination="1G3-ZJ-diV" id="ENc-gh-LLb"/>
                         <outlet property="bodyTextView" destination="tRg-Lv-2GU" id="Hb7-Ja-LdI"/>

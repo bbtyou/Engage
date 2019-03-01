@@ -28,8 +28,17 @@ class DrawerPresenter {
     // - Drawer contents
     fileprivate var drawerActions = [Category]()
     
+    init() {
+        // - Listen for reload events
+        NotificationCenter.default.addObserver(self, selector: #selector(updateDrawer), name: Notification.Name("updateDrawer"), object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("updateDrawer"), object: nil)
+    }
+    
     // - Load the actions
-    func loadActions(_ useCache: Bool = false) {
+    func loadActions(_ useCache: Bool = false, _ open: Bool = true) {
         Current.main().portal(useCache) { result in
             switch result {
             case .success(let portal):
@@ -37,6 +46,9 @@ class DrawerPresenter {
                     self.delegate?.showEmptyDrawer(withMessage: nil)
                     return
                 }
+                
+                // Message unread count
+                let unread = portal.messages.count - portal.messages.filter({ $0.read.count > 0 }).count
                 
                 // Filter actions and sort
                 self.drawerActions = portal.categories.filter({ $0.action.count > 0 }).sorted(by: { $0.lft < $1.lft })
@@ -49,13 +61,16 @@ class DrawerPresenter {
                 let calendar = Category.init(id: "calendar", title: "Calendar", icon: Images.calendar.rawValue, banner: "", lft: "0", level: "", action: "app://calendar", files: [])
                 self.drawerActions.insert(calendar, at: 1)
                 
-                let inbox = Category.init(id: "inbox", title: "Inbox", icon: Images.inbox.rawValue, banner: "", lft: "0", level: "", action: "app://inbox", files: [])
+                let inbox = Category.init(id: "inbox", title: unread > 0 ? "Inbox (\(unread))" : "Inbox", icon: Images.inbox.rawValue, banner: "", lft: "0", level: "", action: "app://inbox", files: [])
                 self.drawerActions.insert(inbox, at: 2)
                 
                 // - Map the actions to our domain object tuple and notify the view
                 // - that the contents have loaded.
                 
                 self.delegate?.contentsLoaded(self.drawerActions.map({ ($0.title, $0.icon) }))
+                if open {
+                    self.delegate?.selectAction(0)
+                }
                 
             case .failure(let error):
                 Current.log().error(error)
@@ -119,6 +134,9 @@ class DrawerPresenter {
     }
     
     // MARK: - Private
+    @objc fileprivate func updateDrawer() {
+        self.loadActions(false, false)
+    }
     
     private func open() {
         self.state = .open

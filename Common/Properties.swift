@@ -10,7 +10,7 @@ import Foundation
 import wvslib
 
 enum Properties<T: Codable>: String {
-    case basepath
+    case servicesBasePath
     case title
     case provisioningCode
     case themeColor

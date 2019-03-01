@@ -22,6 +22,9 @@ class InboxViewController: UIViewController {
     @IBOutlet fileprivate var emptyViewImageView: UIImageView!
     @IBOutlet fileprivate var inboxTableView: UITableView!
 
+    // - Notifiable
+    var notifyContainer: UIView?
+    
     // - Presenter for the view
     var presenter: InboxPresenter? {
         didSet {
@@ -62,6 +65,12 @@ class InboxViewController: UIViewController {
         self.presenter?.load()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.notifyContainer?.removeFromSuperview()
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -89,6 +98,10 @@ extension InboxViewController: Themeable {}
 // MARK: - Waitable
 
 extension InboxViewController: Waitable {}
+
+// MARK: - Notifiable
+
+extension InboxViewController: Notifiable {}
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
 

@@ -215,6 +215,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3U0-HB-bpp"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="assetTableView" destination="Qti-pw-x7b" id="6Ck-zD-vkO"/>
                         <outlet property="emptyFavoritesImageView" destination="Av9-JF-AJh" id="cQs-rB-BHv"/>

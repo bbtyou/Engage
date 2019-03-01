@@ -33,7 +33,7 @@ struct World {
     var imageCache = { Shared.imageCache }
     
     // Base server path
-    var base = { return Properties.basepath.value ?? "" }
+    var base = { return Properties.servicesBasePath.value ?? "" }
     
     /// Provisioning code
     var code = { return Properties.provisioningCode.value ?? "" }

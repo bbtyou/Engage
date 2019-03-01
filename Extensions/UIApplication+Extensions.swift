@@ -11,7 +11,7 @@ import UIKit
 extension UIApplication {
     class func topViewController(base: UIViewController? = (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController) -> UIViewController? {
         if let nav = base as? UINavigationController {
-            return topViewController(base: nav.visibleViewController)
+            return topViewController(base: (nav.visibleViewController as? DrawerViewController)?.detailNavController.visibleViewController)
         }
         
         if let tab = base as? UITabBarController {

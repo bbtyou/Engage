@@ -96,7 +96,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   wvslib:
-    :commit: 6ea3a49b94164ff52fc4665c8395e1cd3fce35c4
+    :commit: 3d50035112cb7ca3063c7e2da9f1f49bd0ead568
     :git: https://github.com/giantblue76/wvslib.git
 
 SPEC CHECKSUMS:

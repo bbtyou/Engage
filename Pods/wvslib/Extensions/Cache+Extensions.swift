@@ -24,7 +24,7 @@ public extension Cache where T == CodableImage {
                         completion(self.updateImage(image.0, size, tint), url)
                         
                     case .failure(let error):
-                        NSLog("Fetching the image failed: \(error).")
+                        DispatchQueue.main.async { print("Fetching the image failed: \(error).") }
                         completion(nil, url)
                     }
                 })

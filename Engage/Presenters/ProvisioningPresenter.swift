@@ -41,7 +41,7 @@ class ProvisioningPresenter {
             
             switch result {
             case .success(let prov):
-                Properties.basepath.setValue(value: prov.url.absoluteString)
+                Properties.servicesBasePath.setValue(value: prov.url.absoluteString)
                 Properties.title.setValue(value: prov.title)
                 Properties.provisioningCode.setValue(value: code)
                 self.delegate?.provisioningSuccess(ThemePresenter())

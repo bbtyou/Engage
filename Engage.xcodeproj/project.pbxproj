@@ -28,6 +28,7 @@
 		13796D8821B510D1008FCA13 /* SupportDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13796D8721B510D1008FCA13 /* SupportDelegate.swift */; };
 		13796D8A21B51164008FCA13 /* SupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13796D8921B51164008FCA13 /* SupportViewController.swift */; };
 		1379763722288EF20061D158 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1379763622288EF20061D158 /* String+Extensions.swift */; };
+		137976392228F1DC0061D158 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137976382228F1DC0061D158 /* UIImage+Extensions.swift */; };
 		138CBBE3219240EB00015EDC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138CBBE2219240EB00015EDC /* AppDelegate.swift */; };
 		138CBBEE219240ED00015EDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 138CBBED219240ED00015EDC /* Assets.xcassets */; };
 		138CBBF1219240ED00015EDC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 138CBBEF219240ED00015EDC /* LaunchScreen.storyboard */; };
@@ -124,6 +125,7 @@
 		13796D8721B510D1008FCA13 /* SupportDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportDelegate.swift; sourceTree = "<group>"; };
 		13796D8921B51164008FCA13 /* SupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViewController.swift; sourceTree = "<group>"; };
 		1379763622288EF20061D158 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		137976382228F1DC0061D158 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		138CBBDF219240EB00015EDC /* Engage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Engage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		138CBBE2219240EB00015EDC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		138CBBED219240ED00015EDC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -416,6 +418,7 @@
 			children = (
 				13E0215822231FEB00662AC1 /* UIApplication+Extensions.swift */,
 				1379763622288EF20061D158 /* String+Extensions.swift */,
+				137976382228F1DC0061D158 /* UIImage+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -755,6 +758,7 @@
 				1398257E21AA400D00AE5702 /* CalendarDetailDelegate.swift in Sources */,
 				134805EB21A6032800AF9BAF /* InboxViewController.swift in Sources */,
 				134805F721A7375300AF9BAF /* InboxDetailViewController.swift in Sources */,
+				137976392228F1DC0061D158 /* UIImage+Extensions.swift in Sources */,
 				13A8B0D8219A5794003CCFC5 /* LoginPresenter.swift in Sources */,
 				13A8B0F7219CFA17003CCFC5 /* HomePresenter.swift in Sources */,
 				13461D9B221BA51B00E8BC30 /* Properties.swift in Sources */,

@@ -21,16 +21,8 @@ class AssetTableViewCell: UITableViewCell {
     // - Asset domain data
     var assets: (section: Int, assets: [Asset])? {
         didSet {
-            let contentOffset = self.collectionView.contentOffset
             self.collectionView.reloadData()
             self.collectionView.layoutIfNeeded()
-            
-            guard let indexPath = self.collectionView.indexPathForItem(at: contentOffset) else {
-                self.collectionView.setContentOffset(contentOffset, animated: false)
-                return
-            }
-            
-            self.collectionView.scrollToItem(at: indexPath, at: .left, animated: false)
         }
     }
     
