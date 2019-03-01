@@ -33,5 +33,4 @@ protocol DrawerDelegate: class {
     
     // - Updates the footer view button with an image name and title
     func updateFooterView(withImage name: String, text: String)
-    
 }

@@ -62,26 +62,53 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test action" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="64z-O6-0MG">
-                                                            <rect key="frame" x="69" y="26" width="196" height="17.333333333333329"/>
+                                                            <rect key="frame" x="69" y="26" width="72" height="17.333333333333329"/>
                                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                                                             <nil key="highlightedColor"/>
                                                             <variation key="heightClass=regular-widthClass=regular">
                                                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
                                                             </variation>
                                                         </label>
+                                                        <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cH5-yQ-0Ar">
+                                                            <rect key="frame" x="149" y="22" width="50" height="25"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNz-71-6pQ">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="25"/>
+                                                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                    <variation key="heightClass=regular-widthClass=regular">
+                                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                                                    </variation>
+                                                                </label>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="25" id="FQa-bg-FhS"/>
+                                                                <constraint firstAttribute="trailing" secondItem="sNz-71-6pQ" secondAttribute="trailing" id="Grt-qs-s2Y"/>
+                                                                <constraint firstAttribute="width" constant="50" id="H3M-Rf-L8Y"/>
+                                                                <constraint firstItem="sNz-71-6pQ" firstAttribute="top" secondItem="cH5-yQ-0Ar" secondAttribute="top" id="N7J-FT-BYM"/>
+                                                                <constraint firstAttribute="bottom" secondItem="sNz-71-6pQ" secondAttribute="bottom" id="kHB-1P-Ro3"/>
+                                                                <constraint firstItem="sNz-71-6pQ" firstAttribute="leading" secondItem="cH5-yQ-0Ar" secondAttribute="leading" id="rIQ-Rs-96Y"/>
+                                                            </constraints>
+                                                        </view>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
+                                                        <constraint firstItem="cH5-yQ-0Ar" firstAttribute="leading" secondItem="64z-O6-0MG" secondAttribute="trailing" constant="8" id="Kxt-zg-ysj"/>
                                                         <constraint firstItem="64z-O6-0MG" firstAttribute="centerY" secondItem="qQY-X1-QFX" secondAttribute="centerY" id="MLP-Bo-iO1"/>
                                                         <constraint firstItem="qQY-X1-QFX" firstAttribute="leading" secondItem="7DS-CB-Q53" secondAttribute="leading" constant="15" id="P46-pn-CpU"/>
                                                         <constraint firstItem="64z-O6-0MG" firstAttribute="leading" secondItem="qQY-X1-QFX" secondAttribute="trailing" constant="15" id="P5P-Eb-NgD"/>
+                                                        <constraint firstItem="cH5-yQ-0Ar" firstAttribute="centerY" secondItem="64z-O6-0MG" secondAttribute="centerY" id="YmS-AD-eRT"/>
                                                         <constraint firstItem="qQY-X1-QFX" firstAttribute="centerY" secondItem="7DS-CB-Q53" secondAttribute="centerY" id="erd-bN-IW5"/>
-                                                        <constraint firstAttribute="trailing" secondItem="64z-O6-0MG" secondAttribute="trailing" constant="15" id="tWM-lO-Vcf"/>
+                                                        <constraint firstAttribute="trailing" secondItem="cH5-yQ-0Ar" secondAttribute="trailing" priority="250" constant="8" id="ink-E8-2Pe"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <connections>
+                                                    <outlet property="badgeLabel" destination="sNz-71-6pQ" id="Ic8-mU-ALd"/>
+                                                    <outlet property="badgeView" destination="cH5-yQ-0Ar" id="h3i-2U-yu3"/>
                                                     <outlet property="iconImageView" destination="qQY-X1-QFX" id="KKJ-Rg-UVh"/>
                                                     <outlet property="titleLabel" destination="64z-O6-0MG" id="5u5-fP-o2b"/>
                                                 </connections>
@@ -218,7 +245,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-217.26618705035972" y="125.71942446043165"/>
+            <point key="canvasLocation" x="-562" y="96"/>
         </scene>
     </scenes>
 </document>

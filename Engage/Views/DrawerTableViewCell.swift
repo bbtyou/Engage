@@ -13,13 +13,19 @@ class DrawerTableViewCell: UITableViewCell {
     // MARK: - Outlets
     
     @IBOutlet var iconImageView: UIImageView!
+    @IBOutlet var badgeView: UIView!
     @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var badgeLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -31,6 +37,7 @@ class DrawerTableViewCell: UITableViewCell {
         
         self.iconImageView.image = nil
         self.titleLabel.text = nil
+        self.badgeView.isHidden = true
     }
 }
 

@@ -10,7 +10,7 @@ import UIKit
 import wvslib
 
 // Type for drawer contents89
-typealias DrawerItem = (title: String, iconPath: String)
+typealias DrawerItem = (title: String, iconPath: String, badge: String?)
 
 // - View Controller which defines the main menu drawer
 // - which can slide out from the left side of the screen
@@ -234,6 +234,20 @@ extension DrawerViewController: DrawerDelegate {
         }
     }
     
+    func updateItemBadge(index: Int, _ text: String?) {
+        guard let cell = self.drawerTableView.cellForRow(at: IndexPath(row: index, section: 0)) as? DrawerTableViewCell else {
+            return
+        }
+        
+        if let text = text {
+            cell.badgeView.isHidden = false
+            cell.badgeLabel.text = text
+        }
+        else {
+            cell.badgeView.isHidden = true
+        }
+    }
+    
     func exitComplete() {
         self.navigationController?.popToRootViewController(animated: false)
     }
@@ -283,6 +297,17 @@ extension DrawerViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DrawerTableViewCell", for: indexPath) as! DrawerTableViewCell
         cell.titleLabel.text = drawerItem.title
         cell.iconImageView.fetchImage(Current.base(), drawerItem.iconPath, Current.imageCache(), false, Images.webpage.image, CGSize.init(width: 39.0, height: 39.0), self.themeColor)
+        
+        if let badge = drawerItem.badge {
+            cell.badgeView.layer.cornerRadius = 12
+            cell.badgeView.isHidden = false
+            cell.badgeLabel.text = badge
+        }
+        else {
+            cell.badgeView.isHidden = true
+            cell.badgeLabel.text = nil
+        }
+        
         return cell
     }
     

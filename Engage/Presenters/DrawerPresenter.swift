@@ -61,13 +61,14 @@ class DrawerPresenter {
                 let calendar = Category.init(id: "calendar", title: "Calendar", icon: Images.calendar.rawValue, banner: "", lft: "0", level: "", action: "app://calendar", files: [])
                 self.drawerActions.insert(calendar, at: 1)
                 
-                let inbox = Category.init(id: "inbox", title: unread > 0 ? "Inbox (\(unread))" : "Inbox", icon: Images.inbox.rawValue, banner: "", lft: "0", level: "", action: "app://inbox", files: [])
+                let inbox = Category.init(id: "inbox", title: "Inbox", icon: Images.inbox.rawValue, banner: "", lft: "0", level: "", action: "app://inbox", files: [])
                 self.drawerActions.insert(inbox, at: 2)
                 
                 // - Map the actions to our domain object tuple and notify the view
                 // - that the contents have loaded.
                 
-                self.delegate?.contentsLoaded(self.drawerActions.map({ ($0.title, $0.icon) }))
+                self.delegate?.contentsLoaded(self.drawerActions.map({ ($0.title, $0.icon, unread > 0 && $0.id == "inbox" ? "\(unread)" : nil) }))
+                
                 if open {
                     self.delegate?.selectAction(0)
                 }
