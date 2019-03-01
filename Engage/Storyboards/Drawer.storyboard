@@ -101,7 +101,7 @@
                                                         <constraint firstItem="64z-O6-0MG" firstAttribute="leading" secondItem="qQY-X1-QFX" secondAttribute="trailing" constant="15" id="P5P-Eb-NgD"/>
                                                         <constraint firstItem="cH5-yQ-0Ar" firstAttribute="centerY" secondItem="64z-O6-0MG" secondAttribute="centerY" id="YmS-AD-eRT"/>
                                                         <constraint firstItem="qQY-X1-QFX" firstAttribute="centerY" secondItem="7DS-CB-Q53" secondAttribute="centerY" id="erd-bN-IW5"/>
-                                                        <constraint firstAttribute="trailing" secondItem="cH5-yQ-0Ar" secondAttribute="trailing" priority="250" constant="8" id="ink-E8-2Pe"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cH5-yQ-0Ar" secondAttribute="trailing" constant="8" id="ink-E8-2Pe"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
