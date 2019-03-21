@@ -48,7 +48,7 @@ class HomePresenter {
             
             switch result {
             case .success(let portal):
-                self.sections = portal.categories.filter({ $0.files.count > 0 }).sorted(by: { $0.lft < $1.lft })
+                self.sections = portal.categories.filter({ $0.files.count > 0 }).sorted(by: { Int($0.lft) ?? 0 < Int($1.lft) ?? 0 })
                 if self.sections.count == 0 {
                     self.delegate?.showEmpty(nil)
                     return
