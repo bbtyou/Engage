@@ -309,7 +309,7 @@ struct Image {
             }
             
             DispatchQueue.main.async {
-                closure(.success((image, "\(Current.base)/\(Current.logopath())")))
+                closure(.success((image, "\(Current.base())/\(Current.logopath())")))
             }
         })
     }

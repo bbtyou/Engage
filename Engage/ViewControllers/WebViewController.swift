@@ -159,6 +159,11 @@ extension WebViewController: WebViewDelegate {
         self.webView.load(urlRequest)
     }
     
+    func load(html: String, _ baseUrl: URL?, _ title: String?) {
+        self.title = title
+        self.webView.loadHTMLString(html, baseURL: baseUrl)
+    }
+    
     func showError(_ message: String) {
         
         let alert = UIAlertController.init(title: "Content Loading Error", message: message, preferredStyle: .alert)
@@ -320,7 +325,7 @@ extension WebViewController: WKUIDelegate {
 extension WebViewController: WKScriptMessageHandler {    
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         // - Receive the post parameters
-        Current.log().verbose("Received message body from JavaScript: \(message.body)")
+        //Current.log().verbose("Received message body from JavaScript: \(message.body)")
         
         // - Process the body
         self.presenter?.loadPagePost(message.body)

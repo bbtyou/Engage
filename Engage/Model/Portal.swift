@@ -24,17 +24,15 @@ struct User: Codable {
 struct Contact: Codable {
     
     enum CodingKeys: String, CodingKey {
-        case repPhone = "rep_phone"
-        case repSMS = "rep_text"
-        case repEmail = "rep_email"
-        case docEmail = "doc_email"
         case techSupport = "tech_support"
+        case phone = "phone"
+        case text = "text"
+        case email = "email"
     }
     
-    let repPhone: String
-    let repSMS: String
-    let repEmail: String
-    let docEmail: String
+    let phone: String
+    let text: String
+    let email: String
     let techSupport: String
     
 }

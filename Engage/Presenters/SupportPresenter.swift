@@ -59,7 +59,7 @@ class SupportPresenter {
                     }
                 }
                 else if self.type == .rep {
-                    if portal.contact.repEmail.count == 0, portal.contact.repPhone.count == 0, portal.contact.repSMS.count == 0 {
+                    if portal.contact.email.count == 0, portal.contact.phone.count == 0, portal.contact.text.count == 0 {
                         self.delegate?.showError("Oops! There is no support contact information available at this time.")
                         return
                     }
@@ -69,9 +69,9 @@ class SupportPresenter {
                 self.delegate?.setImage(withName: imageName)
                 
                 if self.type == .rep {
-                    portal.contact.repEmail.count == 0 ? self.delegate?.hideEmail() : self.delegate?.showEmail(portal.contact.repEmail)
-                    portal.contact.repPhone.count == 0 ? self.delegate?.hidePhone() : self.delegate?.showPhone(portal.contact.repPhone)
-                    portal.contact.repSMS.count == 0 ? self.delegate?.hideSMS() : self.delegate?.showSMS(portal.contact.repSMS)
+                    portal.contact.email.count == 0 ? self.delegate?.hideEmail() : self.delegate?.showEmail(portal.contact.email)
+                    portal.contact.phone.count == 0 ? self.delegate?.hidePhone() : self.delegate?.showPhone(portal.contact.phone)
+                    portal.contact.text.count == 0 ? self.delegate?.hideSMS() : self.delegate?.showSMS(portal.contact.text)
                 }
                 else if self.type == .tech {
                     portal.contact.techSupport.count == 0 ? self.delegate?.hideEmail() : self.delegate?.showEmail(portal.contact.techSupport)
@@ -96,7 +96,7 @@ class SupportPresenter {
         }
         
         if self.type == .rep {
-            self.delegate?.composeEmail("Rep Questions", [contact.repEmail], [], [])
+            self.delegate?.composeEmail("Rep Questions", [contact.email], [], [])
         }
         else if self.type == .tech {
             self.delegate?.composeEmail("Tech Support", [contact.techSupport], [], [])
@@ -110,7 +110,7 @@ class SupportPresenter {
         }
         
         if self.type == .rep {
-            self.delegate?.composeSMS("Rep Questions", [contact.repSMS])
+            self.delegate?.composeSMS("Rep Questions", [contact.text])
         }
     }
     
@@ -121,7 +121,7 @@ class SupportPresenter {
         }
         
         if self.type == .rep {
-            self.delegate?.phoneCall(contact.repPhone.filter("0123456789.".contains))
+            self.delegate?.phoneCall(contact.phone.filter("0123456789.".contains))
         }
     }
 }

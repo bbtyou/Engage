@@ -17,6 +17,9 @@ protocol WebViewDelegate: class {
     // - Loads the data in the web view
     func load(withData data: Data, _ pathExtension: String, _ title: String?)
     
+    // - Loads the html content into the web view
+    func load(html: String, _ baseUrl: URL?, _ title: String?)
+    
     // - Displays an error message to the user if the content cannot be loaded
     func showError(_ message: String)
     
