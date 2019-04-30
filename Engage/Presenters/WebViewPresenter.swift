@@ -192,24 +192,35 @@ fileprivate extension WebViewPresenter {
             postParams[post.post[index].name] = post.post[index].value
         }
 
-        // - File
-        var imageData = Data()
-        if let file = post.files?.first?.value.src.components(separatedBy: ",").last, let data = Data.init(base64Encoded: file) {
-            imageData = data
-        }
+        var files = [Data]()
+        var types = [String]()
+        var fileNames = [String]()
         
+        post.files?.forEach({ (file) in
+            guard
+                let type = file.value.src.components(separatedBy: ",").first?.components(separatedBy: ":").last,
+                let src = file.value.src.components(separatedBy: ",").last,
+                let data = Data.init(base64Encoded: src),
+                let image = UIImage.init(data: data),
+                let jpeg = image.jpegImage(quality: .high)
+            else { return }
+
+            files.append(jpeg)
+            types.append(type)
+            fileNames.append(file.name)
+        })
+
         let boundary = "Boundary-\(UUID().uuidString)"
 
         // - Create the new request
         var request = URLRequest.init(url: requestUrl)
-        request.httpMethod = "POST"
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        request.httpBody = createBody(parameters: postParams, boundary: boundary, data: imageData, filename: "photo.jpg")
-        
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        request.httpBody = createBody(parameters: postParams, boundary: boundary, files: files, types: types, filenames: fileNames)
         return request
     }
     
-    func createBody(parameters: [String: String], boundary: String, data: Data, filename: String) -> Data {
+    func createBody(parameters: [String: String], boundary: String, files: [Data], types: [String], filenames: [String]) -> Data {
         var body = Data()
         let boundaryPrefix = "--\(boundary)\r\n"
         
@@ -219,16 +230,18 @@ fileprivate extension WebViewPresenter {
             body.appendString("\(value)\r\n")
         }
         
-        body.appendString(boundaryPrefix)
-        body.appendString("Content-Disposition: form-data; name=\"file\"; filename=\"\(filename)\"\r\n")
-        body.appendString("Content-Type: image/jpg\r\n\r\n")
-        body.append(data)
-        body.appendString("\r\n")
-        body.appendString("--".appending(boundary.appending("--")))
-        
+        for index in 0...files.count - 1 {
+            body.appendString(boundaryPrefix)
+            body.appendString("Content-Disposition: form-data; name=\"\(filenames[index])\"; filename=\"\(filenames[index]).jpg\"\r\n")
+            body.appendString("Content-Transfer-Encoding: base64\r\n")
+            body.appendString("Content-Type: \(types[index])\r\n\r\n")
+            body.append(files[index])
+            body.appendString("\r\n")
+            body.appendString("--".appending(boundary.appending("--\r\n")))
+        }
+    
         return body
     }
-
 }
 
 fileprivate extension WebViewPresenter {
