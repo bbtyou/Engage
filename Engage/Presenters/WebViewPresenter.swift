@@ -230,7 +230,7 @@ fileprivate extension WebViewPresenter {
             body.appendString("\(value)\r\n")
         }
         
-        for index in 0...files.count - 1 {
+        for index in 0..<files.count {
             body.appendString(boundaryPrefix)
             body.appendString("Content-Disposition: form-data; name=\"\(filenames[index])\"; filename=\"\(filenames[index]).jpg\"\r\n")
             body.appendString("Content-Transfer-Encoding: base64\r\n")
