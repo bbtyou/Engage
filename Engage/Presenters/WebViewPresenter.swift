@@ -80,10 +80,10 @@ class WebViewPresenter {
         
         // - Build the request to be sent to the web view
         var request = URLRequest.init(url: requestUrl)
-        request.httpShouldHandleCookies = true
 
         request.addValue("appBundleId", forHTTPHeaderField: "appBundleId")
         request.timeoutInterval = 10
+        request.httpShouldHandleCookies = true
 
         if let title = self.title {
             (self.delegate as? Waitable)?.showSpinner("Loading \(title) content...")
@@ -99,7 +99,7 @@ class WebViewPresenter {
         cookieHeaders.forEach { (key, value) in
             request.addValue(value, forHTTPHeaderField: key)
         }
-
+        
         if let title = self.title {
             (self.delegate as? Waitable)?.showSpinner("Loading \(title) content...")
         }
@@ -124,6 +124,7 @@ class WebViewPresenter {
         request.allHTTPHeaderFields?.forEach({ (header) in
             newRequest.setValue(header.value, forHTTPHeaderField: header.key)
         })
+
         
         newRequest.addValue("appBundleId", forHTTPHeaderField: "appBundleId")
         newRequest.httpMethod = request.httpMethod
@@ -134,7 +135,7 @@ class WebViewPresenter {
         // Add the cookies
         let cookies = HTTPCookieStorage.shared.cookies ?? []
         let cookieHeaders = HTTPCookie.requestHeaderFields(with: cookies)
-        
+
         cookieHeaders.forEach { (key, value) in
             newRequest.addValue(value, forHTTPHeaderField: key)
         }

@@ -35,6 +35,7 @@ class WebViewController: UIViewController {
         web.backgroundColor = UIColor.clear
         web.configuration.allowsInlineMediaPlayback = true
         web.navigationDelegate = self
+        web.uiDelegate = self
         return web
     }()
     
@@ -307,6 +308,12 @@ extension WebViewController: WKNavigationDelegate {
         else if let _ = request.value(forHTTPHeaderField: "appBundleId") {
             decisionHandler(.allow)
         }
+        else if let url = request.url, let host = url.host, base.contains(host) == false {
+            decisionHandler(.allow)
+        }
+        else if let url = request.url, url.absoluteString.contains("blank") {
+            decisionHandler(.allow)
+        }
         else {
             decisionHandler(.cancel)
             self.presenter?.loadRedirectRequest(fromRequest: request)
@@ -317,16 +324,20 @@ extension WebViewController: WKNavigationDelegate {
 // MARK: - WKWebViewUIDelegate
 
 extension WebViewController: WKUIDelegate {
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
 
+        if let target = navigationAction.targetFrame?.isMainFrame, target == false {
+            webView.load(navigationAction.request)
+        }
+        
+        return nil
+    }
 }
 
 // MARK: - WKScriptMessageHandler
 
 extension WebViewController: WKScriptMessageHandler {    
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        // - Receive the post parameters
-        //Current.log().verbose("Received message body from JavaScript: \(message.body)")
-        
         // - Process the body
         self.presenter?.loadPagePost(message.body)
     }
