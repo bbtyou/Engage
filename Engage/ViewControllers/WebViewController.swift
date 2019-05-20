@@ -281,14 +281,12 @@ extension WebViewController: WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        guard let resp = navigationResponse.response as? HTTPURLResponse else {
-            decisionHandler(.cancel)
-            return
+        // log the response code and headers if this is an HTTP response
+        if let resp = navigationResponse.response as? HTTPURLResponse {
+            Current.log().debug("Response status code = \(resp.statusCode)")
+            Current.log().debug("Response headers = \(resp.allHeaderFields)")
         }
         
-        Current.log().debug("Response status code = \(resp.statusCode)")
-        Current.log().debug("Response headers = \(resp.allHeaderFields)")
-
         decisionHandler(.allow)
     }
     
