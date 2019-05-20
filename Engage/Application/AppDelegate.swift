@@ -53,6 +53,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
+        #if DEBUG
+        Current.log().enabled = true
+        #else
+        Current.log().enabled = false
+        #endif
+        
         return true
     }
 

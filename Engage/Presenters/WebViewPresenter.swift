@@ -125,7 +125,6 @@ class WebViewPresenter {
             newRequest.setValue(header.value, forHTTPHeaderField: header.key)
         })
 
-        
         newRequest.addValue("appBundleId", forHTTPHeaderField: "appBundleId")
         newRequest.httpMethod = request.httpMethod
         newRequest.httpBody = request.httpBody
@@ -218,6 +217,7 @@ fileprivate extension WebViewPresenter {
         request.httpMethod = HTTPMethod.post.rawValue
         request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         request.httpBody = createBody(parameters: postParams, boundary: boundary, files: files, types: types, filenames: fileNames)
+        
         return request
     }
     
@@ -231,16 +231,20 @@ fileprivate extension WebViewPresenter {
             body.appendString("\(value)\r\n")
         }
         
-        for index in 0..<files.count {
-            body.appendString(boundaryPrefix)
-            body.appendString("Content-Disposition: form-data; name=\"\(filenames[index])\"; filename=\"\(filenames[index]).jpg\"\r\n")
-            body.appendString("Content-Transfer-Encoding: base64\r\n")
-            body.appendString("Content-Type: \(types[index])\r\n\r\n")
-            body.append(files[index])
-            body.appendString("\r\n")
+        if files.count > 0 {
+            for index in 0..<files.count {
+                body.appendString(boundaryPrefix)
+                body.appendString("Content-Disposition: form-data; name=\"\(filenames[index])\"; filename=\"\(filenames[index]).jpg\"\r\n")
+                body.appendString("Content-Transfer-Encoding: base64\r\n")
+                body.appendString("Content-Type: \(types[index])\r\n\r\n")
+                body.append(files[index])
+                body.appendString("\r\n")
+                body.appendString("--".appending(boundary.appending("--\r\n")))
+            }
+        } else {
             body.appendString("--".appending(boundary.appending("--\r\n")))
         }
-    
+        
         return body
     }
 }

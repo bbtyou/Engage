@@ -280,6 +280,18 @@ extension WebViewController: WKNavigationDelegate {
         self.webBackButtonLabel.isHidden = !webView.canGoBack
     }
     
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        guard let resp = navigationResponse.response as? HTTPURLResponse else {
+            decisionHandler(.cancel)
+            return
+        }
+        
+        Current.log().debug("Response status code = \(resp.statusCode)")
+        Current.log().debug("Response headers = \(resp.allHeaderFields)")
+
+        decisionHandler(.allow)
+    }
+    
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         let request = navigationAction.request
         let base = CommonProperties.servicesBasePath.value as? String ?? ""
